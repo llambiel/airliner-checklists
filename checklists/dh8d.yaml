@@ -1,0 +1,189 @@
+# De Havilland Canada Dash 8 Q400
+id:   dh8d
+code: Q400   # tab label
+name: De Havilland Canada Dash 8 Q400
+sub:  2 × PW150A · two-crew · 360 kt turboprop · flaps 5 / 10 / 15 / 35
+manufacturer: De Havilland Canada
+variants:
+  - name: Q400
+    note: The standard passenger fit and the one most simulators model.
+  - name: Q400 NextGen
+    note: Later cabin and systems tidy-up. Same flight deck habits, same noise-and-vibration suppression to trust.
+  - name: Q400 Cargo
+    note: Freighter conversions with a main deck door and a load plan instead of a cabin crew. Doors, restraint and CG are the difference.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY MASTER: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU: START — AVAIL
+      - AVIONICS: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - POWER LEVERS: DISC
+      - CONDITION LEVERS: START & FEATHER
+      - FUEL PUMPS: "ON"
+      - HYDRAULICS 1 / 2 / 3: CHECKED
+      - PROPELLER SYSTEM: AUTO
+      - ANTI-ICE: AS REQUIRED
+        note: The airframe and props take a lot of ice protection and a lot of electrical load. Plan it before you are in it.
+      - NVS / VIBRATION SUPPRESSION: AUTO
+      - PRESSURISATION: LANDING ELEV SET
+      - FMS: FLIGHT PLAN · PERF
+      - TAKEOFF DATA: TORQUE · V-SPEEDS · TRIM SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS: CLOSED
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - Q400 Cargo
+      - LOADSHEET / CG: CHECKED
+      - FUEL: ____ KG — BALANCED
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - TRIMS: SET
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — PROPS CLEAR
+      - ENG 2 START: ENGAGED
+        note: Right engine first as a habit — it runs the hydraulics and the air conditioning while the left one waits.
+      - CONDITION LEVER 2: MIN AT LIGHT-UP — ITT MONITORED
+      - ENG 2: STABILISED — GENERATOR ON
+      - ENG 1: STARTED — STABILISED
+      - APU: AS REQUIRED
+      - EXTERNAL POWER: DISCONNECTED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — LOAD SHARED
+      - BLEEDS / PACKS: SET
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - FLAPS: "5"
+      - CONDITION LEVERS: MAX / 850 AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - CABIN: SECURE
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - FLAPS: 5 / 10 — CONFIRMED
+      - TRIMS: SET
+      - CONDITION LEVERS: MAX
+      - PROP DE-ICE / ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · TAXI
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TAKEOFF TORQUE: SET
+        note: It accelerates hard and gets airborne early. Hold the nose where the numbers say instead of letting it fly itself off.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - CONDITION LEVERS: 900 / 850
+      - CLIMB TORQUE: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - ANTI-ICE: AS REQUIRED
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE TORQUE / Np: SET
+        note: Np down to 850 in the cruise is what makes the cabin liveable. The passengers behind you can hear the difference.
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - ENGINE TREND: TORQUE · ITT · Np NORMAL
+      - CABIN ALTITUDE: CHECKED
+      - ANTI-ICE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - CONDITION LEVERS: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: "10"
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - CONDITION LEVERS: MAX
+      - LANDING LIGHTS: "ON"
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: 15 / 35
+      - SPEED: VREF ____
+      - LANDING CLEARANCE: RECEIVED
+      - AUTOPILOT: DISENGAGED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - POWER LEVERS: DISC
+      - FLAPS: UP
+      - ANTI-ICE: AS REQUIRED
+      - CONDITION LEVERS: 850
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - APU: RUNNING AS REQUIRED
+      - CONDITION LEVERS: FUEL OFF
+      - PROPELLERS: FEATHERED — STOPPED
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - APU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - AVIONICS: "OFF"
+      - BATTERY MASTER: "OFF"
+      - CHOCKS: IN PLACE

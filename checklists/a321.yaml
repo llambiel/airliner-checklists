@@ -1,0 +1,211 @@
+# Airbus A321-200
+id:   a321
+code: A321   # tab label
+name: Airbus A321-200
+sub:  2 × CFM56-5B / V2500-A5 · longest of the ceo family · CONF 3 landings common
+manufacturer: Airbus
+variants:
+  - name: -100
+    note: The original, without the centre tank. Short range and rarely seen now.
+  - name: -200
+    note: The common one — higher weights and an auxiliary centre tank.
+  - name: -200 with ACTs
+    note: Extra centre tanks in the hold for the longer sectors. Watch the CG as they feed.
+
+phases:
+
+  - id:   prelim
+    name: Preliminary Cockpit Prep
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERIES 1 + 2: ON — 25.5 V MIN
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU MASTER SW: "ON"
+      - APU START: ON — AVAIL
+      - APU BLEED: "ON"
+      - ADIRS 1 / 2 / 3: NAV
+        note: Align takes ~7 min. Do it early — aircraft must stay still.
+      - EXTERIOR LIGHTS: NAV & LOGO ON
+      - COCKPIT LIGHTING: AS REQUIRED
+      - OXYGEN MASKS: TESTED — CREW SUPPLY ON
+      - ACCU PRESS: GREEN BAND
+      - PARKING BRAKE: "ON"
+
+  - id:   prep
+    name: Cockpit Preparation
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - GEAR LEVER: DOWN
+      - FLAP LEVER: AGREES WITH SURFACES
+      - SPEED BRAKE LEVER: RETRACTED — DISARMED
+      - ENG MASTERS 1 + 2: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - SEAT BELTS / NO SMOKING: ON / AUTO
+      - EMER EXIT LT: ARM
+      - FUEL PUMPS: ON — QUANTITY CHECKED
+      - ANTI ICE: AS REQUIRED
+      - WEATHER RADAR / PWS: OFF / AUTO
+      - GPWS / TERR: AS REQUIRED
+      - TRANSPONDER: CODE SET — STBY
+      - MCDU: INIT A/B · F-PLN · PERF
+        note: ZFW / ZFWCG and block fuel from your loadsheet, then take-off perf.
+      - TAKEOFF DATA: V1 / VR / V2 / FLEX INSERTED
+        note: FLEX temp must be above the current TAT/OAT or the FADEC ignores it and gives you CLB thrust.
+      - BARO REF: SET & CROSSCHECKED
+      - FCU: SPD / HDG / ALT SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - COCKPIT PREP: COMPLETED
+      - GEAR PINS & COVERS: REMOVED
+      - SIGNS: ON / AUTO
+      - ADIRS: NAV
+      - FUEL QUANTITY: ____ KG — CHECKED
+      - TO DATA: SET
+      - BARO REF: ____ SET
+      - divider: Below the line
+      - WINDOWS / DOORS: CLOSED
+      - BEACON: "ON"
+      - THR LEVERS: IDLE
+      - PARKING BRAKE: AS REQUIRED
+
+  - id:   start
+    name: Engine Start
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG MODE SELECTOR: IGN / START
+      - ENG MASTER 2: "ON"
+        note: "CFM56-5B: start valve opens and N2 rises, igniter at 16% N2, fuel flow at 22% N2, EGT rise within 15 s. Stable idle ≈ 19% N1 / 59% N2."
+      - ENG MASTER 1: "ON"
+        note: Starter duty cycle — if a start is aborted, give the starter its cooling period before trying again.
+      - ENG MODE SELECTOR: NORM
+      - APU BLEED: "OFF"
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - ANTI ICE: AS REQUIRED
+      - ECAM STATUS: CHECKED
+      - PITCH TRIM: ____ SET
+      - RUDDER TRIM: ZERO
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAP SETTING: CONF ____
+        note: Longest of the ceo family, so the tail is a long way behind you. Rotate at about 3°/s and stop at 15° of pitch until you are airborne.
+      - V1 / VR / V2 / FLEX TEMP: ____ SET
+      - ATC: SET
+      - ECAM MEMO: TO — NO BLUE
+      - T.O CONFIG: TEST — NORMAL
+        sub: true
+      - SIGNS / SPLRS / FLAPS / AUTO BRK: ON · ARM · T.O · MAX
+        sub: true
+      - TAKEOFF RWY: ____ CONFIRMED
+      - CABIN CREW: ADVISED
+      - divider: Line-up items
+      - PACKS 1 + 2: AS REQUIRED
+        note: Packs off buys thrust for a hot / high / short runway — recompute your take-off performance for the configuration you actually use.
+      - ENG ANTI ICE: AS REQUIRED
+        note: Engine anti-ice lowers the available N1 — recheck FLEX / TOGA perf if you switch it on.
+      - ENG MODE SELECTOR: IGN IF RAIN / ICE
+      - TCAS: TA / RA
+      - EXTERIOR LIGHTS: STROBE · NOSE T.O · RWY TURN OFF
+      - CHRONO: START
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: RETRACTED
+      - PACKS: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU: OFF / AS REQUIRED
+      - EXTERIOR LIGHTS: SET
+        note: Landing lights off passing 10,000 ft, seat belts as required.
+      - BARO REF: STD SET AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - POSITION / NAV ACCURACY: CROSSCHECKED
+      - CRUISE LEVEL / STEP CLIMB: AS PLANNED
+      - WEATHER RADAR: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN MCDU
+
+  - id:   appr
+    name: Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - BRIEFING: CONFIRMED
+      - ECAM STATUS: CHECKED
+      - SEAT BELTS: "ON"
+      - BARO REF: ____ SET
+      - MDA / DH: ____ SET
+      - ENG MODE SELECTOR: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - CABIN CREW: ADVISED
+      - A/THR: SPEED / OFF
+      - AUTO BRAKE: AS REQUIRED
+      - ECAM MEMO: LDG — NO BLUE
+      - LDG GEAR: DOWN
+        sub: true
+      - SIGNS: "ON"
+        sub: true
+      - SPLRS: ARM
+        sub: true
+      - FLAPS: CONF 3 / FULL
+        sub: true
+        note: CONF 3 is the common choice on the A321 — it keeps the pitch attitude lower in the flare and the tail further from the runway.
+
+  - id:   aland
+    name: After Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - FLAPS: RETRACTED
+      - SPOILERS: DISARMED
+      - APU: START
+      - RADAR / PWS: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - ANTI ICE: AS REQUIRED
+      - BRAKE TEMP: CHECKED
+      - EXTERIOR LIGHTS: SET
+      - TRANSPONDER: STBY / AUTO
+
+  - id:   park
+    name: Parking
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - APU BLEED: "ON"
+      - ENGINE MASTERS: "OFF"
+        note: Give the CFM56 a ~3 min cool-down at idle before shutdown after a normal landing.
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: "OFF"
+      - PARK BRK / CHOCKS: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - ADIRS: "OFF"
+      - OXYGEN: "OFF"
+      - APU BLEED: "OFF"
+      - EXTERIOR LIGHTS: "OFF"
+      - APU & BAT 1 + 2: "OFF"

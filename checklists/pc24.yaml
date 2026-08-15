@@ -1,0 +1,194 @@
+# Pilatus PC-24
+id:   pc24
+code: PC-24   # tab label
+name: Pilatus PC-24
+sub:  2 × Williams FJ44-4A QPM · single-pilot · flaps 8 / 15 / 33
+manufacturer: Pilatus
+variants:
+  - name: Standard
+    note: The baseline Super Versatile Jet — paved runways and ordinary approach profiles.
+  - name: Rough field
+    note: Grass, gravel and dirt are approved. Trailing-link gear and low-pressure tyres, but brief the surface and expect the numbers to grow.
+  - name: Steep approach
+    note: Approved for London City-style profiles. Fly the configuration and speeds the AFM supplement gives you, not the standard ones.
+  - name: Autothrottle
+    note: Optional autothrottle, standard on later builds. It changes the takeoff and go-around drill more than anything else on this aeroplane.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY MASTER: "ON"
+      - EXT PWR / QPM: AS REQUIRED
+        note: Quiet Power Mode idles the right engine as an APU. There is no APU to fail — but an engine is running, so treat the ramp accordingly.
+      - AVIONICS: ON — CAS REVIEWED
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - THRUST LEVERS: IDLE
+      - ENGINE RUN / STOP: STOP
+      - FUEL PUMPS / CROSSFEED: AUTO / OFF
+      - HYDRAULICS: PRESSURE CHECKED
+      - PRESSURISATION: AUTO — LANDING ELEV FROM FMS
+      - ANTI-ICE: AS REQUIRED
+      - FMS: FLIGHT PLAN · PERF · V-SPEEDS
+      - WEIGHT & CG: WITHIN LIMITS
+        note: A flat floor and a cargo door make it easy to load the aft hold past the aft limit. Run the numbers rather than eyeing the pile.
+      - TRIM: TAKEOFF — GREEN BAND
+      - FLAPS: 8 / 15 AS PLANNED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS / CARGO DOOR: CLOSED — LOCKED
+      - SEAT / HARNESS: ADJUSTED
+      - FUEL: ____ LB — BALANCED
+      - TAKEOFF DATA: V1 / VR / V2 SET
+      - ALTIMETERS: ____ SET
+      - RUNWAY SURFACE: BRIEFED — ROUGH FIELD PROCEDURE
+        only:
+          - Rough field
+      - TAKEOFF BRIEFING: COMPLETE
+        note: Single pilot, so brief it aloud — stop or go, the engine-failure plan, the first turn, and what your hand touches first.
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — INTAKES CLEAR
+      - ENGINE 2: RUN — START
+        note: FADEC start. It schedules fuel and ignition and will abort a hot start itself; watch ITT and N2 anyway.
+      - ENGINE 2 PARAMETERS: STABILISED — GENERATOR ON
+      - ENGINE 1: STARTED — STABILISED
+      - EXTERNAL POWER: DISCONNECTED
+      - CAS MESSAGES: REVIEWED — NO WARNINGS
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - FLAPS: ____ SET
+      - TRIM: TAKEOFF SET
+      - SPEEDBRAKE: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - PRESSURISATION: SET
+      - AUTOTHROTTLE: ARMED
+        only:
+          - Autothrottle
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES / STEERING: CHECKED
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - FLAPS: ____ CONFIRMED
+      - TRIM: SET
+      - CAS: NO WARNINGS
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TAKEOFF THRUST: SET — N1 ____
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - YAW DAMPER: "ON"
+      - CLIMB THRUST: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - EXTERIOR LIGHTS: SET
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE THRUST / MACH: SET
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - CABIN ALTITUDE: CHECKED
+      - ENGINE TREND: NORMAL
+      - ANTI-ICE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - SPEEDBRAKE: AS REQUIRED
+        note: It is a slippery aeroplane and ATC will keep you high. Start down early or get the boards out and accept the noise.
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: 8 / 15
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - STEEP APPROACH: ARMED — SUPPLEMENT SPEEDS
+        only:
+          - Steep approach
+      - AUTOPILOT / AUTOTHROTTLE: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: "33"
+      - SPEEDBRAKE / LIFT DUMP: ARMED
+        note: No thrust reversers on this aeroplane. Stopping is wheel brakes and lift dump, and the landing distance assumes you get them out promptly.
+      - LANDING CLEARANCE: RECEIVED
+      - AUTOPILOT: DISENGAGED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: UP
+      - SPEEDBRAKE: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - TRIM: RESET
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - QPM: AS REQUIRED
+        note: Leave one engine at low idle if you want power and air on stand without a ground cart.
+      - ENGINES: IDLE COOL-DOWN COMPLETE
+      - ENGINE RUN / STOP: STOP
+      - FUEL PUMPS: "OFF"
+      - AVIONICS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - EMERGENCY LIGHTS: "OFF"
+      - EXTERNAL POWER: AS REQUIRED
+      - BATTERY MASTER: "OFF"
+      - CHOCKS: AS REQUIRED
+      - DOORS: CLOSED

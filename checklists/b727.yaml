@@ -1,0 +1,206 @@
+# 727 — Boeing 727-100 / -200 / -200 Advanced
+id:   b727
+code: "727"   # tab label
+name: Boeing 727
+sub:  3 × JT8D tail-mounted · three-crew · EPR thrust · flaps 2/5/15/25/30/40
+manufacturer: Boeing
+variants:
+  - name: "-100"
+    note: The original short body. Lightest, and the one that could get into the small fields the type was designed for.
+  - name: "-200"
+    note: Stretched by 6 m. Watch the tail strike margin — the aft body sits close to the runway on rotation.
+  - name: "-200 Advanced"
+    note: Higher weights, JT8D-17s and an APU as standard. Most surviving -200s are Advanced.
+  - name: "-200F"
+    note: Freighter conversion. No cabin items; brief the loadmaster and check the trim against the load sheet.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: ON — BUS TIES CLOSED
+      - ESSENTIAL POWER: NORMAL
+      - EMERGENCY LIGHTS: ARM
+      - GALLEY POWER: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   fepanel
+    name: Flight Engineer Panel
+    kind: flow
+    items:
+      - ELECTRICAL: GENERATORS OFF — BUS TIES CLOSED
+      - HYDRAULICS A / B: PUMPS OFF UNTIL START
+      - PNEUMATICS: PACKS OFF — ISOLATION AS REQUIRED
+      - FUEL PANEL: TANKS 1 / 2 / 3 — PUMPS ON
+        note: Tank 2 is the centre tank and feeds first. Nothing balances the mains for you — the engineer does it by hand with the crossfeeds.
+      - CROSSFEED VALVES: CLOSED
+      - PRESSURIZATION: FLT & LAND ALT SET — RATE MID
+      - ANTI-ICE: "OFF"
+      - AIR CONDITIONING: SET
+      - EPR / TAKEOFF DATA: COMPUTED — BUGS SET
+        note: JT8Ds are rated in EPR. The engineer works the numbers from the charts and sets the bugs; there is no FMC to do it.
+
+  - id:   preflight
+    name: Preflight
+    kind: checklist
+    items:
+      - GEAR PINS: REMOVED
+      - OXYGEN: TESTED — CREW & PASSENGER
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - RADIOS & NAVAIDS: SET
+      - STAB TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: COMPLETE
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS & AIRSTAIRS: CLOSED
+      - FUEL: ____ KG — PUMPS ON
+      - PNEUMATIC PRESSURE: CHECKED
+      - HYDRAULICS: CHECKED
+      - ANTI COLLISION LIGHT: "ON"
+      - PARKING BRAKE: SET
+      - START CLEARANCE: OBTAINED
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "-200F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "-200F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - IGNITION: LOW
+      - ENGINE 3 START: ENGAGED
+        note: Order varies by operator — 3-1-2 with the centre engine last is common. Follow your add-on's checklist.
+      - START LEVER 3: IDLE AT 20% N2
+      - ENGINE 1: START
+      - ENGINE 2: START
+        note: No. 2 breathes through the S-duct in the tail, so its start looks and sounds different from the pods.
+      - GENERATORS: ON — LOADS CHECKED
+      - PACKS: "ON"
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — PARALLEL
+      - HYDRAULIC PUMPS: "ON"
+      - PACKS: "ON"
+      - FLAPS: ____ SET — LEADING EDGE GREEN
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - YAW DAMPER: "ON"
+      - TRANSPONDER: "ON"
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STAB TRIM: ____ UNITS
+      - EPR BUGS: SET
+      - GROUND SPOILERS: ARMED
+      - ANTI-SKID: "ON"
+      - ANNUNCIATOR PANEL: CHECKED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - IGNITION: CONTINUOUS
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "-200F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "-200F"
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP — LEADING EDGE RETRACTED
+      - IGNITION: "OFF"
+      - PRESSURIZATION: CHECKED
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: BALANCED — CROSSFEEDS AS REQUIRED
+      - CRUISE EPR: SET
+      - PRESSURIZATION: CHECKED
+      - SYSTEMS: ENGINEER MONITORING
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET
+      - APPROACH BRIEFING: COMPLETE
+      - VREF / MINIMUMS: ____ SET
+      - IGNITION: AS REQUIRED
+      - SEAT BELTS: "ON"
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+      - GROUND SPOILERS: ARMED
+      - ANTI-SKID: "ON"
+      - ANNUNCIATOR PANEL: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - GROUND SPOILERS: RETRACTED
+      - FLAPS: UP
+      - IGNITION: "OFF"
+      - APU: START AS REQUIRED
+      - TRANSPONDER: STBY
+      - ANTI-ICE: AS REQUIRED
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - GENERATORS: APU ON
+      - START LEVERS: CUTOFF
+      - FUEL PUMPS: "OFF"
+      - HYDRAULIC PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - EMERGENCY LIGHTS: "OFF"
+      - GALLEY POWER: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"
+      - BATTERY: "OFF"

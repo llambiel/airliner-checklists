@@ -1,0 +1,181 @@
+# 737 MAX — Boeing 737 MAX 8 / 9 / 10
+id:   b737max
+code: 737 MAX   # tab label
+name: Boeing 737 MAX
+sub:  2 × CFM LEAP-1B · two-crew · four large displays
+manufacturer: Boeing
+variants:
+  - name: MAX 8
+    note: Ships with most simulators as the stock 737. Typical takeoff flaps 5.
+  - name: MAX 9
+    note: Stretched — same procedures, longer body, tail strike margin reduced.
+  - name: MAX 10
+    note: Longest of the family with a semi-levered main gear that extends the strut on rotation.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - STANDBY POWER: AUTO
+      - GRD PWR / APU: "ON — BUS OFF LIGHTS OUT"
+      - EMERGENCY EXIT LIGHTS: ARMED
+      - IRS 1 + 2: NAV
+      - CDU: IDENT · POS INIT · ROUTE
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - PACKS: AUTO
+      - BLEEDS 1 + 2: "ON"
+      - ISOLATION VALVE: AUTO
+      - APU BLEED: "ON"
+      - PRESSURIZATION: LAND ALT SET
+      - HYDRAULIC PUMPS: ELEC OFF — ENG ON
+      - ENGINE START LEVERS: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - DISPLAYS: CONFIGURED
+        note: The MAX replaces the NG's six displays with four large ones — same switches, different layout, and the engine display can be moved between them.
+      - CDU PERF / TAKEOFF: N1 · V-SPEEDS · TRIM
+
+  - id:   preflight
+    name: Preflight
+    kind: checklist
+    items:
+      - OXYGEN: TESTED — 100%
+      - NAVIGATION TRANSFER & DISPLAY SWITCHES: NORMAL — AUTO
+      - WINDOW HEAT: "ON"
+      - PRESSURIZATION MODE SELECTOR: AUTO
+      - FLIGHT INSTRUMENTS: HEADING ____ · ALTIMETER ____
+      - PARKING BRAKE: SET
+      - ENGINE START LEVERS: CUTOFF
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - FUEL: ____ KG — PUMPS ON
+      - PASSENGER SIGNS: SET
+      - WINDOWS: LOCKED
+      - MCP: V2 ____ · HDG ____ · ALT ____
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - CDU PREFLIGHT: COMPLETED
+      - RUDDER & AILERON TRIM: FREE AND ZERO
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
+      - ANTI COLLISION LIGHT: "ON"
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SWITCH 2: GRD
+      - START LEVER 2: IDLE AT 25% N2
+        note: LEAP-1B spools up more slowly than the CFM56 — expect a longer motoring phase and a bowed-rotor motoring cycle after a long soak.
+      - ENGINE START SWITCH 1: GRD
+      - START LEVER 1: IDLE AT 25% N2
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - PROBE HEAT: "ON"
+      - ANTI-ICE: AS REQUIRED
+      - ISOLATION VALVE: AUTO
+      - ENGINE START SWITCHES: CONT
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - ENGINE START LEVERS: IDLE DETENT
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - ENGINE BLEEDS: "ON"
+      - PACKS: AUTO
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - CROSSFEED / BALANCE: WITHIN LIMITS
+      - CRUISE LEVEL / STEP CLIMB: AS PLANNED
+      - WEATHER RADAR: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - ENGINE START SWITCHES: CONT
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - PROBE HEAT: AUTO
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - ENGINE START LEVERS: CUTOFF
+      - WEATHER RADAR: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS 1 + 2: OFF
+      - EMERGENCY EXIT LIGHTS: OFF
+      - WINDOW HEAT: OFF
+      - PACKS: OFF

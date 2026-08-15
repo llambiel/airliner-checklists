@@ -1,0 +1,175 @@
+# Fokker 70 / 100
+id:   f70100
+code: F70 / F100   # tab label
+name: Fokker 70 / 100
+sub:  2 × Rolls-Royce Tay tail-mounted · two-crew EFIS · flaps 0/8/15/25/42
+manufacturer: Fokker
+variants:
+  - name: F100
+    note: The original of the pair, Tay 620 or 650. One of the first narrowbodies with a glass cockpit.
+  - name: F70
+    note: The F100 shortened by about 5 m. Same cockpit, same flows, livelier on a light load.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - IRS 1 + 2: NAV
+      - EFIS: SET
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - ELECTRICAL: GENERATORS OFF UNTIL START
+      - HYDRAULICS 1 + 2: PUMPS AS REQUIRED
+      - AIR CONDITIONING: PACKS AUTO
+      - PRESSURIZATION: FLT & LAND ALT SET
+      - ANTI-ICE: AS REQUIRED
+      - FUEL PUMPS: ON — QUANTITY CHECKED
+      - FUEL LEVERS: "OFF"
+      - SPEEDBRAKE / LIFT DUMPERS: RETRACTED — DISARMED
+        note: Fokker calls the ground spoilers lift dumpers. They arm for takeoff and landing, and the handle is where the muscle memory of another type will not look.
+      - FLAPS: "0"
+      - TAKEOFF DATA: V1 / VR / V2 · TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - GEAR PINS: REMOVED
+      - DOORS: CLOSED
+      - FUEL: ____ KG — PUMPS ON
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - TRIM: ____ SET
+      - TAKEOFF BRIEFING: COMPLETE
+      - ANTI COLLISION LIGHT: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA / START CLEARANCE: OBTAINED
+      - APU BLEED: "ON"
+      - ENGINE 2 START: ENGAGED
+      - FUEL LEVER 2: ON AT 20% N2
+        note: The Tay is a two-shaft turbofan and starts briskly. Watch ITT rather than EGT — the Fokker labels it differently from the American types.
+      - ENGINE 1: START
+      - GENERATORS: "ON"
+      - APU BLEED: AS REQUIRED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - HYDRAULICS: PUMPS ON
+      - PACKS: "ON"
+      - FLAPS: ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - TRIM: ____ SET
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - TRANSPONDER: TA/RA
+      - ANTI-ICE: AS REQUIRED
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — INDICATED
+      - LIFT DUMPERS: ARMED
+      - TRIM: ____ SET
+      - ANNUNCIATORS: CHECKED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - IGNITION: AS REQUIRED
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: "0"
+      - LIFT DUMPERS: DISARMED
+      - PACKS: NORMAL
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - PRESSURIZATION: CHECKED
+      - CRUISE THRUST: SET
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET
+      - APPROACH BRIEFING: COMPLETE
+      - VREF / MINIMUMS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — INDICATED
+      - LIFT DUMPERS: ARMED
+      - ANNUNCIATORS: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - LIFT DUMPERS: DISARMED — RETRACTED
+      - FLAPS: "0"
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: "OFF"
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - GENERATORS: APU ON
+      - FUEL LEVERS: "OFF"
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS 1 + 2: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"
+      - BATTERY: "OFF"

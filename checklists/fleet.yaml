@@ -1,0 +1,67 @@
+# Fleet manifest — the order types appear in the menu.
+# Comment a line out to drop that type from the build.
+
+# Airbus
+- a220.yaml
+- a300.yaml
+- a310.yaml
+- a318.yaml
+- a319.yaml
+- a320ceo.yaml
+- a321.yaml
+- a320neo.yaml
+- a330ceo.yaml
+- a330neo.yaml
+- a340.yaml
+- a350.yaml
+- a380.yaml
+- a400m.yaml
+
+# Boeing
+- b707.yaml
+- b727.yaml
+- b737ng.yaml
+- b737max.yaml
+- b757.yaml
+- b767.yaml
+- b777.yaml
+- b747400.yaml
+- b7478.yaml
+- b787.yaml
+
+# McDonnell Douglas
+- md80.yaml
+- md10.yaml
+- md11.yaml
+
+# Embraer
+- ejet.yaml
+
+# Fokker
+- f70100.yaml
+
+# Lockheed
+- l1011.yaml
+
+# Bombardier
+- crj900.yaml
+- cl60.yaml
+
+# De Havilland Canada
+- dh8d.yaml
+
+# ATR
+- atr.yaml
+
+# Gulfstream
+- glf6.yaml
+
+# Dassault
+- f50.yaml
+
+# Pilatus
+- pc12.yaml
+- pc24.yaml
+
+# Daher
+- tbm9.yaml

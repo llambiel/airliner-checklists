@@ -1,0 +1,191 @@
+# Bombardier Challenger 600 series
+id:   cl60
+code: CL-60   # tab label
+name: Bombardier Challenger 604 / 605 / 650
+sub:  2 × CF34-3B · two-crew · wide cabin, transatlantic legs
+manufacturer: Bombardier
+variants:
+  - name: "604"
+    note: Collins Pro Line 4 with tube-fed EFIS. The one most operators started on.
+  - name: "605"
+    note: Pro Line 21 with four big displays and larger cabin windows. Same airframe and engines underneath.
+  - name: "650"
+    note: Pro Line 21 Advanced and a little more thrust from the CF34-3B MTO rating. Flies the same, climbs slightly better out of hot fields.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY MASTER: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU: START — AVAIL
+      - AVIONICS MASTER: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - THRUST LEVERS: SHUT OFF
+      - GEAR HANDLE: DOWN
+      - FLAPS: AGREE WITH SURFACES
+      - SPOILERS: RETRACTED
+      - FUEL PUMPS / XFLOW: SET
+      - HYDRAULICS 1 / 2 / 3: CHECKED
+      - PRESSURISATION: AUTO — LANDING ELEV SET
+      - ANTI-ICE: AS REQUIRED
+      - FMS: FLIGHT PLAN · PERF LOADED
+      - TAKEOFF DATA: V1 / VR / V2 · N1 SET
+      - TRIM: TAKEOFF — GREEN BAND
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOOR: CLOSED — LOCKED
+      - PASSENGER BRIEF: COMPLETE
+      - FUEL: ____ LB — BALANCED
+        note: Tanks feed by gravity and transfer between the wings and the tail. Watch the imbalance rather than assuming the system will sort it out.
+      - WEIGHT & CG: WITHIN LIMITS
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - IGNITION: NORM
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR
+      - APU BLEED: "ON"
+      - ENGINE 2 STARTER: ENGAGED — N2 RISING
+      - THRUST LEVER 2: IDLE AT 20% N2
+        note: The CF34 wants light-up within about ten seconds of fuel. Hand on the lever until ITT peaks and starts back down.
+      - ITT: MONITORED — WITHIN LIMITS
+      - STARTER: DISENGAGED — GENERATOR ON
+      - ENGINE 1: STARTED — STABILISED
+      - APU BLEED: AS REQUIRED
+      - EXTERNAL POWER: DISCONNECTED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — LOAD SHARED
+      - HYDRAULIC PUMPS: SET
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - FLAPS: "20"
+      - TRIM: PITCH · ROLL · YAW SET
+      - ANTI-ICE: AS REQUIRED
+      - CABIN: SECURE
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - FLAPS: 20 — CONFIRMED
+      - SPOILERS: RETRACTED — ARMED AS REQUIRED
+      - IGNITION: AS REQUIRED
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TAKEOFF N1: SET
+        note: The wing is a clean, fast one with modest low-speed manners. Rotate at VR and fly the attitude — dragging it off early does nothing good.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - YAW DAMPER: "ON"
+      - CLIMB N1: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - ANTI-ICE: AS REQUIRED
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE N1 / MACH: SET
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - CABIN ALTITUDE: CHECKED
+      - ENGINE INSTRUMENTS: NORMAL
+      - OCEANIC CLEARANCE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - SPOILERS: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT — BALANCED
+      - FLAPS: "20"
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - IGNITION: AS REQUIRED
+      - LANDING LIGHTS: "ON"
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: "45"
+      - SPOILERS: ARMED
+      - SPEED: VREF ____
+        note: Carry the speed the numbers give you and no more. Float in a Challenger uses runway quickly and the brakes get warm.
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - THRUST REVERSERS: STOWED
+      - FLAPS: UP
+      - SPOILERS: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - APU: AS REQUIRED
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - APU: RUNNING — BLEED ON
+      - ENGINES: IDLE COOL-DOWN COMPLETE
+      - THRUST LEVERS: SHUT OFF
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - APU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - AVIONICS MASTER: "OFF"
+      - BATTERY MASTER: "OFF"
+      - DOOR / CHOCKS: AS REQUIRED

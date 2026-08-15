@@ -1,0 +1,201 @@
+# Airbus A400M Atlas
+id:   a400m
+code: A400M   # tab label
+name: Airbus A400M Atlas
+sub:  4 × TP400-D6 · counter-rotating props · tactical airlifter
+manufacturer: Airbus
+variants:
+  - name: Logistic
+    note: Point to point with a paved runway at each end. Flown much like any other Airbus with a cargo hold.
+  - name: Tactical
+    note: Short unpaved strips, low level, and a landing you plant rather than smooth. Different speeds, different mindset.
+  - name: Airdrop
+    note: Ramp and door open in flight. CG, slowdown speeds and the drop configuration are briefed on the ground, not worked out en route.
+  - name: Air-to-air refuelling
+    note: Pods or centreline hose. The tanker plan drives fuel, altitude blocks and the whole descent profile.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERIES: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU: START — AVAIL
+      - AVIONICS: ON — ECAM REVIEWED
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: "ON"
+
+  - id:   scan
+    name: Cockpit Preparation
+    kind: flow
+    items:
+      - POWER LEVERS: FLIGHT IDLE
+      - PROPELLER BRAKE: AS REQUIRED
+        note: One engine can run on the ground with its propeller braked, giving power and air without an external cart or an APU bleed.
+      - GEAR LEVER: DOWN
+      - FLAPS: AGREE WITH SURFACES
+      - FUEL: QUANTITY & DISTRIBUTION CHECKED
+      - HYDRAULICS: GREEN / BLUE / YELLOW CHECKED
+      - CARGO DOOR / RAMP: CLOSED — LOCKED
+      - LOADMASTER: LOAD SECURED — SIGNED
+        note: Rolling stock, pallets or troops all end up in the same CG calculation. The loadmaster's word is part of the checklist.
+      - MISSION SYSTEMS: SET FOR TASK
+      - MFD: FLIGHT PLAN · PERF · TAKEOFF DATA
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS / RAMP: CLOSED
+      - LOADSHEET / CG: CHECKED
+      - FUEL: ____ KG — DISTRIBUTED
+      - TAKEOFF DATA: V1 / VR / V2 SET
+      - ALTIMETERS: ____ SET
+      - STRIP / SURFACE: BRIEFED — SOFT FIELD TECHNIQUE
+        only:
+          - Tactical
+      - TANKER PLAN: BRIEFED — RENDEZVOUS SET
+        only:
+          - Air-to-air refuelling
+      - BEACON: "ON"
+      - PARKING BRAKE: "ON"
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — PROPS CLEAR
+      - ENG 3: STARTED — PROP BRAKE AS REQUIRED
+        note: Start order follows the unit's own procedure. The propellers on each wing turn opposite ways, so ground effects are not symmetrical the way a C-130 crew expects.
+      - ENG 4: STARTED
+      - ENG 1: STARTED
+      - ENG 2: STARTED
+      - GENERATORS: ON — LOAD SHARED
+      - APU BLEED: "OFF"
+      - ENGINE PARAMETERS 1–4: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - FLAPS: TAKEOFF SET
+      - TRIM: TAKEOFF SET
+      - ANTI-ICE: AS REQUIRED
+      - PRESSURISATION: SET
+      - ECAM STATUS: CHECKED
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES / STEERING: CHECKED
+      - FLAPS: ____ CONFIRMED
+      - TRIM: SET
+      - ECAM MEMO: TAKEOFF — NO BLUE
+      - TRANSPONDER: SET
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - divider: Line-up items
+      - RUNWAY / STRIP: ____ CONFIRMED
+      - POWER: TAKEOFF SET
+        note: Loose surfaces reward a smooth power application and a positive rotation. Wet grass and dust do the rest of the work for you if you let them.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - CLIMB POWER: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - ANTI-ICE: AS REQUIRED
+      - EXTERIOR LIGHTS: SET
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE POWER: SET
+      - FUEL: CHECKED vs PLAN — DISTRIBUTION NORMAL
+      - CABIN / CARGO: CHECKED
+      - LOW LEVEL ENTRY: BRIEFED — TERRAIN SET
+        only:
+          - Tactical
+      - DROP ZONE: RUN-IN BRIEFED — RAMP CONFIG SET
+        only:
+          - Airdrop
+      - RECEIVER JOIN: CLEARED — HOSE TRAILED
+        only:
+          - Air-to-air refuelling
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - LANDING DATA: WEIGHT · VREF · DISTANCE
+      - CABIN / LOAD: SECURE
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: APPROACH SET
+      - SPEEDS: ____ SET
+      - MINIMA: ____ SET
+      - TACTICAL APPROACH: BRIEFED — STEEP PROFILE
+        only:
+          - Tactical
+      - AUTOPILOT: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — CHECKED
+      - FLAPS: LANDING SET
+      - SPEED: VREF ____
+      - GROUND SPOILERS: ARMED
+      - LANDING CLEARANCE / STRIP CLEAR: CONFIRMED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - REVERSE: STOWED — PROPS FORWARD
+      - FLAPS: UP
+      - GROUND SPOILERS: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - APU: AS REQUIRED
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: "ON"
+      - PROPELLER BRAKE: AS REQUIRED
+      - ENGINES: SHUTDOWN — 1 · 2 · 4 · 3
+      - RAMP / CARGO DOOR: AS REQUIRED
+        note: Coordinate with the loadmaster before opening. Engines running and a ramp down is a normal combination on this aeroplane, and a dangerous one to improvise.
+      - FUEL PUMPS: "OFF"
+      - APU: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - ADIRS: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - APU: "OFF"
+      - BATTERIES: "OFF"
+      - CHOCKS / LOCKS: IN PLACE

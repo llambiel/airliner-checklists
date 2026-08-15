@@ -1,0 +1,177 @@
+# E-Jets — Embraer 170 / 175 / 190 / 195
+id:   ejet
+code: E-Jet   # tab label
+name: Embraer E-Jets
+sub:  2 × GE CF34 · two-crew · Primus Epic five-display flight deck · flaps 1–5 / FULL
+manufacturer: Embraer
+variants:
+  - name: E170
+    note: The baseline, CF34-8E. Around 70 seats and the shortest of the family.
+  - name: E175
+    note: The regional workhorse in North America — same CF34-8E, slightly stretched.
+  - name: E190
+    note: Bigger wing and CF34-10E engines. Enough aeroplane to sit against a 737 on thin routes.
+  - name: E195
+    note: The longest of the first-generation family. Same flows, more seats, less range.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY 1 + 2: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - IRS 1 + 2: ALIGN
+      - DISPLAYS: SET
+        note: Five Primus Epic screens driven by cursor control devices — the systems pages live on the MFD rather than on overhead gauges.
+      - FMS: POS INIT · ROUTE · PERF
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - ELECTRICAL: GENERATORS AUTO
+      - HYDRAULICS 1 / 2 / 3: AUTO
+      - BLEEDS 1 + 2 / APU BLEED: AUTO
+      - PRESSURIZATION: AUTO — LAND ALT SET
+      - ANTI-ICE: AS REQUIRED
+      - FUEL PUMPS: AUTO — QUANTITY CHECKED
+      - START/STOP SELECTORS: STOP
+      - SPEEDBRAKE: RETRACTED
+      - FLAPS: "0"
+      - TAKEOFF DATA: THRUST · V-SPEEDS · TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - PASSENGER SIGNS: "ON"
+      - FUEL: ____ KG — CHECKED
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - PITCH TRIM: ____ SET — TAKEOFF RANGE
+      - TAKEOFF BRIEFING: COMPLETED
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - START/STOP SELECTOR 2: START
+      - FUEL: INTRODUCED AT 20% N2
+        note: The FADEC runs the start and will abort it by itself on a hot or hung start. Monitor ITT and N2 and keep your hand off the selector.
+      - START/STOP SELECTOR 1: START
+      - APU BLEED: AS REQUIRED
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - BLEEDS / PACKS: AUTO
+      - ANTI-ICE: AS REQUIRED
+      - FLAPS: ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - EICAS: NO MESSAGES
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - STEERING: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - TRANSPONDER: TA/RA
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN
+      - PITCH TRIM: ____ SET
+      - SPEEDBRAKE: RETRACTED
+      - EICAS: NO MESSAGES
+      - CABIN: SECURE
+      - divider: Line-up items
+      - IGNITION: AS REQUIRED
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: "0"
+      - PACKS: AUTO
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - CRUISE LEVEL: AS PLANNED
+      - WEATHER RADAR: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN FMS
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+      - SEAT BELTS: "ON"
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN
+      - SPEEDBRAKE: RETRACTED
+      - EICAS: NO MESSAGES
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: "0"
+      - SPEEDBRAKE: RETRACTED
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: "OFF"
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - START/STOP SELECTORS: STOP
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+      - ELECTRICAL: APU / EXT PWR
+      - EXTERIOR LIGHTS: AS REQUIRED
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS 1 + 2: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"
+      - BATTERY 1 + 2: "OFF"

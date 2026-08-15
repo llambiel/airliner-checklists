@@ -1,0 +1,210 @@
+# Pilatus PC-12
+id:   pc12
+code: PC-12   # tab label
+name: Pilatus PC-12
+sub:  1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40
+manufacturer: Pilatus
+variants:
+  - name: PC-12/45
+    note: The early one. Analogue panel, separate power and condition levers, and a start you fly yourself.
+  - name: PC-12 NG
+    note: PT6A-67P behind a Honeywell Apex glass deck. Still a manual start, still a condition lever.
+  - name: PC-12 NGX
+    note: PT6E-67XP with dual-channel FADEC. One power lever, an automated start, and the prop scheduled for you.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: ON — 24 V MIN
+      - EXT PWR: AS REQUIRED
+      - AVIONICS: "ON"
+      - EMERGENCY LIGHTS / ELT: ARMED
+      - FUEL QUANTITY: L / R CHECKED
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - POWER LEVER: IDLE
+      - CONDITION LEVER: FUEL CUT OFF
+        note: Gone on the NGX — the PT6E takes one lever and works the propeller out for itself.
+        only:
+          - PC-12/45
+          - PC-12 NG
+      - FUEL PUMPS / TANK SELECT: AUTO
+        note: The system alternates tanks on its own. A manual selection left running is how most PC-12 imbalances start.
+      - INERTIAL SEPARATOR: AS REQUIRED
+        note: Out for unpaved strips and for visible moisture near freezing. It costs a little torque and buys the compressor a quiet life.
+      - ANTI-ICE: BOOTS · PROP · WINDSHIELD CHECKED
+      - OXYGEN: CHECKED — MASK IN REACH
+        note: Single pilot in the low thirties. Know where the mask is without looking for it.
+      - AVIONICS: FLIGHT PLAN · PERF · WEATHER LOADED
+      - WEIGHT & CG: WITHIN LIMITS
+      - TAKEOFF DATA: TORQUE · V-SPEEDS · TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS: CLOSED AND LATCHED
+      - SEAT / HARNESS / PEDALS: ADJUSTED
+      - CIRCUIT BREAKERS: IN
+      - FUEL: ____ LB — BOTH TANKS
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETER: ____ SET
+      - TAKEOFF BRIEFING: COMPLETE
+        note: Say it out loud even with nobody in the right seat — abort criteria, the plan if the engine quits, and the first turn.
+      - BEACON: "ON"
+      - PROPELLER AREA: CLEAR
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - IGNITION: AUTO
+      - STARTER: ENGAGED — Ng RISING
+      - FUEL: INTRODUCED AT 13% Ng
+        note: Yours to judge on the /45 and the NG. Watch ITT through light-up and cut the fuel yourself if it runs at the limit.
+        only:
+          - PC-12/45
+          - PC-12 NG
+      - START: AUTOMATIC — MONITORED
+        note: The NGX starts on one button. The FADEC schedules fuel and ignition and aborts a hot start without asking — keep your hand near the switch anyway.
+        only:
+          - PC-12 NGX
+      - ITT: MONITORED — WITHIN LIMITS
+        note: The transient limits are a few seconds long, not a target to aim at.
+      - STARTER: OFF — IDLE STABLE
+      - GENERATOR: ON — CHARGING
+      - OIL PRESSURE / TEMP: RISING — IN GREEN
+      - EXTERNAL POWER: DISCONNECTED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATOR / BUS TIE: ON — LOAD NORMAL
+      - ENVIRONMENTAL / BLEED: ON — TEMP SET
+      - PRESSURISATION: LANDING ELEV SET
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - TRIMS: PITCH · ROLL · YAW SET
+      - FLAPS: "15"
+      - ANNUNCIATORS: CHECKED — NO WARNINGS
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: HEADING & ATTITUDE CHECKED
+      - FLAPS: 15 — CONFIRMED
+      - TRIM: TAKEOFF RANGE
+      - INERTIAL SEPARATOR: AS REQUIRED
+      - IGNITION: AUTO
+      - FUEL PUMPS: AUTO — BALANCED
+      - AUTOPILOT: TESTED — DISENGAGED
+      - TRANSPONDER: TA / RA — ALT
+      - EXTERIOR LIGHTS: LANDING · STROBE · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TORQUE: SET — ENGINE INSTRUMENTS GREEN
+        note: Lead with the power lever gently and let the torque settle before releasing the brakes; a fistful of power on a cold engine overtorques it.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP — POSITIVE RATE
+      - FLAPS: UP
+      - CLIMB POWER: SET
+      - YAW DAMPER: "ON"
+      - PRESSURISATION: CLIMBING NORMALLY
+      - EXTERIOR LIGHTS: SET
+      - ALTIMETER: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - POWER / TORQUE: CRUISE SET
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - ENGINE TREND: ITT · TORQUE · Ng NORMAL
+      - CABIN ALTITUDE: CHECKED
+      - ANTI-ICE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETER: ____ SET
+      - ANTI-ICE / INERTIAL SEPARATOR: AS REQUIRED
+      - POWER: REDUCED SLOWLY — TEMPS MONITORED
+        note: A big power reduction with a windmilling propeller out front is a very effective airbrake. Bring it back in stages and keep the engine warm.
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT — BALANCED
+      - FLAPS: "15"
+      - SPEED: ____ SET
+      - MINIMA: ____ SET
+      - LANDING LIGHTS: "ON"
+      - AUTOPILOT: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: 30 / 40
+      - CONDITION LEVER: MAX RPM
+        note: Propeller full fine before landing, so the power is there if you need to go around.
+        only:
+          - PC-12/45
+          - PC-12 NG
+      - SPEED: VREF ____
+      - AUTOPILOT: DISENGAGED
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: UP
+      - INERTIAL SEPARATOR: AS REQUIRED
+      - ANTI-ICE: "OFF"
+      - TRIMS: RESET
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - ELECTRICAL LOAD: REDUCED
+      - ENGINE: IDLE COOL-DOWN COMPLETE
+        note: Give it a minute or two at idle before cutting the fuel, longer after a hard run.
+      - CONDITION LEVER / FUEL: CUT OFF
+      - IGNITION / FUEL PUMPS: "OFF"
+      - AVIONICS: "OFF"
+      - BEACON: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - PROPELLER: STOPPED
+      - CONTROLS / GUST LOCK: SECURED
+      - EXTERNAL POWER: DISCONNECTED
+      - BATTERY: "OFF"
+      - DOORS: CLOSED

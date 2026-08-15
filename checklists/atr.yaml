@@ -1,0 +1,179 @@
+# ATR 42 / 72
+id:   atr
+code: ATR 42 / 72   # tab label
+name: ATR 42 / 72
+sub:  2 × PW127 turboprop · two-crew · torque and Np, not N1 · flaps 15 / 30
+manufacturer: ATR
+variants:
+  - name: ATR 42-500
+    note: The short one with six-blade props. Analogue-era panel with EFIS.
+  - name: ATR 42-600
+    note: Glass flight deck with five displays and a multi-purpose computer. Same airframe underneath.
+  - name: ATR 72-500
+    note: The stretch, and the one most operators fly. Heavier, and the wing works harder in ice.
+  - name: ATR 72-600
+    note: The current build — glass deck, same handling. What most simulator add-ons model.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / HOTEL MODE: AS REQUIRED
+        note: With no APU on most ATRs, hotel mode runs engine 2 with the prop brake on to give you power and air on stand. The propeller stays stopped; the engine does not.
+      - EMERGENCY LIGHTS: ARM
+      - ADU / IRS: ALIGN
+      - PARKING BRAKE: "ON"
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - CONDITION LEVERS: FUEL SO
+      - POWER LEVERS: IDLE
+      - PROP BRAKE: AS REQUIRED
+      - FUEL PUMPS: "ON"
+      - HYDRAULICS: BLUE / GREEN CHECKED
+      - ANTI-ICING: AS REQUIRED
+        note: This aeroplane earns its icing reputation honestly. Airframe de-ice, prop heat and the severe icing speeds are worth briefing before you need them.
+      - BLEED / PACKS: SET
+      - PWR MGT SELECTOR: TO
+      - FLAPS: "15"
+      - TAKEOFF DATA: TORQUE · V-SPEEDS · TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS: CLOSED
+      - FUEL: ____ KG — PUMPS ON
+      - LOADSHEET / CG: CHECKED
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - TRIM: PITCH · ROLL · YAW SET
+      - TAKEOFF BRIEFING: COMPLETE
+      - BEACON: "ON"
+      - PARKING BRAKE: "ON"
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — PROPS CLEAR
+      - ENG 2 START: PRESSED
+      - CONDITION LEVER 2: AUTO AT 10% NH
+        note: Watch ITT through the light-up. A hot start on a PW127 goes bad quickly, and the abort is yours to make, not the computer's.
+      - ENG 1: START
+      - PROP BRAKE: RELEASED
+      - GENERATORS: "ON"
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - BLEEDS / PACKS: "ON"
+      - ANTI-ICING: AS REQUIRED
+      - FLAPS: "15"
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - NOSEWHEEL STEERING: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - TRANSPONDER: TA/RA
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - PWR MGT: TO
+      - ATPCS: ARMED
+        note: The automatic take-off power control system trims the live engine up and feathers the dead one if you lose one on the roll. Check it armed — nothing else does that for you.
+      - FLAPS: 15 — INDICATED
+      - TRIM: ____ SET
+      - CABIN: SECURE
+      - divider: Line-up items
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: "0"
+      - PWR MGT: CLB
+      - ANTI-ICING: AS REQUIRED
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - PWR MGT: CRZ
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - ICING CONDITIONS: MONITORED
+      - PRESSURIZATION: CHECKED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET
+      - APPROACH BRIEFING: COMPLETE
+      - VREF / MINIMUMS: ____ SET
+      - ANTI-ICING: AS REQUIRED
+      - SEAT BELTS: "ON"
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - PWR MGT: TO
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: 30 — INDICATED
+      - CONDITION LEVERS: 100% OVRD
+      - ANNUNCIATORS: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - POWER LEVERS: IDLE — REVERSE AS REQUIRED
+      - FLAPS: "0"
+      - PWR MGT: "OFF"
+      - ANTI-ICING: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: "OFF"
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: "ON"
+      - PROP BRAKE: AS REQUIRED
+      - CONDITION LEVER 1: FUEL SO
+      - CONDITION LEVER 2: AS REQUIRED FOR HOTEL MODE
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - CONDITION LEVERS: FUEL SO
+      - PROP BRAKE: "OFF"
+      - IRS / ADU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - BATTERY: "OFF"

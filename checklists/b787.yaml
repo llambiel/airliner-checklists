@@ -1,0 +1,155 @@
+# 787 — Boeing 787-8 / -9 / -10 Dreamliner
+id:   b787
+code: "787"   # tab label
+name: Boeing 787 Dreamliner
+sub:  2 × GEnx-1B / Trent 1000 · bleedless · flaps 1/5/15/20/25/30
+manufacturer: Boeing
+variants:
+  - name: "-8"
+    note: The short one, longest range of the three.
+  - name: "-9"
+    note: 6 m stretch, higher weights. The most common 787 in service.
+  - name: "-10"
+    note: Longest fuselage, shortest range. Semi-levered gear helps the tail strike margin.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: "ON"
+        note: No bleed air anywhere on this aeroplane — the packs, engine start and wing anti-ice all run on electrical power from four generators.
+      - EMERGENCY LIGHTS: ARMED
+      - IRS: NAV
+      - DISPLAYS / EFB: CONFIGURED
+      - CDU: POS INIT · ROUTE · PERF INIT
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - ELECTRICAL: GENERATORS ON — NO STATUS MESSAGES
+      - CABIN AIR COMPRESSORS: AUTO
+      - PRESSURIZATION: LAND ALT AUTO
+        note: Cabin altitude tops out around 6,000 ft thanks to the composite fuselage — you will feel the difference on a long sector.
+      - WING ANTI-ICE: AUTO
+      - HYDRAULICS L / C / R: AUTO
+      - FUEL PUMPS: "ON"
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - ELECTRONIC CHECKLIST: RESET
+      - TAKEOFF DATA: THRUST · V-SPEEDS · STAB TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - PASSENGER SIGNS: "ON"
+      - WINDOWS: LOCKED
+      - FUEL: ____ KG — PUMPS ON
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - PARKING BRAKE: SET
+      - BEACON: "ON"
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SELECTOR 2: START
+      - FUEL CONTROL SWITCH 2: RUN AT 15% N2
+        note: Electric starter, so the start is quiet and slow — the starter drives the engine well past the usual bleed-start speeds before fuel goes in.
+      - ENGINE START SELECTOR 1: START
+      - FUEL CONTROL SWITCH 1: RUN AT 15% N2
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - ANTI-ICE: AS REQUIRED
+      - ELECTRONIC CHECKLIST: NO OPEN ITEMS
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____
+      - STABILIZER TRIM: ____ UNITS
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - ETOPS: AS REQUIRED
+      - STEP CLIMB: AS PLANNED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - WEATHER RADAR: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS: OFF
+      - EMERGENCY LIGHTS: OFF
+      - CABIN AIR COMPRESSORS: OFF
+      - APU: OFF
+      - BATTERY: OFF

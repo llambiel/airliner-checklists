@@ -1,0 +1,181 @@
+# 777 — Boeing 777-200ER / -300ER / -200LR / -F
+id:   b777
+code: "777"   # tab label
+name: Boeing 777
+sub:  2 × GE90 / Trent 800 / PW4000 · two-crew fly-by-wire · flaps 1/5/15/20/25/30
+manufacturer: Boeing
+variants:
+  - name: "-200ER"
+    note: The original long-range twin. Lighter and shorter than the -300ER, and it shows on the takeoff roll.
+  - name: "-300ER"
+    note: The volume seller. GE90-115Bs, semi-levered gear and a tail skid — rotate at a steady 2°/s and let it fly off.
+  - name: "-200LR"
+    note: Built for the very long sectors. Same flows, more fuel and a heavier landing to plan.
+  - name: "-200F"
+    note: Freighter with the main deck door. Wide CG range, so check the trim setting against the load sheet.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARMED
+      - ADIRU: "ON — ALIGNING"
+      - EFIS / DISPLAYS: SET
+      - CDU: POS INIT · ROUTE · PERF INIT
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - HYDRAULICS L / C / R: PUMPS ON — DEMAND AUTO
+      - PACKS: AUTO
+      - BLEEDS: "ON"
+      - PRESSURIZATION: AUTO — LAND ALT SET
+      - FUEL PUMPS: ON — L / C / R AS LOADED
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - EICAS: NO MESSAGES — RECALL CHECKED
+      - TAKEOFF DATA: THRUST · V-SPEEDS · STAB TRIM SET
+        note: Fly-by-wire with a conventional yoke and real control feel — Boeing's answer to the sidestick, and it lands like a much smaller aeroplane.
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - PASSENGER SIGNS: "ON"
+      - WINDOWS: LOCKED
+      - FUEL: ____ KG — PUMPS ON
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - STAB TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: COMPLETED
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "-200F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "-200F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SELECTOR 2: START
+      - FUEL CONTROL SWITCH 2: RUN AT 15% N2
+        note: The GE90 is the largest turbofan flying — the fan barely appears to move at first and the start is long. Watch N2 and EGT, not the fan.
+      - ENGINE START SELECTOR 1: START
+      - FUEL CONTROL SWITCH 1: RUN AT 15% N2
+      - APU BLEED: "OFF"
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - PROBE HEAT: "ON"
+      - ANTI-ICE: AS REQUIRED
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "-200F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "-200F"
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - PACKS: AUTO
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - CENTER TANK: TRANSFERRING — PUMPS OFF WHEN EMPTY
+      - FUEL BALANCE: WITHIN LIMITS
+      - ETOPS: AS REQUIRED
+      - STEP CLIMB: AS PLANNED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+        note: On the -300ER the main gear is a long way behind you and the body steers — hold the centreline into the turn rather than cutting it.
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: "OFF"
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - WEATHER RADAR: "OFF"
+      - ANTI-ICE: "OFF"
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - ADIRU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - WINDOW HEAT: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"

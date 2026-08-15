@@ -1,0 +1,207 @@
+# A310 — Airbus A310-200 / -300
+id:   a310
+code: A310   # tab label
+name: Airbus A310
+sub:  2 × CF6-80C2 / PW4152 · two-crew · shares a type rating with the A300-600
+manufacturer: Airbus
+variants:
+  - name: "-200"
+    note: The original short-body twin. No trim tank, so the fuel panel is simpler than the -300's.
+  - name: "-300"
+    note: Trim tank in the tailplane and more range. The version most operators ended up with.
+  - name: "-300F"
+    note: Freighter conversion. Main deck door and a wide CG range — check the trim against the load sheet.
+  - name: MRTT
+    note: The military tanker and transport build. Same cockpit, extra fuel systems that these items do not cover.
+
+phases:
+
+  - id:   prelim
+    name: Preliminary Cockpit Prep
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BAT 1 + 2: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU MASTER / START: ON — AVAIL
+      - IRS 1 / 2 / 3: NAV
+      - HYD BLUE / GREEN / YELLOW: CHECKED
+      - ACCU PRESS: GREEN BAND
+      - EXTERIOR / COCKPIT LIGHTS: AS REQUIRED
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - PARKING BRAKE: "ON"
+
+  - id:   prep
+    name: Cockpit Preparation
+    kind: flow
+    items:
+      - GEAR LEVER: DOWN
+      - FLAP / SLAT LEVER: 0 / 0
+      - SPEED BRAKE LEVER: RETRACTED — DISARMED
+      - ENGINE START LEVERS: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - FUEL PUMPS: ON — QUANTITY CHECKED
+      - TRIM TANK: AUTO
+        note: On the -300 only. The -200 has no tail tank, so there is nothing to transfer.
+      - SIGNS: ON / AUTO
+      - EMER EXIT LT: ARM
+      - ANTI ICE: AS REQUIRED
+      - WEATHER RADAR: "OFF"
+      - TRANSPONDER: CODE SET — STBY
+      - FMS CDU: INIT · F-PLN · PERF
+      - TAKEOFF DATA: V1 / VR / V2 · FLEX · TRIM SET
+      - BARO REF: SET & CROSSCHECKED
+      - FCU: SPD / HDG / ALT SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - COCKPIT PREP: COMPLETED
+      - GEAR PINS & COVERS: REMOVED
+      - SIGNS: ON / AUTO
+      - IRS: NAV
+      - FUEL QUANTITY: ____ KG — CHECKED
+      - TAKEOFF DATA: SET
+      - BARO REF: ____ SET
+      - divider: Below the line
+      - WINDOWS / DOORS: CLOSED
+      - BEACON: "ON"
+      - THRUST LEVERS: IDLE
+      - PARKING BRAKE: AS REQUIRED
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "-300F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "-300F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG MODE SELECTOR: IGN / START
+      - ENGINE 2 START: ENGAGED
+      - START LEVER 2: ON AT 20% N2
+      - ENGINE 1: START
+      - ENG MODE SELECTOR: NORM
+      - APU BLEED: "OFF"
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - ANTI ICE: AS REQUIRED
+      - ECAM / ANNUNCIATORS: CHECKED
+      - PITCH TRIM: ____ SET
+      - RUDDER TRIM: ZERO
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAPS / SLATS: 15 / 0 SET
+      - V1 / VR / V2: ____ SET
+      - ATC: SET
+      - TAKEOFF CONFIG: TEST — NORMAL
+      - TAKEOFF RWY: ____ CONFIRMED
+      - CABIN CREW: ADVISED
+      - divider: Line-up items
+      - PACKS: AS REQUIRED
+      - ENG MODE SELECTOR: IGN IF RAIN / ICE
+      - TCAS: TA / RA
+      - EXTERIOR LIGHTS: STROBE · T.O · RWY TURN OFF
+      - CHRONO: START
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "-300F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "-300F"
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS / SLATS: 0 / 0
+      - PACKS: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU: "OFF"
+      - TRIM TANK TRANSFER: AFT — MONITORED
+      - EXTERIOR LIGHTS: SET
+      - BARO REF: STD SET AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - TRIM TANK: TRANSFER MONITORED
+      - FUEL BALANCE: WITHIN LIMITS
+      - POSITION: CROSSCHECKED
+      - ETOPS: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA IN FMS
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - TRIM TANK: FWD TRANSFER COMPLETE
+      - BRIEFING: CONFIRMED
+      - ANNUNCIATORS: CHECKED
+      - SEAT BELTS: "ON"
+      - BARO REF: ____ SET
+      - MDA / DH: ____ SET
+      - ENG MODE SELECTOR: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - CABIN CREW: ADVISED
+      - AUTO BRAKE: AS REQUIRED
+      - LANDING GEAR: DOWN — 3 GREEN
+      - SPOILERS: ARMED
+      - FLAPS / SLATS: 20 / 40 SET
+      - SIGNS: "ON"
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS / SLATS: 0 / 0
+      - SPOILERS: DISARMED
+      - APU: START
+      - RADAR: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - ANTI ICE: AS REQUIRED
+      - BRAKE TEMP: CHECKED
+      - TRANSPONDER: STBY
+
+  - id:   park
+    name: Parking
+    kind: checklist
+    items:
+      - APU BLEED: "ON"
+      - ENGINE START LEVERS: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: "OFF"
+      - PARK BRK / CHOCKS: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - IRS: "OFF"
+      - OXYGEN: "OFF"
+      - APU BLEED: "OFF"
+      - EXTERIOR LIGHTS: "OFF"
+      - APU & BAT 1 + 2: "OFF"

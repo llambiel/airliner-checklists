@@ -1,0 +1,189 @@
+# L-1011 TriStar
+id:   l1011
+code: L-1011   # tab label
+name: Lockheed L-1011 TriStar
+sub:  3 × RB211-22B · three-crew with a flight engineer · direct lift control
+manufacturer: Lockheed
+variants:
+  - name: "-1"
+    note: The original domestic build. RB211-22Bs and the shortest range of the family.
+  - name: "-200"
+    note: Uprated RB211-524s and higher weights for the longer sectors.
+  - name: "-500"
+    note: Shortened body, extended wing with active controls. The long-range TriStar.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - IRS / INS: ALIGN
+      - AVIONICS: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   fepanel
+    name: Flight Engineer Panel
+    kind: flow
+    items:
+      - ELECTRICAL: GENERATORS OFF — BUS TIES SET
+      - FUEL PANEL: TANKS 1 / 2 / 3 — PUMPS ON, CROSSFEEDS SET
+      - HYDRAULICS A / B / C / D: CHECKED
+        note: Four independent hydraulic systems. It was built to keep flying with most of them gone, and the engineer's panel is where you see that.
+      - PNEUMATICS: BLEEDS SET
+      - PRESSURIZATION: FLT & LAND ALT SET
+      - AIR CONDITIONING: PACKS AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TAKEOFF DATA: EPR · V-SPEEDS · TRIM SET
+
+  - id:   preflight
+    name: Preflight
+    kind: checklist
+    items:
+      - GEAR PINS: REMOVED
+      - OXYGEN: TESTED — CREW & PASSENGER
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - AFCS: CHECKED
+        note: The TriStar was the first widebody certified for automatic landing. The autoflight system is the aeroplane's party trick — check it properly.
+      - STAB TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: COMPLETE
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS: CLOSED
+      - FUEL: ____ KG — PUMPS ON
+      - PNEUMATIC PRESSURE: CHECKED
+      - HYDRAULICS: CHECKED
+      - ANTI COLLISION LIGHT: "ON"
+      - PARKING BRAKE: SET
+      - START CLEARANCE: OBTAINED
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - IGNITION: "ON"
+      - ENGINE 2 START: ENGAGED
+        note: Number 2 sits in the tail, fed by an S-duct that curves down from the fin root. It starts slowly and sounds nothing like the pods.
+      - FUEL LEVER 2: RUN AT 20% N2
+        note: The RB211 is a three-shaft engine, so N1, N2 and N3 all move. Give it time; it spools like the big fan it is.
+      - ENGINE 1: START
+      - ENGINE 3: START
+      - GENERATORS: "ON"
+      - PACKS: "ON"
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — LOADS BALANCED
+      - HYDRAULICS: PUMPS ON
+      - PACKS: "ON"
+      - FLAPS: ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - NOSEWHEEL STEERING: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - TRANSPONDER: "ON"
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — INDICATED
+      - STAB TRIM: ____ UNITS
+      - EPR BUGS: SET
+      - SPOILERS: ARMED
+      - ANNUNCIATORS: CHECKED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - IGNITION: CONTINUOUS
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - IGNITION: "OFF"
+      - PRESSURIZATION: CHECKED
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: BALANCED — CROSSFEEDS AS REQUIRED
+      - CRUISE EPR: SET
+      - PRESSURIZATION: CHECKED
+      - SYSTEMS: ENGINEER MONITORING
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET
+      - APPROACH BRIEFING: COMPLETE
+      - VREF / MINIMUMS: ____ SET
+      - AUTOLAND: AS REQUIRED
+      - SEAT BELTS: "ON"
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — INDICATED
+      - SPOILERS: ARMED
+      - DIRECT LIFT CONTROL: ARMED
+        note: DLC modulates the spoilers to move the aeroplane up and down without changing pitch. On the approach you fly the glideslope with power and let DLC do the fine work.
+      - ANNUNCIATORS: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - SPOILERS: RETRACTED
+      - FLAPS: UP
+      - IGNITION: "OFF"
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - FUEL LEVERS: CUTOFF
+      - FUEL PUMPS: "OFF"
+      - HYDRAULIC PUMPS: SET
+      - GENERATORS: APU ON
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS / INS: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"
+      - BATTERY: "OFF"

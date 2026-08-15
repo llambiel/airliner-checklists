@@ -1,0 +1,211 @@
+# Daher TBM 900 series
+id:   tbm9
+code: TBM 9xx   # tab label
+name: Daher TBM 900 / 940 / 960
+sub:  1 × PT6A turboprop · single-pilot · 330 kt on one engine
+manufacturer: Daher
+variants:
+  - name: TBM 900
+    note: The first of the winglet-and-single-lever generation. Garmin G1000 and a lot of speed for the fuel.
+  - name: TBM 930
+    note: Same airframe with the G3000 touchscreen deck. Menus instead of knobs — know where the pages live before you need them.
+  - name: TBM 940
+    note: Adds autothrottle and automatic de-icing. The throttle does the engine limits so you can watch the aeroplane.
+  - name: TBM 960
+    note: PT6E-66XT with dual-channel FADEC and an electronic propeller. Start and power management are automated end to end.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: ON — VOLTAGE CHECKED
+      - EXT PWR: AS REQUIRED
+      - AVIONICS: "ON"
+      - EMERGENCY / ELT: ARMED
+      - FUEL QUANTITY: L / R CHECKED
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - POWER LEVER: IDLE
+      - CONDITION LEVER: CUT OFF
+        note: The 960 does without it — the PT6E runs on one lever and its own FADEC.
+        only:
+          - TBM 900
+          - TBM 930
+          - TBM 940
+      - FUEL SELECTOR: FULLEST TANK — AUTO
+      - INERTIAL SEPARATOR: AS REQUIRED
+      - ICE PROTECTION: BOOTS · PROP · WINDSHIELD CHECKED
+        note: Known-ice approved, but this is a small aeroplane with a lot of speed. Ice costs more here than it looks like it should.
+      - OXYGEN: CHECKED — MASK IN REACH
+        note: FL310 single pilot. Cannula rules and mask discipline are the whole safety case above the mid-twenties.
+      - AVIONICS: FLIGHT PLAN · WEATHER · FUEL LOADED
+      - WEIGHT & CG: WITHIN LIMITS
+      - TRIM: TAKEOFF SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOOR: CLOSED — HANDLE LOCKED
+      - SEAT / HARNESS: ADJUSTED
+      - CIRCUIT BREAKERS: IN
+      - FUEL: ____ LB — SUFFICIENT
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETER: ____ SET
+      - TAKEOFF BRIEFING: COMPLETE
+        note: Brief it aloud. Where you put the nose if the engine stops, and at what height you turn back — decided on the ground, not at 400 ft.
+      - BEACON: "ON"
+      - PROPELLER AREA: CLEAR
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - IGNITION: AUTO
+      - STARTER: ENGAGED — Ng RISING
+      - FUEL: INTRODUCED AT 13% Ng
+        only:
+          - TBM 900
+          - TBM 930
+          - TBM 940
+      - START: AUTOMATIC — MONITORED
+        note: One button on the 960. The FADEC schedules the start and aborts it itself if the temperature runs.
+        only:
+          - TBM 960
+      - ITT: MONITORED — WITHIN LIMITS
+      - STARTER: OFF — IDLE STABLE
+      - GENERATOR: ON — CHARGING
+      - OIL PRESSURE / TEMP: RISING — IN GREEN
+      - EXTERNAL POWER: DISCONNECTED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATOR: ON — LOAD NORMAL
+      - AIR CONDITIONING / BLEED: SET
+      - PRESSURISATION: LANDING ELEV SET
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - TRIM: TAKEOFF SET
+      - FLAPS: TAKEOFF
+      - ANNUNCIATORS: NO WARNINGS
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: HEADING & ATTITUDE CHECKED
+      - FLAPS: TAKEOFF — CONFIRMED
+      - TRIM: TAKEOFF RANGE
+      - INERTIAL SEPARATOR: AS REQUIRED
+      - AUTOPILOT: TESTED — DISENGAGED
+      - AUTOTHROTTLE: ARMED
+        only:
+          - TBM 940
+          - TBM 960
+      - TRANSPONDER: TA / RA — ALT
+      - EXTERIOR LIGHTS: LANDING · STROBE · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TORQUE: SET — WITHIN LIMITS
+        note: Full power at low airspeed gives a healthy yaw. Feet on from the start rather than catching it afterwards.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP — POSITIVE RATE
+      - FLAPS: UP
+      - CLIMB POWER: SET
+      - YAW DAMPER: "ON"
+      - PRESSURISATION: CLIMBING NORMALLY
+      - EXTERIOR LIGHTS: SET
+      - ALTIMETER: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - POWER / TORQUE: CRUISE SET
+      - FUEL SELECTOR: BALANCED
+      - ENGINE TREND: ITT · TORQUE · Ng NORMAL
+      - CABIN ALTITUDE / OXYGEN: CHECKED
+      - ICE PROTECTION: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETER: ____ SET
+      - INERTIAL SEPARATOR / ICE PROTECTION: AS REQUIRED
+      - POWER: REDUCED SLOWLY
+        note: Come back in stages and keep some torque on. Chopping it cools the engine fast and puts you into a descent rate you did not ask for.
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: TAKEOFF
+      - SPEED: ____ SET
+      - MINIMA: ____ SET
+      - LANDING LIGHTS: "ON"
+      - AUTOPILOT: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: LANDING
+      - CONDITION LEVER: MAX RPM
+        only:
+          - TBM 900
+          - TBM 930
+          - TBM 940
+      - SPEED: VREF ____
+      - AUTOPILOT / AUTOTHROTTLE: DISENGAGED
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: UP
+      - INERTIAL SEPARATOR: AS REQUIRED
+      - ICE PROTECTION: "OFF"
+      - TRIM: RESET
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - ELECTRICAL LOAD: REDUCED
+      - ENGINE: IDLE COOL-DOWN COMPLETE
+      - CONDITION LEVER / FUEL: CUT OFF
+      - IGNITION / FUEL PUMP: "OFF"
+      - AVIONICS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - PROPELLER: STOPPED
+      - CONTROL LOCK: INSTALLED
+      - EXTERNAL POWER: DISCONNECTED
+      - BATTERY: "OFF"
+      - DOOR / CHOCKS: SECURED

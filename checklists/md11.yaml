@@ -1,0 +1,210 @@
+# MD-11 — McDonnell Douglas MD-11
+id:   md11
+code: MD-11   # tab label
+name: McDonnell Douglas MD-11
+sub:  3 × turbofan · No. 2 is the tail engine · slats/flaps in degrees
+manufacturer: McDonnell Douglas
+variants:
+  - name: MD-11
+    note: Passenger. Two-crew flight deck — the flight engineer's work is automated away.
+  - name: MD-11F
+    note: Freighter, and how most surviving MD-11s finished their careers. Main deck door, wide CG range.
+  - name: MD-11 Combi
+    note: Passengers forward, freight aft. Loading discipline matters — check the trim setting against the load sheet.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY SWITCH: "ON"
+      - EXT PWR / APU: ON — BUSSES POWERED
+      - EMERGENCY LIGHTS: ARM
+      - IRU 1 / 2 / 3: NAV
+        note: Full align needs the aircraft stationary; enter present position if prompted.
+      - ELEC SYNOPTIC: CHECKED — GENS AUTO
+      - HYD SYSTEMS 1 / 2 / 3: AUTO
+      - FUEL SYSTEM: AUTO — PUMPS ON
+      - PARKING BRAKE: SET
+
+  - id:   preflight
+    name: Preflight
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - OVERHEAD ANNUNCIATORS: CHECKED — NO AMBER
+      - AIR SYSTEM: AUTO — PACKS ON
+      - PRESSURIZATION: AUTO — LDG ALT SET
+      - ANTI-ICE: AS REQUIRED
+      - FMS: PROGRAMMED
+        note: Route, perf init, ZFW and fuel; then take-off page for V-speeds and thrust rating.
+      - TAKEOFF DATA: V1 / VR / V2 · THRUST · STAB TRIM
+      - ALTIMETERS: SET & CROSSCHECKED
+      - AUTOFLIGHT / ATS: CHECKED
+      - LSAS: "ON"
+        note: Longitudinal Stability Augmentation — leave it on; it trims and damps in pitch.
+      - TAKEOFF BRIEFING: COMPLETE
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - PREFLIGHT CHECKS: COMPLETE
+      - GEAR PINS: REMOVED
+      - DOORS / SLIDES: CLOSED — ARMED
+      - FUEL: ____ KG — TRANSFER AUTO
+      - HYDRAULICS: CHECKED
+      - TAKEOFF DATA: SET & CROSSCHECKED
+      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____ SET
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "MD-11F"
+          - "MD-11 Combi"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "MD-11F"
+          - "MD-11 Combi"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - AREA: CLEAR — CLEARANCE OBTAINED
+      - FUEL PUMPS: "ON"
+      - IGNITION: AS REQUIRED
+      - ENGINE 3: START
+        note: Typical order 3 – 1 – 2, tail engine last; operators differ, so follow the add-on's checklist.
+      - ENGINE 1: START
+      - ENGINE 2 (TAIL): START
+      - ENGINE PARAMETERS: N1 · N2 · EGT · FF NORMAL
+      - APU: AS REQUIRED
+
+  - id:   astart
+    name: After Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - ELECTRICS: CHECKED — GENS ON
+      - AIR SYSTEM: SET — PACKS ON
+      - ANTI-ICE: AS REQUIRED
+      - SLATS / FLAPS: ____ / ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - STAB TRIM: ____ — GREEN BAND
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: CHECKED — NO FLAGS
+      - NOSEWHEEL STEERING: CHECKED
+      - WEATHER RADAR: AS REQUIRED
+      - AUTOBRAKES: T/O
+      - TAXI CLEARANCE: ____ CONFIRMED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "MD-11F"
+          - "MD-11 Combi"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "MD-11F"
+          - "MD-11 Combi"
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - STAB TRIM: ____ SET
+      - ATS / FMS TAKEOFF: ARMED — TO THRUST SET
+      - TRANSPONDER / TCAS: TA/RA — ON
+      - ANNUNCIATOR PANEL: CHECKED
+      - CABIN: SECURE
+      - LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   climb
+    name: After Takeoff
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - LANDING GEAR: UP
+      - SLATS / FLAPS: UP / RET
+      - AUTOBRAKES: "OFF"
+      - AIR SYSTEM: NORMAL
+      - LANDING LIGHTS: OFF ABOVE 10,000 FT
+      - ALTIMETERS: STD AT TRANS ALT
+      - FUEL TRANSFER: AUTO — TAIL TANK MONITORED
+
+  - id:   cruise
+    name: Cruise / Fuel & CG
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - TAIL TANK: TRANSFER MONITORED
+        note: The MD-11 pumps fuel to the tail tank to hold an aft CG in cruise — it comes forward before descent.
+      - CG: WITHIN LIMITS
+      - PRESSURIZATION: CHECKED
+      - POSITION: CROSSCHECKED
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN FMS
+
+  - id:   appr
+    name: Descent / Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - FUEL / CG: FWD TRANSFER COMPLETE
+      - PRESSURIZATION: LDG ALT SET
+      - ALTIMETERS: ____ SET & CROSSCHECKED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+      - AUTOBRAKES: ____ SET
+      - MINIMUMS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+
+  - id:   land
+    name: Before Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - SPOILER LEVER: ARMED
+      - ANNUNCIATOR PANEL: CHECKED
+      - LANDING LIGHTS: "ON"
+
+  - id:   aland
+    name: After Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - SPOILER LEVER: DISARMED — DOWN
+      - SLATS / FLAPS: UP / RET
+      - AUTOBRAKES: "OFF"
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: "OFF"
+      - LIGHTS: AS REQUIRED
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - PARKING BRAKE: SET
+      - FUEL LEVERS: "OFF"
+      - SEAT BELTS: "OFF"
+      - HYDRAULICS: SET
+      - ELECTRICS: APU / EXT PWR
+      - BEACON: "OFF"
+
+  - id:   secure
+    name: Secure
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - IRUs: "OFF"
+      - HYDRAULIC PUMPS: "OFF"
+      - FUEL PUMPS: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - APU: "OFF"
+      - BATTERY: "OFF"

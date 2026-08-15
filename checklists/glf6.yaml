@@ -1,0 +1,185 @@
+# Gulfstream G650 / G650ER
+id:   glf6
+code: G650   # tab label
+name: Gulfstream G650
+sub:  2 × BR725 · two-crew · fly-by-wire · Mach 0.85 normal cruise
+manufacturer: Gulfstream
+variants:
+  - name: G650
+    note: The baseline. Long enough for most city pairs anyone actually flies.
+  - name: G650ER
+    note: Extra fuel and a higher max weight. Same flight deck, same flows, longer taxi to the far side of the world.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERIES 1 + 2: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU: START — AVAIL
+      - AVIONICS (PLANEVIEW II): ON — CAS REVIEWED
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - THRUST LEVERS: IDLE
+      - ENGINE RUN / STOP: STOP
+      - GEAR HANDLE: DOWN
+      - FLAPS: AGREE WITH SURFACES
+      - SPEEDBRAKE: RETRACTED
+      - FUEL: QUANTITY CHECKED — PUMPS AS REQUIRED
+      - HYDRAULICS: A / B PRESSURE CHECKED
+      - PRESSURISATION: AUTO — LANDING ELEV FROM FMS
+        note: The cabin sits near 4,000 ft at FL510. Passengers notice the difference on a long leg more than anything else in the aeroplane.
+      - ANTI-ICE: AS REQUIRED
+      - FMS: FLIGHT PLAN · PERF · WEATHER
+      - TAKEOFF DATA: V1 / VR / V2 · TRIM SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOOR: CLOSED — LOCKED
+      - CREW / PASSENGER BRIEF: COMPLETE
+      - FUEL: ____ LB — BALANCED
+      - WEIGHT & CG: WITHIN LIMITS
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - CAS MESSAGES: REVIEWED
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR
+      - ENGINE 2: RUN — START
+        note: FADEC start, monitored not managed. Watch ITT and N2 and let the computer do its job unless it stops doing it.
+      - ENGINE 2: STABILISED — GENERATOR ON
+      - ENGINE 1: STARTED — STABILISED
+      - APU: AS REQUIRED
+      - EXTERNAL POWER: DISCONNECTED
+      - CAS: NO WARNINGS
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: CHECKED — FBW TEST COMPLETE
+        note: The control check is a computer test as much as a stick sweep. Let the synoptic finish before you taxi.
+      - FLAPS: 10 / 20 AS PLANNED
+      - TRIM: TAKEOFF SET
+      - ANTI-ICE: AS REQUIRED
+      - PRESSURISATION: SET
+      - BRAKES / STEERING: CHECKED
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - FLAPS: ____ CONFIRMED
+      - TRIM: SET
+      - SPEEDBRAKE: RETRACTED
+      - CAS: NO WARNINGS
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TAKEOFF THRUST: SET
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - CLIMB THRUST: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - EXTERIOR LIGHTS: SET
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE MACH: SET
+        note: M0.85 is the long-range habit and M0.90 is available. The fuel burn difference over a Pacific crossing is not small.
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - OCEANIC / CPDLC: AS REQUIRED
+      - CABIN ALTITUDE: CHECKED
+      - ETOPS / EDTO ALTERNATES: MONITORED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - SPEEDBRAKE: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: "10"
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - AUTOPILOT / AUTOTHROTTLE: AS REQUIRED
+      - LANDING LIGHTS: "ON"
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: "39"
+      - SPEEDBRAKE: ARMED
+      - AUTOTHROTTLE: DISENGAGED BY FLARE
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - THRUST REVERSERS: STOWED
+      - FLAPS: UP
+      - SPEEDBRAKE: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - APU: AS REQUIRED
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - APU: RUNNING — BLEED ON
+      - ENGINES: IDLE COOL-DOWN COMPLETE
+      - ENGINE RUN / STOP: STOP
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - APU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - AVIONICS: "OFF"
+      - BATTERIES 1 + 2: "OFF"
+      - DOOR / CHOCKS: AS REQUIRED

@@ -1,0 +1,207 @@
+# A340 — Airbus A340-300
+id:   a340
+code: A340   # tab label
+name: Airbus A340-300
+sub:  4 × CFM56-5C · long-haul quad · trim tank CG control
+manufacturer: Airbus
+variants:
+  - name: "-200"
+    note: Short body, long range. Same CFM56-5C flows as the -300.
+  - name: "-300"
+    note: The common CFM56 A340 and the basis for these checklists.
+  - name: "-500 / -600"
+    note: Different aeroplane underneath — Trent 500s and a four-wheel centre bogie. Engine and fuel items differ from what is listed here.
+
+phases:
+
+  - id:   prelim
+    name: Preliminary Cockpit Prep
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BAT 1 + 2: ON — 25.5 V MIN
+      - EXT PWR A / B: ON — OR APU
+      - APU FIRE TEST: PERFORMED
+      - APU MASTER / START: ON — AVAIL
+      - ADIRS 1 / 2 / 3: NAV
+      - HYD GREEN / BLUE / YELLOW: CHECKED
+      - ACCU PRESS: GREEN BAND
+      - EXTERIOR / COCKPIT LIGHTS: AS REQUIRED
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - PARKING BRAKE: "ON"
+
+  - id:   prep
+    name: Cockpit Preparation
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - GEAR LEVER: DOWN
+      - FLAP LEVER: AGREES WITH SURFACES
+      - SPEED BRAKE LEVER: RETRACTED — DISARMED
+      - ENG MASTERS 1–4: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - FUEL PUMPS: ON — ALL TANKS
+      - TRIM TANK MODE: AUTO
+        note: Trim tank moves fuel aft in cruise for an aft CG and less drag. Leave it AUTO unless the FCOM says otherwise.
+      - CTR TK / TRIM TK QTY: CHECKED
+      - SIGNS: ON / AUTO
+      - EMER EXIT LT: ARM
+      - ANTI ICE: AS REQUIRED
+      - TRANSPONDER: CODE SET — STBY
+      - MCDU: INIT A/B · F-PLN · PERF
+      - TAKEOFF DATA: V1 / VR / V2 · FLEX · THR RED / ACC
+      - BARO REF: SET & CROSSCHECKED
+      - FCU: SPD / HDG / ALT SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - COCKPIT PREP: COMPLETED
+      - GEAR PINS & COVERS: REMOVED
+      - SIGNS: ON / AUTO
+      - ADIRS: NAV
+      - FUEL QUANTITY / TRIM TK: ____ KG — AUTO
+      - TO DATA: SET
+      - BARO REF: ____ SET
+      - divider: Below the line
+      - WINDOWS / DOORS: CLOSED
+      - BEACON: "ON"
+      - THR LEVERS: IDLE
+      - PARKING BRAKE: AS REQUIRED
+
+  - id:   start
+    name: Engine Start
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG MODE SELECTOR: IGN / START
+      - ENG MASTER 1: "ON"
+        note: Start order varies by operator (1-2-3-4 and 3-4-1-2 are both flown). Follow your add-on's own checklist; start one engine at a time on APU bleed.
+      - ENG MASTER 2: "ON"
+      - ENG MASTER 3: "ON"
+      - ENG MASTER 4: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU BLEED: "OFF"
+      - ENG PARAMETERS 1–4: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - ANTI ICE: AS REQUIRED
+      - ECAM STATUS: CHECKED
+      - PITCH TRIM: ____ SET
+      - RUDDER TRIM: ZERO
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAP SETTING: CONF ____
+      - V1 / VR / V2 / FLEX TEMP: ____ SET
+      - ATC: SET
+      - ECAM MEMO: TO — NO BLUE
+      - T.O CONFIG: TEST — NORMAL
+        sub: true
+      - BODY GEAR STEERING: AVAIL
+        sub: true
+        note: Long wheelbase — start turns late and keep the cockpit past the taxiway centreline before turning.
+      - TAKEOFF RWY: ____ CONFIRMED
+      - CABIN CREW: ADVISED
+      - divider: Line-up items
+      - PACKS: AS REQUIRED
+      - ENG MODE SELECTOR: IGN IF RAIN / ICE
+      - TCAS: TA / RA
+      - EXTERIOR LIGHTS: STROBE · T.O · RWY TURN OFF
+      - CHRONO: START
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: RETRACTED
+      - PACKS: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU: "OFF"
+      - TRIM TANK TRANSFER: AFT — MONITORED
+      - EXTERIOR LIGHTS: SET
+      - BARO REF: STD SET AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+        note: "Long-haul habit: log fuel at every waypoint or every 30 min and compare with the OFP."
+      - TRIM TANK: TRANSFER MONITORED
+      - CG: WITHIN LIMITS
+      - POSITION / NAV ACCURACY: CROSSCHECKED
+      - STEP CLIMB: AS PLANNED
+      - ETOPS / EDTO: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN MCDU
+
+  - id:   appr
+    name: Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - TRIM TANK: FWD TRANSFER COMPLETE
+      - BRIEFING: CONFIRMED
+      - ECAM STATUS: CHECKED
+      - SEAT BELTS: "ON"
+      - BARO REF: ____ SET
+      - MDA / DH: ____ SET
+      - ENG MODE SELECTOR: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - CABIN CREW: ADVISED
+      - A/THR: SPEED / OFF
+      - AUTO BRAKE: AS REQUIRED
+      - ECAM MEMO: LDG — NO BLUE
+      - LDG GEAR: DOWN
+        sub: true
+      - SIGNS: "ON"
+        sub: true
+      - SPLRS: ARM
+        sub: true
+      - FLAPS: CONF 3 / FULL
+        sub: true
+
+  - id:   aland
+    name: After Landing
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - FLAPS: RETRACTED
+      - SPOILERS: DISARMED
+      - APU: START
+      - RADAR / PWS: "OFF"
+      - ENG MODE SELECTOR: NORM
+      - ANTI ICE: AS REQUIRED
+      - BRAKE TEMP: CHECKED
+      - EXTERIOR LIGHTS: SET
+      - TRANSPONDER: STBY / AUTO
+
+  - id:   park
+    name: Parking
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - APU BLEED: "ON"
+      - ENG MASTERS 1–4: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: "OFF"
+      - PARK BRK / CHOCKS: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - ADIRS: "OFF"
+      - OXYGEN: "OFF"
+      - APU BLEED: "OFF"
+      - EXTERIOR LIGHTS: "OFF"
+      - APU & BAT 1 + 2: "OFF"

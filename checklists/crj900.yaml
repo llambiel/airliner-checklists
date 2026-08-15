@@ -1,0 +1,191 @@
+# Bombardier CRJ900
+id:   crj900
+code: CRJ900   # tab label
+name: Bombardier CRJ900
+sub:  2 × CF34-8C5 · two-crew · T-tail regional jet · flaps 1 / 8 / 20 / 30 / 45
+manufacturer: Bombardier
+variants:
+  - name: CRJ700
+    note: The short one. Same flight deck and the same flows, lighter numbers.
+  - name: CRJ900
+    note: The volume seller and the basis for these cards.
+  - name: CRJ1000
+    note: The stretch. Long enough that tail strikes become a real briefing item, not a formality.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY MASTER: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU: START — AVAIL
+      - AVIONICS MASTER: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - THRUST LEVERS: SHUT OFF
+      - GEAR LEVER: DOWN
+      - FLAPS: AGREE WITH SURFACES
+      - SPOILERS: RETRACTED
+      - FUEL PUMPS: AUTO
+      - HYDRAULICS 1 / 2 / 3: CHECKED
+      - PRESSURISATION: AUTO — LANDING ELEV SET
+      - ANTI-ICE: AS REQUIRED
+        note: Wing anti-ice on the ground costs you thrust. Get the de-ice plan and the holdover time settled before you leave the gate.
+      - FMS: FLIGHT PLAN · PERF
+      - TAKEOFF DATA: V1 / VR / V2 · N1 · FLAPS
+      - TRIM: TAKEOFF — GREEN BAND
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOORS: CLOSED
+      - LOADSHEET / CG: CHECKED
+        note: A T-tail with the engines aft loads tail-heavy easily. The aft hold fills before the CG does.
+      - FUEL: ____ LB — BALANCED
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - IGNITION: NORM
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR
+      - APU BLEED: "ON"
+      - ENG 2 START: ENGAGED — N2 RISING
+      - THRUST LEVER 2: IDLE AT 20% N2
+        note: Watch ITT through light-up. The CF34 usually behaves, and the one time it does not is the reason your hand stays on the lever.
+      - ENG 2: STABILISED — GENERATOR ON
+      - ENG 1: STARTED — STABILISED
+      - APU BLEED: AS REQUIRED
+      - EXTERNAL POWER: DISCONNECTED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — LOAD SHARED
+      - PACKS: "ON"
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - FLAPS: 8 / 20 AS PLANNED
+      - TRIMS: SET
+      - ANTI-ICE: AS REQUIRED
+      - CABIN: SECURE
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - FLAPS: ____ CONFIRMED
+      - SPOILERS: RETRACTED — DISARMED
+      - IGNITION: AS REQUIRED
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - TAKEOFF N1: SET
+      - ROTATION: BRIEFED — TAIL CLEARANCE
+        note: Rotate at the rate the book gives you. The stretch will find the runway with its tail if you pull it up quickly.
+        only:
+          - CRJ1000
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: UP
+      - YAW DAMPER: "ON"
+      - CLIMB N1: SET
+      - PACKS / BLEEDS: SET
+      - PRESSURISATION: CLIMBING NORMALLY
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE N1 / MACH: SET
+      - FUEL: BALANCED — CHECKED vs PLAN
+      - CABIN ALTITUDE: CHECKED
+      - ENGINE INSTRUMENTS: NORMAL
+      - ANTI-ICE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - SPOILERS: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT
+      - FLAPS: "20"
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - IGNITION: AS REQUIRED
+      - LANDING LIGHTS: "ON"
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: 30 / 45
+      - SPOILERS: ARMED
+      - SPEED: VREF ____
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - THRUST REVERSERS: STOWED
+      - FLAPS: UP
+      - SPOILERS: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - APU: AS REQUIRED
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - APU: RUNNING — BLEED ON
+      - ENGINES: IDLE COOL-DOWN COMPLETE
+      - THRUST LEVERS: SHUT OFF
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - APU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - AVIONICS MASTER: "OFF"
+      - BATTERY MASTER: "OFF"
+      - CHOCKS: IN PLACE

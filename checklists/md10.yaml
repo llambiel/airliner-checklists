@@ -1,0 +1,182 @@
+# MD-10 — DC-10 with the two-crew Advanced Common Flightdeck
+id:   md10
+code: MD-10   # tab label
+name: McDonnell Douglas MD-10
+sub:  3 × CF6 / JT9D · DC-10 airframe, MD-11 flight deck · two-crew
+manufacturer: McDonnell Douglas
+variants:
+  - name: MD-10-10F
+    note: Converted DC-10-10. Domestic-range airframe, three CF6-6s, no centre gear.
+  - name: MD-10-30F
+    note: Converted DC-10-30. Longer range, higher weights, and the extra centre main gear leg.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY SWITCH: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - IRU 1 / 2 / 3: NAV
+      - DISPLAYS: CONFIGURED
+        note: The conversion swapped the DC-10's engineer panel for the MD-11's two-crew flight deck. The screens are MD-11; the systems behind them are still DC-10.
+      - HYDRAULICS 1 / 2 / 3: AUTO
+      - FUEL SYSTEM: PUMPS ON
+      - PARKING BRAKE: SET
+
+  - id:   preflight
+    name: Preflight
+    kind: flow
+    items:
+      - OVERHEAD ANNUNCIATORS: CHECKED — NO AMBER
+      - AIR SYSTEM: PACKS ON
+      - PRESSURIZATION: AUTO — LDG ALT SET
+      - ANTI-ICE: AS REQUIRED
+      - FMS: PROGRAMMED
+      - TAKEOFF DATA: V1 / VR / V2 · THRUST · STAB TRIM
+      - ALTIMETERS: SET & CROSSCHECKED
+      - AUTOFLIGHT: CHECKED
+      - TAKEOFF BRIEFING: COMPLETE
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - PREFLIGHT CHECKS: COMPLETE
+      - GEAR PINS: REMOVED
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+      - FUEL: ____ KG — CHECKED
+      - HYDRAULICS: CHECKED
+      - TAKEOFF DATA: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — CLEARANCE OBTAINED
+      - FUEL PUMPS: "ON"
+      - IGNITION: AS REQUIRED
+      - ENGINE 3: START
+        note: Typical order 3 – 1 – 2 with the tail engine last, as on the MD-11. Operators differ — follow your add-on's checklist.
+      - ENGINE 1: START
+      - ENGINE 2 (TAIL): START
+        note: Unlike the MD-11's, the DC-10 tail engine sits in the fin on a straight-through duct. It starts and spools differently from the wing pods.
+      - ENGINE PARAMETERS: N1 · N2 · EGT · FF NORMAL
+      - APU: AS REQUIRED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - ELECTRICS: CHECKED — GENS ON
+      - AIR SYSTEM: SET
+      - ANTI-ICE: AS REQUIRED
+      - SLATS / FLAPS: ____ / ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - STAB TRIM: ____ — GREEN BAND
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - NOSEWHEEL STEERING: CHECKED
+      - CENTRE GEAR: AS FITTED
+        note: On the -30F the centre main gear is steerable at low speed and carries real weight. Turn wide and let it follow you.
+      - FLIGHT INSTRUMENTS: CHECKED — NO FLAGS
+      - AUTOBRAKES: T/O
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - STAB TRIM: ____ SET
+      - TRANSPONDER / TCAS: TA/RA — ON
+      - ANNUNCIATOR PANEL: CHECKED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+      - SUPERNUMERARIES: BRIEFED
+      - divider: Line-up items
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - SLATS / FLAPS: UP / RET
+      - AUTOBRAKES: "OFF"
+      - AIR SYSTEM: NORMAL
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - PRESSURIZATION: CHECKED
+      - POSITION: CROSSCHECKED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN FMS
+
+  - id:   descent
+    name: Descent / Approach
+    kind: checklist
+    items:
+      - PRESSURIZATION: LDG ALT SET
+      - ALTIMETERS: ____ SET & CROSSCHECKED
+      - APPROACH BRIEFING: COMPLETE
+      - AUTOBRAKES: ____ SET
+      - MINIMUMS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - SPOILER LEVER: ARMED
+      - ANNUNCIATOR PANEL: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - SPOILER LEVER: DISARMED — DOWN
+      - SLATS / FLAPS: UP / RET
+      - AUTOBRAKES: "OFF"
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - FUEL LEVERS: "OFF"
+      - HYDRAULICS: SET
+      - ELECTRICS: APU / EXT PWR
+      - SEAT BELTS: "OFF"
+      - BEACON: "OFF"
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRUs: "OFF"
+      - HYDRAULIC PUMPS: "OFF"
+      - FUEL PUMPS: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - APU: "OFF"
+      - BATTERY: "OFF"

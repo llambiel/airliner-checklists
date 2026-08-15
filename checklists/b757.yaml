@@ -1,0 +1,178 @@
+# 757 — Boeing 757-200 / -300
+id:   b757
+code: "757"   # tab label
+name: Boeing 757
+sub:  2 × RB211-535 / PW2000 · two-crew · flaps 1/5/15/20/25/30
+manufacturer: Boeing
+variants:
+  - name: "-200"
+    note: The classic. Thrust-to-weight is famously generous — expect to level off early and watch the speed on a light departure.
+  - name: "-200F"
+    note: Freighter — main deck cargo door, no cabin items; brief the loadmaster instead of the cabin crew.
+  - name: "-300"
+    note: "Stretched by 7 m. Tail strike is the thing to watch: rotate no faster than 2°/s."
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - STANDBY POWER: AUTO
+      - GRD PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARMED
+      - IRS L / C / R: NAV
+      - CDU: POS INIT · ROUTE · PERF
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - HYDRAULICS L / C / R: PUMPS ON — DEMAND AUTO
+      - PACKS: AUTO
+      - BLEEDS: "ON"
+      - ISOLATION VALVES: AUTO
+      - PRESSURIZATION: AUTO — LAND ALT SET
+      - EEC: "ON — NORMAL"
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - TAKEOFF DATA: N1 · V-SPEEDS · STAB TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - OXYGEN: TESTED — 100%
+      - FUEL: ____ KG — PUMPS ON
+      - PASSENGER SIGNS: SET
+      - WINDOW HEAT: "ON"
+      - HYDRAULIC PANEL: SET
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - STAB TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: COMPLETED
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "-200F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "-200F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SWITCH R: GRD
+      - FUEL CONTROL SWITCH R: RUN AT 20% N2
+        note: RB211-535 — fuel at about 20% N2, EGT rise within 20 s, starter cutout around 50% N2.
+      - ENGINE START SWITCH L: GRD
+      - FUEL CONTROL SWITCH L: RUN AT 20% N2
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - ANTI-ICE: AS REQUIRED
+      - PROBE HEAT: "ON"
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "-200F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "-200F"
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - PACKS: AUTO
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - CENTER TANK: TRANSFERRING — PUMPS OFF WHEN EMPTY
+      - CRUISE LEVEL / STEP CLIMB: AS PLANNED
+      - ETOPS: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - WEATHER RADAR: OFF
+      - ANTI-ICE: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS L / C / R: OFF
+      - EMERGENCY LIGHTS: OFF
+      - WINDOW HEAT: OFF
+      - PACKS: OFF
+      - APU: OFF

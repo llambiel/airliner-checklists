@@ -1,0 +1,182 @@
+# 737 NG — Boeing 737-700 / -800 / -900ER
+id:   b737ng
+code: 737 NG   # tab label
+name: Boeing 737NG
+sub:  2 × CFM56-7B · two-crew · flaps 1/2/5/10/15/25/30/40
+manufacturer: Boeing
+variants:
+  - name: "-700"
+    note: 149 seats max · typical takeoff flaps 5 · lightest of the family, watch the pitch-up on a light takeoff.
+  - name: "-800"
+    note: The common one. Typical takeoff flaps 5, VREF 30 around 140 kt at 60 t.
+  - name: "-900ER"
+    note: Longest fuselage — tail strike margin is thin. Rotate at 2-3°/s and stop at 15° until airborne.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - STANDBY POWER: AUTO
+      - GRD PWR / APU: "ON — BUS OFF LIGHTS OUT"
+      - EMERGENCY EXIT LIGHTS: ARMED
+      - IRS 1 + 2: NAV
+        note: Enter present position on the CDU POS INIT page. Align needs the aircraft stationary.
+      - CDU: IDENT · POS INIT · ROUTE
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - PACKS: AUTO
+      - BLEEDS 1 + 2: "ON"
+      - ISOLATION VALVE: AUTO
+      - APU BLEED: "ON"
+      - PRESSURIZATION: FLT ALT / LAND ALT SET
+      - HYDRAULIC PUMPS: ELEC OFF — ENG ON
+      - ENGINE START LEVERS: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - CDU PERF / TAKEOFF: N1 · V-SPEEDS · TRIM
+
+  - id:   preflight
+    name: Preflight
+    kind: checklist
+    items:
+      - OXYGEN: TESTED — 100%
+      - NAVIGATION TRANSFER & DISPLAY SWITCHES: NORMAL — AUTO
+      - WINDOW HEAT: "ON"
+      - PRESSURIZATION MODE SELECTOR: AUTO
+      - FLIGHT INSTRUMENTS: HEADING ____ · ALTIMETER ____
+      - PARKING BRAKE: SET
+      - ENGINE START LEVERS: CUTOFF
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - FUEL: ____ KG — PUMPS ON
+      - PASSENGER SIGNS: SET
+      - WINDOWS: LOCKED
+      - MCP: V2 ____ · HDG ____ · ALT ____
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - CDU PREFLIGHT: COMPLETED
+      - RUDDER & AILERON TRIM: FREE AND ZERO
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
+      - ANTI COLLISION LIGHT: "ON"
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SWITCH 2: GRD
+      - START LEVER 2: IDLE AT 25% N2
+        note: CFM56-7B — fuel at 25% N2, light-up within 10 s, starter cutout at 56% N2. Idle ≈ 20% N1 / 60% N2.
+      - ENGINE START SWITCH 1: GRD
+      - START LEVER 1: IDLE AT 25% N2
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - PROBE HEAT: "ON"
+      - ANTI-ICE: AS REQUIRED
+      - ISOLATION VALVE: AUTO
+      - ENGINE START SWITCHES: CONT
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - ENGINE START LEVERS: IDLE DETENT
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - ENGINE BLEEDS: "ON"
+      - PACKS: AUTO
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - ALTIMETERS: SET
+        note: Speed trim runs the stabiliser after takeoff at light weight and aft CG — the wheel moving on its own is normal.
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - CROSSFEED / BALANCE: WITHIN LIMITS
+      - CRUISE LEVEL / STEP CLIMB: AS PLANNED
+      - WEATHER RADAR: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - ENGINE START SWITCHES: CONT
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - PROBE HEAT: AUTO
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - ENGINE START LEVERS: CUTOFF
+        note: Let the engines idle ~3 min after landing before cutoff.
+      - WEATHER RADAR: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS 1 + 2: OFF
+      - EMERGENCY EXIT LIGHTS: OFF
+      - WINDOW HEAT: OFF
+      - PACKS: OFF

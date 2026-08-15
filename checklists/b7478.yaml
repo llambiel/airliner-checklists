@@ -1,0 +1,174 @@
+# 747-8 — Boeing 747-8I / 747-8F
+id:   b7478
+code: 747-8   # tab label
+name: Boeing 747-8
+sub:  4 × GEnx-2B67 · two-crew · new wing, 787-generation systems
+manufacturer: Boeing
+variants:
+  - name: 747-8I
+    note: Intercontinental — the passenger version, 5.6 m longer than the -400.
+  - name: 747-8F
+    note: Freighter with the nose door. Sim add-ons usually model the -8I.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - STANDBY POWER: AUTO
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARMED
+      - IRS: NAV
+      - CDU: POS INIT · ROUTE · PERF INIT
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - HYDRAULICS 1–4: DEMAND PUMPS AUTO
+      - PACKS: AUTO
+      - BLEEDS 1–4: "ON"
+      - PRESSURIZATION: LAND ALT SET
+      - FUEL: PUMPS ON — CENTER FIRST
+      - FUEL CONTROL SWITCHES 1–4: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - TAKEOFF DATA: THRUST · V-SPEEDS · STAB TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - PASSENGER SIGNS: "ON"
+      - WINDOWS: LOCKED
+      - FUEL: ____ KG — SET
+      - FMC: SET
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - PARKING BRAKE: SET
+      - BEACON: "ON"
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "747-8F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "747-8F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SWITCH 4: START
+      - FUEL CONTROL SWITCH 4: RUN AT 25% N2
+        note: GEnx starts slowly and quietly compared with a CF6 — a long motoring phase before EGT rise is normal, not a hung start.
+      - ENGINE 3: START
+      - ENGINE 2: START
+      - ENGINE 1: START
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS 1–4: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - ANTI-ICE: AS REQUIRED
+      - HYDRAULIC PUMPS: "ON"
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED
+      - BODY GEAR STEERING: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: REVIEWED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "747-8F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "747-8F"
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - PACKS: AUTO
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - STEP CLIMB: AS PLANNED
+      - POSITION: CROSSCHECKED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 5 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - FUEL CONTROL SWITCHES 1–4: CUTOFF
+      - WEATHER RADAR: OFF
+      - ANTI-ICE: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS: OFF
+      - EMERGENCY LIGHTS: OFF
+      - WINDOW HEAT: OFF
+      - PACKS: OFF
+      - APU: OFF

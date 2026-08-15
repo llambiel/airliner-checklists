@@ -1,0 +1,173 @@
+# A220 — Airbus A220-100 / -300 (formerly Bombardier CSeries)
+id:   a220
+code: A220   # tab label
+name: Airbus A220
+sub:  2 × PW1500G geared fan · two-crew · sidestick fly-by-wire · five large displays
+manufacturer: Airbus
+variants:
+  - name: "-100"
+    note: The short one, formerly the CS100. Roughly 110 seats and the shortest field performance of the pair.
+  - name: "-300"
+    note: The volume seller, formerly the CS300. Same cockpit and the same flows, 3.7 m more fuselage.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY 1 + 2: "ON"
+      - EXT PWR / APU: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - ADIRU: ALIGN
+      - DISPLAYS / CCD: CONFIGURED
+        note: Five large displays driven by two cursor control devices. Most of the panel work happens on screen rather than under your fingers.
+      - FMS: POS INIT · ROUTE · PERF
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - ELECTRICAL: GENERATORS AUTO
+      - HYDRAULICS 1 / 2 / 3: AUTO
+      - BLEEDS / PACKS: AUTO
+      - PRESSURIZATION: AUTO — LAND ALT SET
+      - ANTI-ICE: AS REQUIRED
+      - FUEL PUMPS: ON — QUANTITY CHECKED
+      - ENG MASTERS 1 + 2: "OFF"
+      - SPEEDBRAKE: RETRACTED
+      - FLAPS: "0"
+      - ELECTRONIC CHECKLIST: RESET
+      - TAKEOFF DATA: THRUST · V-SPEEDS · TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - FLIGHT DECK DOOR: CLOSED AND LOCKED
+      - PASSENGER SIGNS: "ON"
+      - FUEL: ____ KG — PUMPS ON
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - PITCH TRIM: ____ SET
+      - TAKEOFF BRIEFING: COMPLETED
+      - ENG MASTERS: "OFF"
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG START SELECTOR: START
+      - ENG MASTER 2: "ON"
+        note: Geared turbofan — the fan turns far slower than the core, so the start is long, quiet and looks lazy on the gauges. Let the FADEC run it.
+      - ENG MASTER 1: "ON"
+        note: After a long soak the FADEC may motor the engine first to straighten a bowed rotor. That delay is the system working, not a hung start.
+      - APU BLEED: "OFF"
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - GENERATORS: "ON"
+      - ANTI-ICE: AS REQUIRED
+      - ELECTRONIC CHECKLIST: NO OPEN ITEMS
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAPS: ____ SET
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN
+      - PITCH TRIM: ____ SET
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: "0"
+      - AUTOBRAKE: "OFF"
+      - PACKS: AUTO
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: WITHIN LIMITS
+      - CRUISE LEVEL / STEP CLIMB: AS PLANNED
+      - WEATHER RADAR: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN FMS
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+      - SEAT BELTS: "ON"
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - ELECTRONIC CHECKLIST: NO OPEN ITEMS
+      - ANTI-ICE: AS REQUIRED
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: ____ — GREEN
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: RETRACTED
+      - FLAPS: "0"
+      - AUTOBRAKE: "OFF"
+      - APU: START AS REQUIRED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: "OFF"
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - ENG MASTERS 1 + 2: "OFF"
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - ELECTRICAL: APU / EXT PWR
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - ADIRU: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"
+      - APU: "OFF"
+      - BATTERY 1 + 2: "OFF"

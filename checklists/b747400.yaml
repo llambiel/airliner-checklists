@@ -1,0 +1,182 @@
+# 747-400 — Boeing 747-400 / -400ER / -400F
+id:   b747400
+code: 747-400   # tab label
+name: Boeing 747-400
+sub:  4 × CF6-80C2 / PW4000 / RB211-524 · two-crew · flaps 1/5/10/20/25/30
+manufacturer: Boeing
+variants:
+  - name: "-400"
+    note: Passenger, upper deck seating. Nose gear sits ~10 m behind the flight deck — turn late, keep the cockpit past the centreline.
+  - name: "-400ER"
+    note: Higher weights and an optional body fuel tank; performance numbers change, procedures do not.
+  - name: "-400F"
+    note: Freighter with a nose door and no upper deck cabin. CG shifts a long way with loading — check the trim setting twice.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - STANDBY POWER: AUTO
+      - EXT PWR 1–4 / APU: "ON"
+      - EMERGENCY LIGHTS: ARMED
+      - IRS L / C / R: NAV
+      - CDU: POS INIT · ROUTE · PERF INIT
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - WINDOW HEAT: "ON"
+      - PROBE HEAT: AUTO
+      - HYDRAULICS 1–4: DEMAND PUMPS AUTO
+      - PACKS 1–3: AUTO
+      - BLEEDS 1–4: "ON"
+      - ISOLATION VALVES: AUTO
+      - PRESSURIZATION: LAND ALT SET
+      - FUEL: MAIN & CENTER PUMPS AS REQUIRED
+        note: Feed from the centre wing tank first, then mains. The horizontal stabiliser tank transfers forward automatically.
+      - FUEL CONTROL SWITCHES 1–4: CUTOFF
+      - SPEEDBRAKE: DOWN DETENT
+      - FLAPS: UP
+      - TAKEOFF DATA: N1 · V-SPEEDS · STAB TRIM SET
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - NAVIGATION: SET
+      - SIGNS: "ON"
+      - IRS: NAV
+      - FUEL: ____ KG — SET
+      - FMC: SET
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - GROUND PROXIMITY: CHECKED
+      - DOORS: CLOSED — ARMED
+      - PARKING BRAKE: SET
+      - BEACON: "ON"
+      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
+        only:
+          - "-400F"
+      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
+        only:
+          - "-400F"
+        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENGINE START SWITCH 4: GRD
+      - FUEL CONTROL SWITCH 4: RUN AT 25% N2
+        note: Order varies by operator — 4-3-2-1 and 1-2-3-4 are both flown. Start one at a time on APU bleed and follow your add-on's checklist.
+      - ENGINE 3: START
+      - ENGINE 2: START
+      - ENGINE 1: START
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS 1–4: STABILISED
+
+  - id:   btaxi
+    name: Before Taxi
+    kind: checklist
+    items:
+      - ANTI-ICE: AS REQUIRED
+      - HYDRAULIC PUMPS: "ON"
+      - RECALL: CHECKED
+      - AUTOBRAKE: RTO
+      - FLIGHT CONTROLS: CHECKED
+      - BODY GEAR STEERING: CHECKED
+        note: The body gear steers with the nose wheel below 20 kt — it is what keeps the mains on the pavement in a tight turn.
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - FLAPS: ____ — GREEN LIGHT
+      - STABILIZER TRIM: ____ UNITS
+      - TAKEOFF BRIEFING: REVIEWED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - TRANSPONDER: TA/RA
+      - STROBES & LANDING LIGHTS: "ON"
+      - TAKEOFF CLEARANCE: RECEIVED
+      - MAIN DECK FIRE SUPPRESSION: ARMED
+        only:
+          - "-400F"
+      - SUPERNUMERARIES: BRIEFED
+        only:
+          - "-400F"
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP AND OFF
+      - FLAPS: UP — NO LIGHTS
+      - PACKS: AUTO
+      - ALTIMETERS: SET
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - TANK-TO-ENGINE / CROSSFEED: AS REQUIRED
+      - FUEL BALANCE: WITHIN LIMITS
+      - STEP CLIMB: AS PLANNED
+      - POSITION: CROSSCHECKED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN CDU
+
+  - id:   descent
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____ SET
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - APPROACH BRIEFING: COMPLETED
+
+  - id:   approach
+    name: Approach
+    kind: checklist
+    items:
+      - ALTIMETERS: ____ SET
+      - SEAT BELTS: "ON"
+
+  - id:   landing
+    name: Landing
+    kind: checklist
+    items:
+      - SPEEDBRAKE: ARMED — GREEN LIGHT
+      - LANDING GEAR: DOWN — 5 GREEN
+      - FLAPS: ____ — GREEN LIGHT
+        note: Eye height at touchdown is about 10 m. Flare on the runway's far end and the aiming point, not the ground rush.
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - FUEL PUMPS: OFF
+      - HYDRAULIC PANEL: SET
+      - FLAPS: UP
+      - PARKING BRAKE: SET
+      - FUEL CONTROL SWITCHES 1–4: CUTOFF
+      - WEATHER RADAR: OFF
+      - ANTI-ICE: OFF
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS L / C / R: OFF
+      - EMERGENCY LIGHTS: OFF
+      - WINDOW HEAT: OFF
+      - PACKS: OFF
+      - APU: OFF

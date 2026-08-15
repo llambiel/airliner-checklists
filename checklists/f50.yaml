@@ -1,0 +1,185 @@
+# Dassault Falcon 50
+id:   f50
+code: Falcon 50   # tab label
+name: Dassault Falcon 50
+sub:  3 × TFE731 · two-crew · three engines and a wing from a fighter
+manufacturer: Dassault
+variants:
+  - name: Falcon 50
+    note: The original. Analogue panel, and a centre engine fed through an S-duct.
+  - name: Falcon 50EX
+    note: TFE731-40 engines and a modernised deck. Same handling, better hot-and-high numbers.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERIES: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - AVIONICS: "ON"
+      - EMERGENCY LIGHTS: ARM
+      - FUEL QUANTITY: TANKS CHECKED
+      - PARKING BRAKE: SET
+
+  - id:   scan
+    name: Preflight Scan
+    kind: flow
+    items:
+      - THROTTLES: IDLE — CUT OFF
+      - GEAR LEVER: DOWN
+      - SLATS / FLAPS: AGREE WITH SURFACES
+        note: Slats and flaps both, on a wing that behaves beautifully when it is configured and firmly otherwise.
+      - AIRBRAKES: RETRACTED
+      - FUEL PUMPS / TRANSFER: SET
+        note: Feeding three engines from a tank system built in the seventies means the transfer sequence matters. Know which tank is feeding what.
+      - HYDRAULICS: A / B CHECKED
+      - PRESSURISATION: LANDING ELEV SET
+      - ANTI-ICE: AS REQUIRED
+      - NAVIGATION: FLIGHT PLAN LOADED
+      - TAKEOFF DATA: V1 / VR / V2 · TRIM SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - DOOR: CLOSED — LOCKED
+      - PASSENGER BRIEF: COMPLETE
+      - FUEL: ____ LB — DISTRIBUTED
+      - WEIGHT & CG: WITHIN LIMITS
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - IGNITION: "OFF"
+      - BEACON: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR
+      - ENGINE 2 (CENTRE): STARTED FIRST
+        note: The centre engine breathes through an S-duct from the fin root. It starts and accelerates a little differently from the pods — expect it rather than being surprised by it.
+      - ITT / N2: MONITORED — WITHIN LIMITS
+      - ENGINE 1: STARTED — STABILISED
+      - ENGINE 3: STARTED — STABILISED
+      - GENERATORS: ON — LOAD SHARED
+      - EXTERNAL POWER: DISCONNECTED
+      - ANNUNCIATORS: NO WARNINGS
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - HYDRAULIC PRESSURE: CHECKED
+      - FLIGHT CONTROLS: FREE AND CORRECT
+      - SLATS / FLAPS: TAKEOFF SET
+      - TRIMS: PITCH · ROLL · YAW SET
+      - ANTI-ICE: AS REQUIRED
+      - CABIN: SECURE
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - FLIGHT INSTRUMENTS: CROSSCHECKED
+      - SLATS / FLAPS: ____ CONFIRMED
+      - AIRBRAKES: RETRACTED
+      - IGNITION: AS REQUIRED
+      - TRANSPONDER: TA / RA
+      - EXTERIOR LIGHTS: STROBE · LANDING · RECOG
+      - divider: Line-up items
+      - RUNWAY: ____ CONFIRMED
+      - THREE ENGINES: PARAMETERS MATCHED
+      - TAKEOFF POWER: SET
+        note: Three engines means an engine failure costs you a third of the thrust, not half. The numbers are kinder than a twin's — the drill still has to be flown.
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - SLATS / FLAPS: UP
+      - CLIMB POWER: SET
+      - YAW DAMPER: "ON"
+      - PRESSURISATION: CLIMBING NORMALLY
+      - ANTI-ICE: AS REQUIRED
+      - ALTIMETERS: STD SET AT TRANSITION
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - CRUISE POWER / MACH: SET
+      - FUEL: TRANSFER & BALANCE CHECKED
+      - CABIN ALTITUDE: CHECKED
+      - ENGINE INSTRUMENTS: THREE MATCHED
+      - OCEANIC CLEARANCE: AS REQUIRED
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+
+  - id:   desc
+    name: Descent
+    kind: checklist
+    items:
+      - PRESSURISATION / LANDING ELEV: SET
+      - ALTIMETERS: ____ SET
+      - ANTI-ICE: AS REQUIRED
+      - AIRBRAKES: AS REQUIRED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - FUEL: SUFFICIENT — BALANCED
+      - SLATS: EXTENDED
+      - FLAPS: APPROACH SET
+      - SPEEDS: VREF ____ SET
+      - MINIMA: ____ SET
+      - LANDING LIGHTS: "ON"
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - FLAPS: LANDING SET
+      - AIRBRAKES: ARMED
+      - SPEED: VREF ____
+      - LANDING CLEARANCE: RECEIVED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - THRUST REVERSER: STOWED
+      - SLATS / FLAPS: UP
+      - AIRBRAKES: RETRACTED
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - EXTERIOR LIGHTS: SET
+
+  - id:   shut
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - ELECTRICAL LOAD: REDUCED
+      - ENGINES: IDLE COOL-DOWN COMPLETE
+      - THROTTLES: CUT OFF — 1 · 3 · 2
+      - FUEL PUMPS: "OFF"
+      - SEAT BELTS: "OFF"
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - EMERGENCY LIGHTS: "OFF"
+      - AVIONICS: "OFF"
+      - BATTERIES: "OFF"
+      - EXTERNAL POWER: AS REQUIRED
+      - DOOR / CHOCKS: SECURED

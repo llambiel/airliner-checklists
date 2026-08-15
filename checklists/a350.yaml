@@ -1,0 +1,200 @@
+# A350 — Airbus A350-900 / -1000
+id:   a350
+code: A350   # tab label
+name: Airbus A350 XWB
+sub:  2 × Trent XWB · six wide displays · CONF 1+F / 2 / 3
+manufacturer: Airbus
+variants:
+  - name: "-900"
+    note: The standard XWB and the one most add-ons model. Four-wheel main bogies.
+  - name: "-1000"
+    note: 7 m longer with six-wheel main bogies and higher-thrust XWB-97s — the extra axle steers on the ground.
+  - name: "-900ULR"
+    note: Ultra long range, extra fuel and no cargo tank penalty. Sector planning changes, procedures do not.
+
+phases:
+
+  - id:   prelim
+    name: Preliminary Cockpit Prep
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BAT 1 + 2: "ON"
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU MASTER / START: ON — AVAIL
+      - ADIRS: NAV
+      - HYD GREEN / YELLOW: CHECKED
+        note: Two hydraulic systems, not three — electro-hydrostatic actuators back up the surfaces the third system used to drive.
+      - OIS / EFB: LOADED — PERF APP READY
+      - KCCU / RMP: CHECKED
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - PARKING BRAKE: "ON"
+
+  - id:   prep
+    name: Cockpit Preparation
+    kind: flow
+    items:
+      - GEAR LEVER: DOWN
+      - FLAP LEVER: AGREES WITH SURFACES
+      - SPEED BRAKE LEVER: RETRACTED — DISARMED
+      - ENG MASTERS 1 + 2: OFF
+      - ENG START SELECTOR: NORM
+      - FUEL: PUMPS ON — QUANTITY CHECKED
+      - SIGNS: ON / AUTO
+      - EMER EXIT LT: ARM
+      - ANTI ICE: AS REQUIRED
+      - WEATHER RADAR / PWS: AUTO
+      - TRANSPONDER: CODE SET — STBY
+      - MFD FMS: INIT · F-PLN · PERF · FUEL & LOAD
+      - TAKEOFF DATA: V1 / VR / V2 · FLEX · THR RED / ACC
+      - BARO REF: SET & CROSSCHECKED
+      - FCU: SPD / HDG / ALT SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - COCKPIT PREP: COMPLETED
+      - GEAR PINS & COVERS: REMOVED
+      - SIGNS: ON / AUTO
+      - ADIRS: NAV
+      - FUEL QUANTITY: ____ KG — CHECKED
+      - TO DATA: SET
+      - BARO REF: ____ SET
+      - divider: Below the line
+      - WINDOWS / DOORS: CLOSED
+      - BEACON: "ON"
+      - THR LEVERS: IDLE
+      - PARKING BRAKE: AS REQUIRED
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG START SELECTOR: IGN / START
+      - ENG MASTER 2: "ON"
+        note: Fully automatic start — the FADEC runs the whole sequence and aborts by itself if a parameter goes out of limits. Monitor, don't intervene.
+      - ENG MASTER 1: "ON"
+      - ENG START SELECTOR: NORM
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - ANTI ICE: AS REQUIRED
+      - ECAM STATUS: CHECKED
+      - PITCH TRIM: ____ SET
+      - RUDDER TRIM: ZERO
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAP SETTING: CONF ____
+      - V1 / VR / V2 / FLEX TEMP: ____ SET
+      - ATC: SET
+      - ECAM MEMO: TO — NO BLUE
+      - T.O CONFIG: TEST — NORMAL
+        sub: true
+      - TAXI CAMERA: AS REQUIRED
+        sub: true
+        note: The external camera on the fin gives you the nose gear and the wing tips — use it in tight turns rather than guessing.
+      - TAKEOFF RWY: ____ CONFIRMED
+      - CABIN CREW: ADVISED
+      - divider: Line-up items
+      - PACKS: AS REQUIRED
+      - ENG START SELECTOR: IGN IF RAIN / ICE
+      - TCAS: TA / RA
+      - EXTERIOR LIGHTS: STROBE · T.O · RWY TURN OFF
+      - CHRONO: START
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: RETRACTED
+      - PACKS: "ON"
+      - ENG START SELECTOR: NORM
+      - APU: OFF
+      - EXTERIOR LIGHTS: SET
+      - BARO REF: STD SET AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE / CG: WITHIN LIMITS
+      - POSITION / NAV ACCURACY: CROSSCHECKED
+      - ETOPS: AS REQUIRED
+      - STEP CLIMB: AS PLANNED
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN FMS
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - BRIEFING: CONFIRMED
+      - ECAM STATUS: CHECKED
+      - SEAT BELTS: "ON"
+      - BARO REF: ____ SET
+      - MDA / DH: ____ SET
+      - ENG START SELECTOR: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - CABIN CREW: ADVISED
+      - A/THR: SPEED / OFF
+      - AUTO BRAKE: AS REQUIRED
+      - ECAM MEMO: LDG — NO BLUE
+      - LDG GEAR: DOWN
+        sub: true
+      - SIGNS: "ON"
+        sub: true
+      - SPLRS: ARM
+        sub: true
+      - FLAPS: CONF 3 / FULL
+        sub: true
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: RETRACTED
+      - SPOILERS: DISARMED
+      - APU: START
+      - RADAR / PWS: OFF
+      - ENG START SELECTOR: NORM
+      - ANTI ICE: AS REQUIRED
+      - BRAKE TEMP: CHECKED
+      - EXTERIOR LIGHTS: SET
+      - TRANSPONDER: STBY / AUTO
+
+  - id:   park
+    name: Parking
+    kind: checklist
+    items:
+      - APU BLEED: "ON"
+      - ENGINE MASTERS: OFF
+      - SEAT BELTS: OFF
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: OFF
+      - PARK BRK / CHOCKS: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - ADIRS: OFF
+      - OXYGEN: OFF
+      - APU BLEED: OFF
+      - EXTERIOR LIGHTS: OFF
+      - APU & BAT 1 + 2: OFF

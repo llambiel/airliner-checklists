@@ -1,0 +1,199 @@
+# A330neo — Airbus A330-800 / -900
+id:   a330neo
+code: A330neo   # tab label
+name: Airbus A330neo
+sub:  2 × Trent 7000 · A350-generation displays · CONF 1+F / 2 / 3
+manufacturer: Airbus
+variants:
+  - name: "-800"
+    note: Short body, rare. Same cockpit, same flows.
+  - name: "-900"
+    note: The common one — A330-300 length with the new wing, sharklets and Trent 7000s.
+
+phases:
+
+  - id:   prelim
+    name: Preliminary Cockpit Prep
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BAT 1 + 2: ON — 25.5 V MIN
+      - EXT PWR / APU: AS REQUIRED
+      - APU FIRE TEST: PERFORMED
+      - APU MASTER / START: ON — AVAIL
+      - ADIRS 1 / 2 / 3: NAV
+      - HYD GREEN / BLUE / YELLOW: CHECKED
+      - ACCU PRESS: GREEN BAND
+      - COCKPIT DISPLAYS: CONFIGURED
+        note: A350-style wide displays with the OIS on the outboard screens — the switches underneath are still A330.
+      - OXYGEN: TESTED — CREW SUPPLY ON
+      - PARKING BRAKE: "ON"
+
+  - id:   prep
+    name: Cockpit Preparation
+    kind: flow
+    items:
+      - GEAR LEVER: DOWN
+      - FLAP LEVER: AGREES WITH SURFACES
+      - SPEED BRAKE LEVER: RETRACTED — DISARMED
+      - ENG MASTERS 1 + 2: OFF
+      - ENG MODE SELECTOR: NORM
+      - FUEL PUMPS: ON — ALL TANKS
+      - TRIM TANK MODE: AUTO
+      - SIGNS: ON / AUTO
+      - EMER EXIT LT: ARM
+      - ANTI ICE: AS REQUIRED
+      - WEATHER RADAR / PWS: OFF / AUTO
+      - TRANSPONDER: CODE SET — STBY
+      - MCDU: INIT A/B · F-PLN · PERF
+      - TAKEOFF DATA: V1 / VR / V2 · FLEX · THR RED / ACC
+      - BARO REF: SET & CROSSCHECKED
+      - FCU: SPD / HDG / ALT SET
+      - TAKEOFF BRIEFING: COMPLETED
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - COCKPIT PREP: COMPLETED
+      - GEAR PINS & COVERS: REMOVED
+      - SIGNS: ON / AUTO
+      - ADIRS: NAV
+      - FUEL QUANTITY: ____ KG — CHECKED
+      - TO DATA: SET
+      - BARO REF: ____ SET
+      - divider: Below the line
+      - WINDOWS / DOORS: CLOSED
+      - BEACON: "ON"
+      - THR LEVERS: IDLE
+      - PARKING BRAKE: AS REQUIRED
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - PUSHBACK / START CLEARANCE: OBTAINED
+      - ENG MODE SELECTOR: IGN / START
+      - ENG MASTER 2: "ON"
+        note: Trent 7000 — three shafts, so N1/N2/N3 all appear on the ECAM. The start is long and quiet.
+      - ENG MASTER 1: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU BLEED: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - ANTI ICE: AS REQUIRED
+      - ECAM STATUS: CHECKED
+      - PITCH TRIM: ____ SET
+      - RUDDER TRIM: ZERO
+
+  - id:   taxi
+    name: Taxi / Before Takeoff
+    kind: checklist
+    items:
+      - FLIGHT CONTROLS: CHECKED — FULL & FREE
+      - FLAP SETTING: CONF ____
+      - V1 / VR / V2 / FLEX TEMP: ____ SET
+      - ATC: SET
+      - ECAM MEMO: TO — NO BLUE
+      - T.O CONFIG: TEST — NORMAL
+        sub: true
+      - TAKEOFF RWY: ____ CONFIRMED
+      - CABIN CREW: ADVISED
+      - divider: Line-up items
+      - PACKS: AS REQUIRED
+      - ENG MODE SELECTOR: IGN IF RAIN / ICE
+      - TCAS: TA / RA
+      - EXTERIOR LIGHTS: STROBE · T.O · RWY TURN OFF
+      - CHRONO: START
+
+  - id:   climb
+    name: After Takeoff / Climb
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - FLAPS: RETRACTED
+      - PACKS: "ON"
+      - ENG MODE SELECTOR: NORM
+      - APU: OFF
+      - TRIM TANK TRANSFER: AFT — MONITORED
+      - EXTERIOR LIGHTS: SET
+      - BARO REF: STD SET AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise / Fuel Check
+    kind: flow
+    items:
+      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
+      - TRIM TANK: TRANSFER MONITORED
+      - CG: WITHIN LIMITS
+      - POSITION / NAV ACCURACY: CROSSCHECKED
+      - ETOPS: AS REQUIRED
+      - STEP CLIMB: AS PLANNED
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN MCDU
+
+  - id:   appr
+    name: Approach
+    kind: checklist
+    items:
+      - TRIM TANK: FWD TRANSFER COMPLETE
+      - BRIEFING: CONFIRMED
+      - ECAM STATUS: CHECKED
+      - SEAT BELTS: "ON"
+      - BARO REF: ____ SET
+      - MDA / DH: ____ SET
+      - ENG MODE SELECTOR: AS REQUIRED
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - CABIN CREW: ADVISED
+      - A/THR: SPEED / OFF
+      - AUTO BRAKE: AS REQUIRED
+      - ECAM MEMO: LDG — NO BLUE
+      - LDG GEAR: DOWN
+        sub: true
+      - SIGNS: "ON"
+        sub: true
+      - SPLRS: ARM
+        sub: true
+      - FLAPS: CONF 3 / FULL
+        sub: true
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - FLAPS: RETRACTED
+      - SPOILERS: DISARMED
+      - APU: START
+      - RADAR / PWS: OFF
+      - ENG MODE SELECTOR: NORM
+      - ANTI ICE: AS REQUIRED
+      - BRAKE TEMP: CHECKED
+      - EXTERIOR LIGHTS: SET
+      - TRANSPONDER: STBY / AUTO
+
+  - id:   park
+    name: Parking
+    kind: checklist
+    items:
+      - APU BLEED: "ON"
+      - ENGINE MASTERS: OFF
+      - SEAT BELTS: OFF
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: OFF
+      - PARK BRK / CHOCKS: AS REQUIRED
+
+  - id:   secure
+    name: Securing the Aircraft
+    kind: checklist
+    items:
+      - ADIRS: OFF
+      - OXYGEN: OFF
+      - APU BLEED: OFF
+      - EXTERIOR LIGHTS: OFF
+      - APU & BAT 1 + 2: OFF

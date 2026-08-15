@@ -1,0 +1,199 @@
+# MD-80 — McDonnell Douglas MD-81 / -82 / -83 / -87 / -88
+id:   md80
+code: MD-80   # tab label
+name: McDonnell Douglas MD-80
+sub:  2 × JT8D-217 tail-mounted · two-crew · EPR thrust · slats/flaps 0/11/15/28/40
+manufacturer: McDonnell Douglas
+variants:
+  - name: MD-81
+    note: The original. JT8D-209s, lowest thrust of the family.
+  - name: MD-82
+    note: The common one and the usual choice of add-on developers. JT8D-217s, higher weights.
+  - name: MD-83
+    note: Extra fuel in the cargo bay and JT8D-219s — same flows, longer legs, heavier landings to plan for.
+  - name: MD-87
+    note: Short body, tall fin. Lively performance and a noticeably different sight picture on the flare.
+  - name: MD-88
+    note: EFIS displays and an FMS in place of the earlier PMS. The panel scan is the same, the readouts are not.
+
+phases:
+
+  - id:   power
+    name: Power Up
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - BATTERY: "ON"
+      - EXT PWR / APU: ON — BUS LIGHTS OUT
+      - EMERGENCY LIGHTS: ARM
+      - IRS L / R: NAV
+        note: Enter present position and let them align. On the MD-88 the FMS takes position from the IRUs.
+      - GALLEY POWER: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   preflight
+    name: Preflight Scan
+    kind: flow
+    items:
+      - OXYGEN: TESTED — 100%
+      - ANTI-SKID: "ON"
+      - GROUND SPOILERS: DISARMED
+      - HYDRAULICS L / R: PUMPS HIGH — TRANSFER OFF
+      - PNEUMATIC CROSSFEED: SET
+      - AIR CONDITIONING: SUPPLY ON — AUTO
+      - PRESSURIZATION: FLT & LAND ALT SET — AUTO
+        note: Two controllers, and the cruise altitude goes in by hand. Set it before you push, not in the climb.
+      - FUEL PUMPS: ON — L / C / R AS LOADED
+      - IGNITION: OFF
+      - ANTI-ICE: AS REQUIRED
+      - FUEL LEVERS: OFF
+      - SPOILER LEVER: RETRACTED
+      - SLATS / FLAPS: UP / RET
+      - TRP: T.O. EPR SET
+        note: JT8Ds are rated in EPR, not N1 — set the thrust rating panel and check the bugs match your takeoff numbers.
+
+  - id:   bstart
+    name: Before Start
+    kind: checklist
+    items:
+      - PREFLIGHT CHECKS: COMPLETE
+      - GEAR PINS: REMOVED
+      - DOORS: CLOSED — ARMED
+      - FUEL: ____ KG — PUMPS ON
+      - TAKEOFF DATA: V1 ____ · VR ____ · V2 ____
+      - STAB TRIM: ____ — GREEN BAND
+      - DIAL-A-FLAP: ____ SET
+        note: The MD-80's takeoff flap dial between 11 and 24 — a small setting change is worth real runway performance.
+      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - ALTIMETERS: ____ SET
+      - TAKEOFF BRIEFING: COMPLETE
+      - ANTI COLLISION LIGHT: "ON"
+      - PARKING BRAKE: SET
+
+  - id:   start
+    name: Engine Start
+    kind: flow
+    items:
+      - AREA: CLEAR — CLEARANCE OBTAINED
+      - PNEUMATIC PRESSURE: CHECKED
+      - IGNITION: A OR B
+      - ENGINE 2 START: ENGAGED
+        note: No. 2 first is common so the ground crew stays clear of the left side, but operators vary — follow your add-on's checklist.
+      - FUEL LEVER 2: ON AT 20% N2
+        note: JT8D — light-off within about 20 s, oil pressure rising, starter out around 40% N2.
+      - ENGINE 1: START
+      - IGNITION: OFF
+      - ENGINE PARAMETERS: STABILISED
+
+  - id:   astart
+    name: After Start
+    kind: checklist
+    items:
+      - GENERATORS: ON — APU OFF
+      - AIR CONDITIONING: SUPPLY ON
+      - ANTI-ICE: AS REQUIRED
+      - SLATS / FLAPS: ____ / ____ SET
+      - FLIGHT CONTROLS: CHECKED
+      - GROUND EQUIPMENT: CLEAR
+
+  - id:   taxi
+    name: Taxi
+    kind: checklist
+    items:
+      - BRAKES: CHECKED
+      - NOSEWHEEL STEERING: CHECKED
+      - FLIGHT INSTRUMENTS: NO FLAGS
+      - WEATHER RADAR: AS REQUIRED
+      - TRANSPONDER: TA/RA
+      - TAXI CLEARANCE: ____ CONFIRMED
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - STAB TRIM: ____ — GREEN BAND
+      - GROUND SPOILERS: ARMED
+      - IGNITION: AS REQUIRED
+      - ANNUNCIATOR PANEL: CHECKED
+      - CABIN: SECURE
+      - divider: Line-up items
+      - EXTERIOR LIGHTS: STROBES · LANDING · ON
+      - TAKEOFF CLEARANCE: RECEIVED
+
+  - id:   atakeoff
+    name: After Takeoff
+    kind: checklist
+    items:
+      - LANDING GEAR: UP
+      - SLATS / FLAPS: UP / RET
+      - GROUND SPOILERS: DISARMED
+      - AIR CONDITIONING: NORMAL
+      - IGNITION: OFF
+      - ALTIMETERS: STD AT TRANS ALT
+
+  - id:   cruise
+    name: Cruise
+    kind: flow
+    items:
+      - FUEL: CHECKED vs FLIGHT PLAN
+      - FUEL BALANCE: L / R WITHIN LIMITS
+        note: Watch the wing tanks — this aeroplane will happily fly out of balance if the centre tank empties unevenly.
+      - PRESSURIZATION: CHECKED
+      - CRUISE EPR: SET
+      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS SET
+
+  - id:   descent
+    name: Descent / Approach
+    kind: checklist
+    items:
+      - PRESSURIZATION: LAND ALT ____
+      - ALTIMETERS: ____ SET & CROSSCHECKED
+      - APPROACH BRIEFING: COMPLETE
+      - SEAT BELTS: "ON"
+      - LANDING DATA: VREF ____ · MINIMUMS ____
+      - IGNITION: AS REQUIRED
+
+  - id:   land
+    name: Before Landing
+    kind: checklist
+    items:
+      - LANDING GEAR: DOWN — 3 GREEN
+      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
+      - GROUND SPOILERS: ARMED
+      - ANTI-SKID: "ON"
+      - ANNUNCIATOR PANEL: CHECKED
+
+  - id:   aland
+    name: After Landing
+    kind: checklist
+    items:
+      - GROUND SPOILERS: DISARMED — RETRACTED
+      - SLATS / FLAPS: UP / RET
+      - APU: START AS REQUIRED
+      - IGNITION: OFF
+      - ANTI-ICE: AS REQUIRED
+      - TRANSPONDER: STBY
+      - WEATHER RADAR: OFF
+
+  - id:   shutdown
+    name: Shutdown
+    kind: checklist
+    items:
+      - PARKING BRAKE: SET
+      - GENERATORS: APU ON
+      - FUEL LEVERS: OFF
+      - FUEL PUMPS: OFF
+      - SEAT BELTS: OFF
+      - HYDRAULIC PUMPS: LOW
+      - EXTERIOR LIGHTS: AS REQUIRED
+
+  - id:   secure
+    name: Secure
+    kind: checklist
+    items:
+      - IRS L / R: OFF
+      - EMERGENCY LIGHTS: OFF
+      - GALLEY POWER: OFF
+      - ANTI-SKID: OFF
+      - APU: OFF
+      - BATTERY: OFF
