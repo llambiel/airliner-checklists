@@ -230,13 +230,13 @@ header{
 ol.items{list-style:none;margin:0;padding:8px 0 6px}
 
 li.item{border-left:2px solid transparent}
-li.item button.row{
+li.item .row{
   width:100%;display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:baseline;
-  padding:9px 20px 9px 18px;text-align:left;
+  padding:9px 20px 9px 18px;text-align:left;cursor:pointer;
   font-family:var(--f-mono);font-size:14px;line-height:1.35;
   transition:background .1s;
 }
-li.item button.row:hover{background:var(--panel-2)}
+li.item .row:hover{background:var(--panel-2)}
 .box{
   width:15px;height:15px;border:1.5px solid var(--line);border-radius:2px;
   display:grid;place-items:center;transform:translateY(2px);flex:none;
@@ -256,7 +256,20 @@ li.item.done .onlytag{color:var(--green);border-color:var(--green)}
   grid-column:2;font-family:var(--f-ui);font-size:12px;color:var(--muted);
   margin-top:3px;max-width:64ch;
 }
-li.item.sub button.row{padding-left:46px;font-size:13px}
+/* The ____ blanks in the data become fields you fill in — V-speeds, QNH, minima.
+   They live inside a clickable row, so they swallow their own clicks. */
+.fill{
+  font:inherit;color:var(--cyan);background:transparent;text-align:center;
+  border:0;border-bottom:1px solid var(--cyan);border-radius:0;padding:0 2px;
+  min-width:4ch;-webkit-appearance:none;
+}
+.fill:hover{background:var(--panel-3)}
+.fill:focus{outline:none;background:var(--panel-3);border-bottom-width:2px}
+.fill::placeholder{color:var(--muted);opacity:.65}
+/* Anything under 16px makes iOS Safari zoom the page when the field takes focus. */
+@media (pointer:coarse){.fill{font-size:16px}}
+li.item.done .fill{color:var(--green);border-bottom-color:var(--green)}
+li.item.sub .row{padding-left:46px;font-size:13px}
 li.item.sub .chal,li.item.sub .resp{opacity:.9}
 
 li.item.cur{border-left-color:var(--amber);background:var(--amber-bg)}
@@ -268,7 +281,7 @@ li.item.done .box{background:var(--green);border-color:var(--green);color:var(--
 li.item.done .chal,
 li.item.done .resp{color:var(--green)}
 li.item.done .leader{border-bottom-color:var(--green);opacity:.4}
-li.item.done button.row:hover{background:var(--green-bg);filter:brightness(1.04)}
+li.item.done .row:hover{background:var(--green-bg);filter:brightness(1.04)}
 
 .divider{
   display:flex;align-items:center;gap:12px;padding:14px 20px 12px;
@@ -324,12 +337,67 @@ footer.disclaim b{color:var(--amber);font-family:var(--f-disp);letter-spacing:.1
   .rung{width:auto;flex:0 0 auto;grid-template-columns:auto auto;border-left:0;border-bottom:2px solid transparent;padding:8px 12px}
   .rung[aria-current="true"]{border-left:0;border-bottom-color:var(--amber)}
   .rung .n{display:none}
-  li.item button.row{font-size:13px;padding:9px 14px 9px 12px}
+  li.item .row{font-size:13px;padding:9px 14px 9px 12px}
   .line{flex-wrap:wrap}
   .leader{display:none}
   .resp{text-align:left;width:100%;margin-top:2px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- print : the whole type as a kneeboard card ---------- */
+#sheet{display:none}
+@media print{
+  /* Ink on paper, whatever the screen theme was. The doubled :root matches the
+     specificity of the two theme blocks above and wins on source order. */
+  :root:root{
+    --bg:#fff;--panel:#fff;--panel-2:#fff;--panel-3:#fff;
+    --line:#999;--line-soft:#bbb;--ink:#000;--muted:#444;
+    --green:#000;--amber:#000;--cyan:#000;--shadow:none;
+  }
+  @page{margin:12mm 10mm}
+  html,body{background:#fff;color:#000}
+  header,.wrap,noscript{display:none!important}
+  #sheet{display:block}
+  .sheet-head{border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:12px}
+  .sheet-head h1{
+    font-family:var(--f-disp);font-size:19pt;margin:0;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .sheet-head p{margin:3px 0 0;font-size:8.5pt;color:#333}
+  /* Two columns of narrow lines fit a type onto far fewer sheets. */
+  .sheet-body{column-count:2;column-gap:9mm}
+  .sheet-phase{break-inside:avoid-column;margin:0 0 10px;padding:0}
+  .sheet-phase h2{
+    font-family:var(--f-disp);font-size:10.5pt;margin:0 0 3px;letter-spacing:.12em;text-transform:uppercase;
+    border-bottom:1px solid #000;padding-bottom:1px;
+  }
+  .sheet-phase h2 em{font-style:normal;font-size:7.5pt;font-weight:400;color:#444;letter-spacing:.08em}
+  .sheet-phase ol{list-style:none;margin:0;padding:0}
+  .sheet-phase li{
+    display:flex;align-items:baseline;gap:5px;font-family:var(--f-mono);font-size:8pt;
+    line-height:1.45;break-inside:avoid;
+  }
+  .sheet-phase li.sub{padding-left:12px}
+  .sheet-phase li.div{
+    display:block;font-family:var(--f-disp);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;
+    color:#444;border-top:1px solid #999;margin:3px 0 2px;padding-top:2px;
+  }
+  .sheet-phase .tick{flex:none;width:7px;height:7px;border:.75pt solid #000;transform:translateY(1px)}
+  /* A line that belongs to particular variants says so on paper too. */
+  .sheet-phase .o{
+    font-family:var(--f-disp);font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;
+    border:.5pt solid #666;color:#333;padding:0 2px;margin-left:4px;white-space:nowrap;
+  }
+  .sheet-phase .dots{flex:1 1 auto;border-bottom:1px dotted #999;margin:0 3px;transform:translateY(-2px)}
+  .sheet-phase .r{white-space:nowrap;font-weight:700}
+  .sheet-phase .n{
+    display:block;font-family:var(--f-ui);font-size:7pt;color:#444;margin:0 0 2px 12px;
+    break-inside:avoid;
+  }
+  .sheet-foot{
+    margin-top:8px;padding-top:5px;border-top:1px solid #999;
+    font-family:var(--f-ui);font-size:7.5pt;color:#333;column-span:all;
+  }
+}
 </style>
 </head>
 <body>
@@ -349,6 +417,7 @@ footer.disclaim b{color:var(--amber);font-family:var(--f-disp);letter-spacing:.1
       </div>
     </div>
     <div class="tools">
+      <button class="tool" id="printBtn" title="Print every phase of this type as a kneeboard card">Print</button>
       <button class="tool" id="themeBtn" title="Cycle day / night / auto">Theme</button>
       <button class="tool danger" id="resetAll" title="Clear every checklist for this type">Reset flight</button>
     </div>
@@ -395,6 +464,9 @@ footer.disclaim b{color:var(--amber);font-family:var(--f-disp);letter-spacing:.1
     </main>
   </div>
 </div>
+
+<!-- Built on demand from the selected type; only @media print ever shows it. -->
+<div id="sheet" aria-hidden="true"></div>
 
 <script>
 /* ============================================================
@@ -5460,7 +5532,7 @@ const FLEET = [
    STATE  (localStorage)
    ============================================================ */
 const KEY="fdchecklists.v1";
-const blank={ac:FLEET[0].id, phase:{}, checked:{}, variant:{}, theme:"auto"};
+const blank={ac:FLEET[0].id, phase:{}, checked:{}, variant:{}, fill:{}, theme:"auto"};
 let S;
 try{ S=Object.assign({},blank,JSON.parse(localStorage.getItem(KEY)||"{}")); }
 catch(e){ S=Object.assign({},blank); }
@@ -5485,6 +5557,21 @@ function setChecked(p,i,val){
   if(val) b[i]=1; else delete b[i];
   save();
 }
+/* ---- the ____ blanks ----------------------------------------------------
+   A response like "____ KG — CHECKED" carries a value the crew writes down:
+   V-speeds, QNH, minima, fuel. Keyed by phase, item and which blank in the
+   line, kept per aircraft alongside the ticks. */
+const BLANK_RE=/_{2,}/g;
+const fillKey=(p,i,k)=>p.id+"."+i+"."+k;
+const getFill=(p,i,k)=>((S.fill[S.ac]||{})[fillKey(p,i,k)]||"");
+function setFill(p,i,k,v){
+  const bagf=S.fill[S.ac]=Object.assign({},S.fill[S.ac]);
+  v=v.trim();
+  if(v) bagf[fillKey(p,i,k)]=v; else delete bagf[fillKey(p,i,k)];
+  save();
+}
+function clearFills(){ delete S.fill[S.ac]; save(); }
+
 function firstOpen(p){
   const a=actionable(p).find(o=>!bag(p)[o.i]);
   return a?a.i:-1;
@@ -5608,6 +5695,29 @@ function renderLadder(){
   });
 }
 
+/* Blanks in a response become inputs; everything else is left as the data
+   wrote it. Width follows the content so a QNH and a V-speed both fit. */
+const fillWidth=v=>Math.max(4,String(v).length+1)+"ch";
+function respHTML(it,p,i){
+  if(it.r.indexOf("__")<0) return it.r;   // .test() on a /g regex is stateful — don't
+  let k=-1;
+  return it.r.replace(BLANK_RE,m=>{
+    k++;
+    const v=getFill(p,i,k);
+    return '<input class="fill" type="text" inputmode="text" data-k="'+k+'"'+
+           ' value="'+esc(v)+'" placeholder="'+m+'" style="width:'+fillWidth(v)+'"'+
+           ' autocomplete="off" spellcheck="false" autocapitalize="characters"'+
+           ' aria-label="'+esc(it.c)+' — value">';
+  });
+}
+function wireFills(row,p,i){
+  row.querySelectorAll(".fill").forEach(inp=>{
+    const k=+inp.dataset.k;
+    inp.oninput=()=>{ inp.style.width=fillWidth(inp.value); setFill(p,i,k,inp.value); };
+    inp.onkeydown=e=>{ if(e.key==="Enter"||e.key==="Escape"){ e.preventDefault(); inp.blur(); } };
+  });
+}
+
 function renderCard(){
   const p=phase(), b=bag(p), n=actionable(p).length, d=doneCount(p);
   const card=$("card");
@@ -5633,16 +5743,22 @@ function renderCard(){
     if(!shows(it)) return;
     const done=!!b[i], cur=(i===cursor);
     li.className="item"+(it.sub?" sub":"")+(done?" done":"")+(cur&&!done?" cur":"");
-    const btn=document.createElement("button");
+    /* A row holds fill-in fields, so it cannot be a <button> — interactive
+       content may not nest. role=checkbox keeps the semantics it had. */
+    const btn=document.createElement("div");
     btn.className="row";
-    btn.setAttribute("aria-pressed",done);
+    btn.setAttribute("role","checkbox");
+    btn.setAttribute("tabindex","0");
+    btn.setAttribute("aria-checked",done);
     const tag = it.only ? '<span class="onlytag">'+esc(it.only.join(" / "))+'</span>' : '';
     btn.innerHTML='<span class="box" aria-hidden="true">✓</span>'+
       '<span class="line"><span class="chal">'+it.c+tag+'</span>'+
       '<span class="leader" aria-hidden="true"></span>'+
-      '<span class="resp">'+it.r+'</span></span>'+
+      '<span class="resp">'+respHTML(it,p,i)+'</span></span>'+
       (it.note?'<span class="note">'+it.note+'</span>':'');
-    btn.onclick=()=>{ toggle(i); };
+    btn.onclick=e=>{ if(e.target.classList.contains("fill")) return; toggle(i); };
+    btn.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); toggle(i); } };
+    wireFills(btn,p,i);
     li.appendChild(btn);
     ol.appendChild(li);
   });
@@ -5672,6 +5788,48 @@ function renderCard(){
 }
 
 function renderAll(){ renderPicker(); renderStrip(); renderLadder(); renderCard(); }
+
+/* ============================================================
+   PRINT — every phase of the selected type on one kneeboard card.
+   Built on demand rather than kept in the DOM: it is a few thousand
+   nodes that nothing on screen ever shows.
+   ============================================================ */
+const printResp=(it,p,i)=>{
+  if(it.r.indexOf("__")<0) return it.r;
+  let k=-1;
+  return it.r.replace(BLANK_RE,m=>{ k++; const v=getFill(p,i,k); return v?esc(v):m; });
+};
+function buildSheet(){
+  const a=acft(), v=S.variant[a.id], out=[];
+  out.push('<div class="sheet-head"><h1>'+esc(a.name)+(v?" · "+esc(v):"")+'</h1><p>'+a.sub+'</p></div>');
+  out.push('<div class="sheet-body">');
+  a.phases.forEach(p=>{
+    out.push('<section class="sheet-phase"><h2>'+esc(p.name)+
+             ' <em>'+(p.kind==="flow"?"Flow":"Checklist")+'</em></h2><ol>');
+    p.items.forEach((it,i)=>{
+      if(it.div){ out.push('<li class="div">'+esc(it.div)+'</li>'); return; }
+      if(!shows(it)) return;
+      const tag = it.only ? '<span class="o">'+esc(it.only.join(" / "))+'</span>' : '';
+      out.push('<li'+(it.sub?' class="sub"':'')+'><span class="tick"></span><span>'+it.c+tag+
+               '</span><span class="dots"></span><span class="r">'+printResp(it,p,i)+'</span></li>');
+      if(it.note) out.push('<li class="n">'+it.note+'</li>');
+    });
+    out.push('</ol></section>');
+  });
+  out.push('</div><div class="sheet-foot"><b>Simulation use only</b> — condensed for flight simulation, '+
+           'not for real-world flight. Values vary by operator, engine option and add-on; cross-check '+
+           'against the FCOM. airlinerchecklists.com</div>');
+  $("sheet").innerHTML=out.join("");
+}
+$("printBtn").onclick=()=>{ buildSheet(); window.print(); };
+/* Ctrl+P too. beforeprint covers Chrome and Firefox; Safari answers matchMedia. */
+window.addEventListener("beforeprint",buildSheet);
+if(window.matchMedia){
+  const mq=window.matchMedia("print");
+  const onmq=e=>{ if(e.matches) buildSheet(); };
+  if(mq.addEventListener) mq.addEventListener("change",onmq);
+  else if(mq.addListener) mq.addListener(onmq);
+}
 
 /* fleet picker open / close */
 function openPicker(){
@@ -5757,15 +5915,16 @@ $("themeBtn").onclick=()=>{
   save(); applyTheme();
 };
 $("resetAll").onclick=()=>{
-  if(!confirm("Clear every checklist for the "+acft().code+"?")) return;
-  S.checked[S.ac]={}; S.phase[S.ac]=0; save(); syncCursor(); renderAll();
+  if(!confirm("Clear every checklist for the "+acft().code+", including the numbers you filled in?")) return;
+  S.checked[S.ac]={}; S.phase[S.ac]=0; clearFills(); save(); syncCursor(); renderAll();
 };
 
 document.addEventListener("keydown",e=>{
   if(e.metaKey||e.ctrlKey||e.altKey) return;
   const tag=(e.target.tagName||"").toLowerCase();
-  const onBtn = tag==="button";
-  if(tag==="input"||tag==="textarea") return;   // the type filter owns its own keys
+  const cl=e.target.classList;
+  const onBtn = tag==="button" || (cl && cl.contains("row"));
+  if(tag==="input"||tag==="textarea") return;   // the fields own their own keys
   if(e.key==="Escape"){ closePicker(); return; }
   if(e.key.toLowerCase()==="t"){ e.preventDefault(); togglePicker(); return; }
   if(e.key===" "||e.key==="Enter"){

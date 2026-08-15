@@ -81,14 +81,24 @@ docker run --rm -p 8080:8080 flightdeck
 
 Lines are also clickable/tappable. The amber line is what you're on; green means done.
 
+**The blanks are fields.** Any `____` in a response — V-speeds, fuel, QNH, minima, trim — is a box you
+type into, saved per aircraft with everything else. Click it (or tab to it) and type; `Enter` commits.
+They are the numbers for *this* flight, so **Reset flight** clears them along with the ticks.
+
+**Print** puts the whole selected type on paper — every phase, notes included, two columns to a page,
+boxes left empty to tick by hand. It prints black on white whichever theme is on screen, keeps any
+numbers you have filled in, and follows the variant you picked (lines belonging to other variants are
+left out, and lines shown with no variant chosen carry their variant tag). `Ctrl`/`⌘`+`P` works too.
+
 Phases are tagged either **Flow** (a panel scan done from memory) or **Checklist** (read and respond) —
 the same distinction real crews make. Airbus cards keep their printed *below the line* break.
 
 **Theme** cycles Auto → Day → Night. Day is a laminated checklist card, Night is a backlit EFB —
 use Night when you fly at night so the second screen doesn't blind you.
 
-**Reset flight** clears every phase for the selected type. Everything else is remembered between
-sessions, per aircraft: checked lines, the phase you left off on, and the variant you picked.
+**Reset flight** clears every phase for the selected type, and the numbers with it. Everything else is
+remembered between sessions, per aircraft: checked lines, the phase you left off on, the variant you
+picked, and whatever you typed into the blanks.
 
 ## Editing the checklists
 
@@ -142,6 +152,7 @@ phases:
     kind: flow             # flow = from memory | checklist = read & respond
     items:
       - BATTERY: "ON"
+      - BARO REF: ____ SET       # two or more underscores become a fillable field
       - IRS: NAV
         note: Align needs the aircraft stationary.
       - divider: Below the line              # printed rule, not a checkable item
@@ -161,6 +172,10 @@ With no variant picked they all show, flagged with the variant name — hiding l
 wrong failure mode for a checklist. Pick a variant and the ones that do not apply disappear, and stop
 counting toward the phase total. `build.py` rejects an `only` that names a variant the file does not
 declare, so a typo fails the build instead of silently hiding a line.
+
+A run of two or more underscores in a response is a blank the crew fills in — it renders as a typed
+field on screen and as a rule to write on when printed. Several per line is fine (`V1 ____ · VR ____ ·
+V2 ____`); each keeps its own value.
 
 One YAML gotcha survives: a value containing `": "` must be quoted, or the parser sees a nested
 mapping. `build.py` says so by name and line when it happens.
