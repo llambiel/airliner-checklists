@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-build.py — compile checklists/*.yaml into the FLEET data block inside index.html.
+build.py — compile checklists/*.yaml into the site.
 
-The site stays a single self-contained file, so it still works from file:// and on
-any static host. The YAML files are the source of truth; index.html's data block is
-generated and should not be hand-edited.
+Writes the FLEET data block inside app.html, the fleet list on index.html, one plain
+HTML page per aircraft under types/, and robots.txt + sitemap.xml. Every page stays
+self-contained, so the site still works from file:// and on any static host. The YAML
+files are the source of truth; generated blocks and types/ should not be hand-edited.
 
-    python3 build.py            regenerate index.html
-    python3 build.py --check    exit 1 if index.html is out of date (for CI / hooks)
+    python3 build.py            regenerate every generated file
+    python3 build.py --check    exit 1 if anything is out of date (for CI / hooks)
 
 Uses PyYAML when it is installed, and falls back to a bundled parser for the small
 YAML subset these files use, so the repo builds with a bare Python install.
@@ -19,6 +20,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "checklists")
 APP = os.path.join(ROOT, "app.html")     # the checklist tool
 HOME = os.path.join(ROOT, "index.html")  # the homepage
+TYPES = os.path.join(ROOT, "types")      # one plain page per aircraft, for search engines
 BEGIN = "/* == GENERATED FROM checklists/*.yaml BY build.py — DO NOT EDIT BY HAND == */"
 END = "/* == END GENERATED == */"
 HOME_BEGIN = "<!-- == GENERATED FLEET LIST FROM checklists/*.yaml — DO NOT EDIT BY HAND == -->"
@@ -32,6 +34,7 @@ LINKS_END = "<!-- == END SITE LINKS == -->"
 SITE = "https://airlinerchecklists.com"
 
 PAGES = [("index.html", "/"), ("app.html", "/app.html")]
+TYPE_PATH = "/types/%s.html"   # one indexable URL per aircraft
 RESERVED = ("note", "sub", "divider", "only")
 
 
@@ -291,12 +294,165 @@ def to_home_html(fleet):
             # The full name earns its place: it is what someone types into a search box.
             detail = [a["name"]] + [v["n"] for v in a.get("vars", [])]
             out.append(
-                '    <li><b>%s</b><span>%s</span></li>'
-                % (_esc(a["code"]), _esc(" · ".join(detail)))
+                '    <li><a href="types/%s.html"><b>%s</b><span>%s</span></a></li>'
+                % (a["id"], _esc(a["code"]), _esc(" · ".join(detail)))
             )
         out.append("  </ul>")
         out.append("</div>")
     return "\n".join(out)
+
+
+# ------------------------------------------------------- one page per aircraft
+# The tool keeps every type on one URL behind JavaScript, which gives a search
+# engine a single page to weigh for forty aeroplanes. These are the plain HTML
+# counterparts: one URL each, the whole checklist in the markup, linking into
+# the interactive version.
+TYPE_CSS = """
+:root{
+  --bg:#E8EAE7;--panel:#FBFCFA;--panel-2:#F1F3F0;--line:#CDD5D0;--ink:#16211C;
+  --muted:#5E6B65;--green:#0E7A46;--cyan:#0F6076;
+  --f-disp:"Roboto Condensed","Arial Narrow","Helvetica Neue",system-ui,sans-serif;
+  --f-ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#080B0D;--panel:#10161A;--panel-2:#161E24;--line:#26333B;--ink:#DCE6EA;
+  --muted:#7C8F99;--green:#3FD98A;--cyan:#5FC8E8;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px}
+.top{border-bottom:1px solid var(--line);background:var(--panel)}
+.top .wrap{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-top:13px;padding-bottom:13px}
+.mark{font-family:var(--f-disp);font-weight:700;font-size:17px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none}
+.top .spacer{flex:1}
+.cta{font-family:var(--f-disp);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;background:var(--green);color:var(--panel);padding:9px 15px;border-radius:3px}
+h1{margin:34px 0 6px;font-family:var(--f-disp);font-weight:700;font-size:clamp(28px,4.6vw,42px);
+  line-height:1.05;letter-spacing:.02em;text-transform:uppercase;text-wrap:balance}
+.sub{margin:0 0 18px;color:var(--muted);font-size:15px}
+.lede{margin:0 0 26px;max-width:64ch}
+.vars{margin:0 0 30px;padding:0;list-style:none;display:grid;gap:8px}
+.vars li{border-left:2px solid var(--cyan);padding:2px 0 2px 12px;font-size:14px;color:var(--muted)}
+.vars b{font-family:var(--f-disp);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+section.phase{background:var(--panel);border:1px solid var(--line);border-radius:4px;
+  padding:16px 20px;margin:0 0 14px}
+section.phase h2{margin:0 0 10px;font-family:var(--f-disp);font-size:16px;letter-spacing:.12em;
+  text-transform:uppercase}
+section.phase h2 em{font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--muted);
+  border:1px solid var(--line);border-radius:2px;padding:2px 7px;margin-left:9px;vertical-align:2px}
+ol.items{list-style:none;margin:0;padding:0}
+ol.items li{display:flex;align-items:baseline;gap:0;font-family:var(--f-mono);font-size:13.5px;
+  padding:5px 0;border-bottom:1px solid var(--line)}
+ol.items li:last-child{border-bottom:0}
+ol.items li.sub{padding-left:22px}
+ol.items li.divider{display:block;font-family:var(--f-disp);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);padding-top:12px}
+.dots{flex:1 1 auto;min-width:14px;border-bottom:1px dotted var(--line);margin:0 8px;transform:translateY(-4px)}
+.r{color:var(--cyan);text-align:right}
+.tag{font-family:var(--f-disp);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cyan);border:1px solid var(--cyan);border-radius:2px;padding:1px 5px;margin-left:8px}
+p.note{margin:2px 0 8px;font-size:12.5px;color:var(--muted);max-width:64ch}
+.also{margin:34px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+.also h2{font-family:var(--f-disp);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 10px}
+.also a{display:inline-block;font-family:var(--f-disp);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;border:1px solid var(--line);border-radius:2px;
+  padding:5px 9px;margin:0 5px 6px 0;color:var(--muted)}
+.also a:hover{color:var(--ink);border-color:var(--muted)}
+footer{margin:30px 0 40px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);max-width:72ch}
+footer b{color:var(--green);font-family:var(--f-disp);letter-spacing:.1em;text-transform:uppercase}
+"""
+
+
+def type_meta(a):
+    """Title and description — unique per page, and worded the way people search."""
+    phases = len(a["phases"])
+    items = sum(1 for p in a["phases"] for it in p["items"] if "div" not in it)
+    title = "%s checklist · Flight Deck" % a["name"]
+    desc = ("%s checklist for flight simulation — %s. %d phases and %d items, "
+            "from cockpit preparation to securing the aircraft, split into flows "
+            "flown from memory and read-and-respond checklists."
+            % (a["name"], a["sub"], phases, items))
+    return title, desc
+
+
+def type_page(a, fleet):
+    t, desc = type_meta(a)
+    url = (SITE.rstrip("/") + TYPE_PATH % a["id"]) if SITE else ""
+    o = ["<!doctype html>", '<html lang="en">', "<head>", '<meta charset="utf-8">',
+         "<title>%s</title>" % _esc(t),
+         '<meta name="viewport" content="width=device-width, initial-scale=1">',
+         '<meta name="description" content="%s">' % _esc(desc),
+         '<meta name="color-scheme" content="light dark">',
+         '<meta property="og:type" content="article">',
+         '<meta property="og:title" content="%s">' % _esc(t),
+         '<meta property="og:description" content="%s">' % _esc(desc),
+         '<meta name="twitter:card" content="summary">']
+    if url:
+        o += ['<link rel="canonical" href="%s">' % url,
+              '<meta property="og:url" content="%s">' % url]
+        ld = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": t,
+            "url": url,
+            "description": desc,
+            "about": {"@type": "Product", "name": a["name"], "category": "Aircraft"},
+            "isPartOf": {"@type": "WebSite", "name": "Flight Deck Checklists",
+                         "url": SITE.rstrip("/") + "/"},
+        }
+        o.append('<script type="application/ld+json">%s</script>'
+                 % json.dumps(ld, ensure_ascii=False, separators=(",", ":")))
+    o += ["<style>%s</style>" % TYPE_CSS, "</head>", "<body>",
+          '<div class="top"><div class="wrap">',
+          '  <a class="mark" href="../index.html">Flight Deck</a>',
+          '  <span class="spacer"></span>',
+          '  <a class="cta" href="../app.html">Open the interactive checklist →</a>',
+          "</div></div>",
+          '<div class="wrap">',
+          "<h1>%s checklist</h1>" % _esc(a["name"]),
+          '<p class="sub">%s</p>' % _esc(a["sub"]),
+          '<p class="lede">Every phase for the %s, as flown in a flight simulator — panel scans '
+          'marked as flows, read-and-respond cards marked as checklists. '
+          '<a href="../app.html">Open the interactive version</a> to tick lines off, fill in your '
+          'speeds and keep your place between sessions.</p>' % _esc(a["name"])]
+
+    if a.get("vars"):
+        o.append('<ul class="vars">')
+        for v in a["vars"]:
+            note = " — " + _esc(v["note"]) if v.get("note") else ""
+            o.append("  <li><b>%s</b>%s</li>" % (_esc(v["n"]), note))
+        o.append("</ul>")
+
+    for p in a["phases"]:
+        kind = "Flow · from memory" if p["kind"] == "flow" else "Checklist · read &amp; respond"
+        o.append('<section class="phase"><h2>%s <em>%s</em></h2><ol class="items">'
+                 % (_esc(p["name"]), kind))
+        for it in p["items"]:
+            if "div" in it:
+                o.append('  <li class="divider">%s</li>' % _esc(it["div"]))
+                continue
+            tag = ('<span class="tag">%s</span>' % _esc(" / ".join(it["only"]))) if it.get("only") else ""
+            o.append('  <li%s><span>%s%s</span><span class="dots"></span><span class="r">%s</span></li>'
+                     % (' class="sub"' if it.get("sub") else "", _esc(it["c"]), tag, _esc(it["r"])))
+            if it.get("note"):
+                o.append('  <p class="note">%s</p>' % _esc(it["note"]))
+        o.append("</ol></section>")
+
+    others = [x for x in fleet if x["id"] != a["id"]]
+    o.append('<div class="also"><h2>Other types</h2>')
+    o += ['  <a href="%s.html">%s</a>' % (x["id"], _esc(x["code"])) for x in others]
+    o.append("</div>")
+    o += ["<footer><b>Simulation use only.</b> Condensed for flight simulation and "
+          "<em>not</em> for real-world flight. Sequences and values vary by operator, engine option "
+          "and add-on model — cross-check against the aircraft's own FCOM or the add-on developer's "
+          "documentation.</footer>",
+          "</div>", "</body>", "</html>", ""]
+    return "\n".join(o)
 
 
 def _splice_text(page, begin, end, body, what):
@@ -344,13 +500,15 @@ def robots_txt():
     return "\n".join(lines)
 
 
-def sitemap_xml():
+def sitemap_xml(fleet):
     # No lastmod on purpose: it would change on every build and make --check fail
     # a day after the last edit.
+    paths = [p for _, p in PAGES] + [TYPE_PATH % a["id"] for a in fleet]
+    prio = lambda p: "1.0" if p == "/" else ("0.8" if p == "/app.html" else "0.7")
     urls = "".join(
         "  <url><loc>%s%s</loc><priority>%s</priority></url>\n"
-        % (SITE.rstrip("/"), path, "1.0" if path == "/" else "0.8")
-        for _, path in PAGES
+        % (SITE.rstrip("/"), path, prio(path))
+        for path in paths
     )
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -365,10 +523,20 @@ def render(fleet):
     if os.path.exists(HOME):
         home = _splice(HOME, HOME_BEGIN, HOME_END, to_home_html(fleet), "index.html")
         out[HOME] = _splice_text(home, LINKS_BEGIN, LINKS_END, site_links("/"), "index.html")
+    for a in fleet:
+        out[os.path.join(TYPES, a["id"] + ".html")] = type_page(a, fleet)
     out[os.path.join(ROOT, "robots.txt")] = robots_txt()
     if SITE:
-        out[os.path.join(ROOT, "sitemap.xml")] = sitemap_xml()
+        out[os.path.join(ROOT, "sitemap.xml")] = sitemap_xml(fleet)
     return out
+
+
+def orphans(new):
+    """Type pages left behind by an aircraft that has since been dropped."""
+    if not os.path.isdir(TYPES):
+        return []
+    return sorted(os.path.join(TYPES, f) for f in os.listdir(TYPES)
+                  if f.endswith(".html") and os.path.join(TYPES, f) not in new)
 
 
 def main():
@@ -386,13 +554,17 @@ def main():
         return open(p, encoding="utf-8").read() if os.path.exists(p) else None
 
     stale = [p for p, body in sorted(new.items()) if current(p) != body]
+    gone = orphans(new)
     if check:
-        if stale:
+        if stale or gone:
             print("out of date, run: python3 build.py — %s"
-                  % ", ".join(os.path.basename(p) for p in stale), file=sys.stderr)
+                  % ", ".join(os.path.basename(p) for p in stale + gone), file=sys.stderr)
             return 1
         print("up to date (%s)" % summary)
         return 0
+    for p in gone:
+        os.remove(p)
+        print("  removed %s (no longer in the fleet)" % os.path.relpath(p, ROOT))
     if not stale:
         print("no change (%s)" % summary)
         return 0
@@ -400,8 +572,15 @@ def main():
         print("  %-9s %2d phases %4d items" % (a["code"], len(a["phases"]),
               sum(1 for p in a["phases"] for it in p["items"] if "div" not in it)))
     for p in stale:
+        d = os.path.dirname(p)
+        if d and not os.path.isdir(d):
+            os.makedirs(d)
         open(p, "w", encoding="utf-8").write(new[p])
-    print("wrote %s — %s" % (", ".join(os.path.basename(p) for p in stale), summary))
+    named = [os.path.basename(p) for p in stale if os.path.dirname(p) == ROOT]
+    npages = len(stale) - len(named)
+    if npages:
+        named.append("%d type page%s" % (npages, "" if npages == 1 else "s"))
+    print("wrote %s — %s" % (", ".join(named), summary))
     return 0
 
 

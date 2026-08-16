@@ -20,6 +20,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /src/index.html /usr/share/nginx/html/index.html
 COPY --from=build /src/app.html /usr/share/nginx/html/app.html
 COPY --from=build /src/robots.txt /src/sitemap.xml /usr/share/nginx/html/
+COPY --from=build /src/types /usr/share/nginx/html/types
 
 # Worker processes drop to the unprivileged nginx user (see the image's own
 # nginx.conf). For a fully rootless container, swap the base image above for

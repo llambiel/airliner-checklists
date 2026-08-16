@@ -193,6 +193,11 @@ h2{
 }
 .mfr ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
 .mfr li{display:flex;flex-direction:column;gap:1px}
+/* Each type links to its own page — the crawlable one, and a decent landing page. */
+.mfr li a{display:flex;flex-direction:column;gap:1px;text-decoration:none;
+  border-left:2px solid transparent;padding-left:9px;margin-left:-11px;transition:border-color .12s}
+.mfr li a:hover{border-left-color:var(--cyan)}
+.mfr li a:hover b{color:var(--cyan)}
 .mfr li b{font-family:var(--f-disp);font-size:15px;letter-spacing:.08em;text-transform:uppercase}
 .mfr li span{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
 
@@ -335,105 +340,105 @@ footer .end{font-family:var(--f-disp);font-size:11px;letter-spacing:.16em;text-t
 <div class="mfr">
   <h3>Airbus</h3>
   <ul>
-    <li><b>A220</b><span>Airbus A220 · -100 · -300</span></li>
-    <li><b>A300</b><span>Airbus A300-600 · -600R · -600F · B4</span></li>
-    <li><b>A310</b><span>Airbus A310 · -200 · -300 · -300F · MRTT</span></li>
-    <li><b>A318</b><span>Airbus A318 · CFM56-5B · PW6000 · ACJ318</span></li>
-    <li><b>A319</b><span>Airbus A319 · CFM56-5B · V2500-A5 · ACJ319</span></li>
-    <li><b>A320</b><span>Airbus A320-200 · CFM56-5B · V2500-A5 · A320-100</span></li>
-    <li><b>A321</b><span>Airbus A321-200 · -100 · -200 · -200 with ACTs</span></li>
-    <li><b>A320neo</b><span>Airbus A320neo · A319neo · A320neo · A321neo · A321XLR</span></li>
-    <li><b>A330ceo</b><span>Airbus A330-200 / -300 · -200 · -300 · -200F</span></li>
-    <li><b>A330neo</b><span>Airbus A330neo · -800 · -900</span></li>
-    <li><b>A340</b><span>Airbus A340-300 · -200 · -300 · -500 / -600</span></li>
-    <li><b>A350</b><span>Airbus A350 XWB · -900 · -1000 · -900ULR</span></li>
-    <li><b>A380</b><span>Airbus A380-800 · Trent 900 · GP7200</span></li>
-    <li><b>A400M</b><span>Airbus A400M Atlas · Logistic · Tactical · Airdrop · Air-to-air refuelling</span></li>
+    <li><a href="types/a220.html"><b>A220</b><span>Airbus A220 · -100 · -300</span></a></li>
+    <li><a href="types/a300.html"><b>A300</b><span>Airbus A300-600 · -600R · -600F · B4</span></a></li>
+    <li><a href="types/a310.html"><b>A310</b><span>Airbus A310 · -200 · -300 · -300F · MRTT</span></a></li>
+    <li><a href="types/a318.html"><b>A318</b><span>Airbus A318 · CFM56-5B · PW6000 · ACJ318</span></a></li>
+    <li><a href="types/a319.html"><b>A319</b><span>Airbus A319 · CFM56-5B · V2500-A5 · ACJ319</span></a></li>
+    <li><a href="types/a320ceo.html"><b>A320</b><span>Airbus A320-200 · CFM56-5B · V2500-A5 · A320-100</span></a></li>
+    <li><a href="types/a321.html"><b>A321</b><span>Airbus A321-200 · -100 · -200 · -200 with ACTs</span></a></li>
+    <li><a href="types/a320.html"><b>A320neo</b><span>Airbus A320neo · A319neo · A320neo · A321neo · A321XLR</span></a></li>
+    <li><a href="types/a330ceo.html"><b>A330ceo</b><span>Airbus A330-200 / -300 · -200 · -300 · -200F</span></a></li>
+    <li><a href="types/a330neo.html"><b>A330neo</b><span>Airbus A330neo · -800 · -900</span></a></li>
+    <li><a href="types/a340.html"><b>A340</b><span>Airbus A340-300 · -200 · -300 · -500 / -600</span></a></li>
+    <li><a href="types/a350.html"><b>A350</b><span>Airbus A350 XWB · -900 · -1000 · -900ULR</span></a></li>
+    <li><a href="types/a380.html"><b>A380</b><span>Airbus A380-800 · Trent 900 · GP7200</span></a></li>
+    <li><a href="types/a400m.html"><b>A400M</b><span>Airbus A400M Atlas · Logistic · Tactical · Airdrop · Air-to-air refuelling</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Boeing</h3>
   <ul>
-    <li><b>707</b><span>Boeing 707 · -120 · -320B · -320C · E-3 / KC-135 family</span></li>
-    <li><b>727</b><span>Boeing 727 · -100 · -200 · -200 Advanced · -200F</span></li>
-    <li><b>737 NG</b><span>Boeing 737NG · -700 · -800 · -900ER</span></li>
-    <li><b>737 MAX</b><span>Boeing 737 MAX · MAX 8 · MAX 9 · MAX 10</span></li>
-    <li><b>757</b><span>Boeing 757 · -200 · -200F · -300</span></li>
-    <li><b>767</b><span>Boeing 767 · -200ER · -300ER · -300F · -400ER</span></li>
-    <li><b>777</b><span>Boeing 777 · -200ER · -300ER · -200LR · -200F</span></li>
-    <li><b>747-400</b><span>Boeing 747-400 · -400 · -400ER · -400F</span></li>
-    <li><b>747-8</b><span>Boeing 747-8 · 747-8I · 747-8F</span></li>
-    <li><b>787</b><span>Boeing 787 Dreamliner · -8 · -9 · -10</span></li>
+    <li><a href="types/b707.html"><b>707</b><span>Boeing 707 · -120 · -320B · -320C · E-3 / KC-135 family</span></a></li>
+    <li><a href="types/b727.html"><b>727</b><span>Boeing 727 · -100 · -200 · -200 Advanced · -200F</span></a></li>
+    <li><a href="types/b737ng.html"><b>737 NG</b><span>Boeing 737NG · -700 · -800 · -900ER</span></a></li>
+    <li><a href="types/b737max.html"><b>737 MAX</b><span>Boeing 737 MAX · MAX 8 · MAX 9 · MAX 10</span></a></li>
+    <li><a href="types/b757.html"><b>757</b><span>Boeing 757 · -200 · -200F · -300</span></a></li>
+    <li><a href="types/b767.html"><b>767</b><span>Boeing 767 · -200ER · -300ER · -300F · -400ER</span></a></li>
+    <li><a href="types/b777.html"><b>777</b><span>Boeing 777 · -200ER · -300ER · -200LR · -200F</span></a></li>
+    <li><a href="types/b747400.html"><b>747-400</b><span>Boeing 747-400 · -400 · -400ER · -400F</span></a></li>
+    <li><a href="types/b7478.html"><b>747-8</b><span>Boeing 747-8 · 747-8I · 747-8F</span></a></li>
+    <li><a href="types/b787.html"><b>787</b><span>Boeing 787 Dreamliner · -8 · -9 · -10</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>McDonnell Douglas</h3>
   <ul>
-    <li><b>MD-80</b><span>McDonnell Douglas MD-80 · MD-81 · MD-82 · MD-83 · MD-87 · MD-88</span></li>
-    <li><b>MD-10</b><span>McDonnell Douglas MD-10 · MD-10-10F · MD-10-30F</span></li>
-    <li><b>MD-11</b><span>McDonnell Douglas MD-11 · MD-11 · MD-11F · MD-11 Combi</span></li>
+    <li><a href="types/md80.html"><b>MD-80</b><span>McDonnell Douglas MD-80 · MD-81 · MD-82 · MD-83 · MD-87 · MD-88</span></a></li>
+    <li><a href="types/md10.html"><b>MD-10</b><span>McDonnell Douglas MD-10 · MD-10-10F · MD-10-30F</span></a></li>
+    <li><a href="types/md11.html"><b>MD-11</b><span>McDonnell Douglas MD-11 · MD-11 · MD-11F · MD-11 Combi</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Embraer</h3>
   <ul>
-    <li><b>E-Jet</b><span>Embraer E-Jets · E170 · E175 · E190 · E195</span></li>
+    <li><a href="types/ejet.html"><b>E-Jet</b><span>Embraer E-Jets · E170 · E175 · E190 · E195</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Fokker</h3>
   <ul>
-    <li><b>F70 / F100</b><span>Fokker 70 / 100 · F100 · F70</span></li>
+    <li><a href="types/f70100.html"><b>F70 / F100</b><span>Fokker 70 / 100 · F100 · F70</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Lockheed</h3>
   <ul>
-    <li><b>L-1011</b><span>Lockheed L-1011 TriStar · -1 · -200 · -500</span></li>
+    <li><a href="types/l1011.html"><b>L-1011</b><span>Lockheed L-1011 TriStar · -1 · -200 · -500</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Bombardier</h3>
   <ul>
-    <li><b>CRJ900</b><span>Bombardier CRJ900 · CRJ700 · CRJ900 · CRJ1000</span></li>
-    <li><b>CL-60</b><span>Bombardier Challenger 604 / 605 / 650 · 604 · 605 · 650</span></li>
+    <li><a href="types/crj900.html"><b>CRJ900</b><span>Bombardier CRJ900 · CRJ700 · CRJ900 · CRJ1000</span></a></li>
+    <li><a href="types/cl60.html"><b>CL-60</b><span>Bombardier Challenger 604 / 605 / 650 · 604 · 605 · 650</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>De Havilland Canada</h3>
   <ul>
-    <li><b>Q400</b><span>De Havilland Canada Dash 8 Q400 · Q400 · Q400 NextGen · Q400 Cargo</span></li>
+    <li><a href="types/dh8d.html"><b>Q400</b><span>De Havilland Canada Dash 8 Q400 · Q400 · Q400 NextGen · Q400 Cargo</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>ATR</h3>
   <ul>
-    <li><b>ATR 42 / 72</b><span>ATR 42 / 72 · ATR 42-500 · ATR 42-600 · ATR 72-500 · ATR 72-600</span></li>
+    <li><a href="types/atr.html"><b>ATR 42 / 72</b><span>ATR 42 / 72 · ATR 42-500 · ATR 42-600 · ATR 72-500 · ATR 72-600</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Gulfstream</h3>
   <ul>
-    <li><b>G650</b><span>Gulfstream G650 · G650 · G650ER</span></li>
+    <li><a href="types/glf6.html"><b>G650</b><span>Gulfstream G650 · G650 · G650ER</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Dassault</h3>
   <ul>
-    <li><b>Falcon 50</b><span>Dassault Falcon 50 · Falcon 50 · Falcon 50EX</span></li>
+    <li><a href="types/f50.html"><b>Falcon 50</b><span>Dassault Falcon 50 · Falcon 50 · Falcon 50EX</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Pilatus</h3>
   <ul>
-    <li><b>PC-12</b><span>Pilatus PC-12 · PC-12/45 · PC-12 NG · PC-12 NGX</span></li>
-    <li><b>PC-24</b><span>Pilatus PC-24 · Standard · Rough field · Steep approach · Autothrottle</span></li>
+    <li><a href="types/pc12.html"><b>PC-12</b><span>Pilatus PC-12 · PC-12/45 · PC-12 NG · PC-12 NGX</span></a></li>
+    <li><a href="types/pc24.html"><b>PC-24</b><span>Pilatus PC-24 · Standard · Rough field · Steep approach · Autothrottle</span></a></li>
   </ul>
 </div>
 <div class="mfr">
   <h3>Daher</h3>
   <ul>
-    <li><b>TBM 9xx</b><span>Daher TBM 900 / 940 / 960 · TBM 900 · TBM 930 · TBM 940 · TBM 960</span></li>
+    <li><a href="types/tbm9.html"><b>TBM 9xx</b><span>Daher TBM 900 / 940 / 960 · TBM 900 · TBM 930 · TBM 940 · TBM 960</span></a></li>
   </ul>
 </div>
 <!-- == END GENERATED == -->

@@ -108,9 +108,10 @@ checklists/
   a320ceo.yaml    one file per type
   b787.yaml
   ...
-build.py          compiles the YAML into both pages
+build.py          compiles the YAML into every page below
 index.html        homepage (its fleet list is generated)
 app.html          the checklist tool (its FLEET data block is generated)
+types/            one plain HTML page per aircraft — fully generated, don't edit
 robots.txt        generated
 sitemap.xml       generated
 Dockerfile        multi-stage build → nginx:alpine
@@ -118,8 +119,15 @@ nginx.conf        server block, port 8080
 ```
 
 The public address lives in one place — the `SITE` constant at the top of `build.py`. It produces the
-canonical link and `og:url` on each page, the homepage's structured data, `robots.txt` and
-`sitemap.xml`. Set it to `""` and all of that is simply left out.
+canonical link and `og:url` on each page, the structured data, `robots.txt` and `sitemap.xml`. Set it
+to `""` and all of that is simply left out.
+
+**One page per aircraft.** The tool keeps all types on a single URL behind JavaScript, which gives a
+search engine one page to weigh for forty aeroplanes. `types/<id>.html` is the plain counterpart: the
+whole checklist in the markup, its own title, description and canonical, links back into the
+interactive version, and cross-links to every other type. The homepage fleet list links to them and
+the sitemap lists them all. Add an aircraft and its page appears; drop one and `build.py` deletes the
+page it left behind (`--check` fails while a stray page is still there).
 
 Edit a YAML file, then:
 

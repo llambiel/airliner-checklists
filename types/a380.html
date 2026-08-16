@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Airbus A380-800 checklist · Flight Deck</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Airbus A380-800 checklist for flight simulation — 4 × Trent 900 / GP7200 · two decks · CONF 1+F / 2 / 3. 13 phases and 109 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airbus A380-800 checklist · Flight Deck">
+<meta property="og:description" content="Airbus A380-800 checklist for flight simulation — 4 × Trent 900 / GP7200 · two decks · CONF 1+F / 2 / 3. 13 phases and 109 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://airlinerchecklists.com/types/a380.html">
+<meta property="og:url" content="https://airlinerchecklists.com/types/a380.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Airbus A380-800 checklist · Flight Deck","url":"https://airlinerchecklists.com/types/a380.html","description":"Airbus A380-800 checklist for flight simulation — 4 × Trent 900 / GP7200 · two decks · CONF 1+F / 2 / 3. 13 phases and 109 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.","about":{"@type":"Product","name":"Airbus A380-800","category":"Aircraft"},"isPartOf":{"@type":"WebSite","name":"Flight Deck Checklists","url":"https://airlinerchecklists.com/"}}</script>
+<style>
+:root{
+  --bg:#E8EAE7;--panel:#FBFCFA;--panel-2:#F1F3F0;--line:#CDD5D0;--ink:#16211C;
+  --muted:#5E6B65;--green:#0E7A46;--cyan:#0F6076;
+  --f-disp:"Roboto Condensed","Arial Narrow","Helvetica Neue",system-ui,sans-serif;
+  --f-ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#080B0D;--panel:#10161A;--panel-2:#161E24;--line:#26333B;--ink:#DCE6EA;
+  --muted:#7C8F99;--green:#3FD98A;--cyan:#5FC8E8;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px}
+.top{border-bottom:1px solid var(--line);background:var(--panel)}
+.top .wrap{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-top:13px;padding-bottom:13px}
+.mark{font-family:var(--f-disp);font-weight:700;font-size:17px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none}
+.top .spacer{flex:1}
+.cta{font-family:var(--f-disp);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;background:var(--green);color:var(--panel);padding:9px 15px;border-radius:3px}
+h1{margin:34px 0 6px;font-family:var(--f-disp);font-weight:700;font-size:clamp(28px,4.6vw,42px);
+  line-height:1.05;letter-spacing:.02em;text-transform:uppercase;text-wrap:balance}
+.sub{margin:0 0 18px;color:var(--muted);font-size:15px}
+.lede{margin:0 0 26px;max-width:64ch}
+.vars{margin:0 0 30px;padding:0;list-style:none;display:grid;gap:8px}
+.vars li{border-left:2px solid var(--cyan);padding:2px 0 2px 12px;font-size:14px;color:var(--muted)}
+.vars b{font-family:var(--f-disp);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+section.phase{background:var(--panel);border:1px solid var(--line);border-radius:4px;
+  padding:16px 20px;margin:0 0 14px}
+section.phase h2{margin:0 0 10px;font-family:var(--f-disp);font-size:16px;letter-spacing:.12em;
+  text-transform:uppercase}
+section.phase h2 em{font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--muted);
+  border:1px solid var(--line);border-radius:2px;padding:2px 7px;margin-left:9px;vertical-align:2px}
+ol.items{list-style:none;margin:0;padding:0}
+ol.items li{display:flex;align-items:baseline;gap:0;font-family:var(--f-mono);font-size:13.5px;
+  padding:5px 0;border-bottom:1px solid var(--line)}
+ol.items li:last-child{border-bottom:0}
+ol.items li.sub{padding-left:22px}
+ol.items li.divider{display:block;font-family:var(--f-disp);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);padding-top:12px}
+.dots{flex:1 1 auto;min-width:14px;border-bottom:1px dotted var(--line);margin:0 8px;transform:translateY(-4px)}
+.r{color:var(--cyan);text-align:right}
+.tag{font-family:var(--f-disp);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cyan);border:1px solid var(--cyan);border-radius:2px;padding:1px 5px;margin-left:8px}
+p.note{margin:2px 0 8px;font-size:12.5px;color:var(--muted);max-width:64ch}
+.also{margin:34px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+.also h2{font-family:var(--f-disp);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 10px}
+.also a{display:inline-block;font-family:var(--f-disp);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;border:1px solid var(--line);border-radius:2px;
+  padding:5px 9px;margin:0 5px 6px 0;color:var(--muted)}
+.also a:hover{color:var(--ink);border-color:var(--muted)}
+footer{margin:30px 0 40px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);max-width:72ch}
+footer b{color:var(--green);font-family:var(--f-disp);letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <a class="mark" href="../index.html">Flight Deck</a>
+  <span class="spacer"></span>
+  <a class="cta" href="../app.html">Open the interactive checklist →</a>
+</div></div>
+<div class="wrap">
+<h1>Airbus A380-800 checklist</h1>
+<p class="sub">4 × Trent 900 / GP7200 · two decks · CONF 1+F / 2 / 3</p>
+<p class="lede">Every phase for the Airbus A380-800, as flown in a flight simulator — panel scans marked as flows, read-and-respond cards marked as checklists. <a href="../app.html">Open the interactive version</a> to tick lines off, fill in your speeds and keep your place between sessions.</p>
+<ul class="vars">
+  <li><b>Trent 900</b> — Rolls-Royce three-shaft — N1/N2/N3 on the ECAM. The original and most common fit.</li>
+  <li><b>GP7200</b> — Engine Alliance two-shaft. Same procedures, different ECAM parameters and start behaviour.</li>
+</ul>
+<section class="phase"><h2>Preliminary Cockpit Prep <em>Flow · from memory</em></h2><ol class="items">
+  <li><span>BAT 1–4</span><span class="dots"></span><span class="r">ON</span></li>
+  <li><span>EXT PWR / APU</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <p class="note">Four generators, four batteries and two APU generators — the electrical page is worth a proper look before you power anything else.</p>
+  <li><span>APU FIRE TEST</span><span class="dots"></span><span class="r">PERFORMED</span></li>
+  <li><span>APU MASTER / START</span><span class="dots"></span><span class="r">ON — AVAIL</span></li>
+  <li><span>ADIRS 1 / 2 / 3</span><span class="dots"></span><span class="r">NAV</span></li>
+  <li><span>HYD GREEN / YELLOW</span><span class="dots"></span><span class="r">CHECKED</span></li>
+  <p class="note">Two hydraulic systems at 5,000 psi plus electric backup actuators — there is no blue system to check.</p>
+  <li><span>OIS / EFB</span><span class="dots"></span><span class="r">LOADED</span></li>
+  <li><span>OXYGEN</span><span class="dots"></span><span class="r">TESTED — CREW SUPPLY ON</span></li>
+  <li><span>PARKING BRAKE</span><span class="dots"></span><span class="r">ON</span></li>
+</ol></section>
+<section class="phase"><h2>Cockpit Preparation <em>Flow · from memory</em></h2><ol class="items">
+  <li><span>GEAR LEVER</span><span class="dots"></span><span class="r">DOWN</span></li>
+  <li><span>FLAP LEVER</span><span class="dots"></span><span class="r">AGREES WITH SURFACES</span></li>
+  <li><span>SPEED BRAKE LEVER</span><span class="dots"></span><span class="r">RETRACTED — DISARMED</span></li>
+  <li><span>ENG MASTERS 1–4</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">NORM</span></li>
+  <li><span>FUEL</span><span class="dots"></span><span class="r">PUMPS ON — TRANSFER AUTO</span></li>
+  <p class="note">Eleven tanks and a trim tank in the tail. Leave the transfer in AUTO and watch the CG readout rather than the individual tanks.</p>
+  <li><span>SIGNS</span><span class="dots"></span><span class="r">ON / AUTO</span></li>
+  <li><span>EMER EXIT LT</span><span class="dots"></span><span class="r">ARM</span></li>
+  <li><span>ANTI ICE</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>WEATHER RADAR / PWS</span><span class="dots"></span><span class="r">AUTO</span></li>
+  <li><span>TRANSPONDER</span><span class="dots"></span><span class="r">CODE SET — STBY</span></li>
+  <li><span>MFD FMS</span><span class="dots"></span><span class="r">INIT · F-PLN · PERF · FUEL &amp; LOAD</span></li>
+  <li><span>TAKEOFF DATA</span><span class="dots"></span><span class="r">V1 / VR / V2 · FLEX · THR RED / ACC</span></li>
+  <li><span>BARO REF</span><span class="dots"></span><span class="r">SET &amp; CROSSCHECKED</span></li>
+  <li><span>FCU</span><span class="dots"></span><span class="r">SPD / HDG / ALT SET</span></li>
+  <li><span>TAKEOFF BRIEFING</span><span class="dots"></span><span class="r">COMPLETED</span></li>
+</ol></section>
+<section class="phase"><h2>Before Start <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>COCKPIT PREP</span><span class="dots"></span><span class="r">COMPLETED</span></li>
+  <li><span>GEAR PINS &amp; COVERS</span><span class="dots"></span><span class="r">REMOVED</span></li>
+  <li><span>SIGNS</span><span class="dots"></span><span class="r">ON / AUTO</span></li>
+  <li><span>ADIRS</span><span class="dots"></span><span class="r">NAV</span></li>
+  <li><span>FUEL QUANTITY / CG</span><span class="dots"></span><span class="r">____ KG — CHECKED</span></li>
+  <li><span>TO DATA</span><span class="dots"></span><span class="r">SET</span></li>
+  <li><span>BARO REF</span><span class="dots"></span><span class="r">____ SET</span></li>
+  <li class="divider">Below the line</li>
+  <li><span>WINDOWS / DOORS</span><span class="dots"></span><span class="r">CLOSED</span></li>
+  <li><span>BEACON</span><span class="dots"></span><span class="r">ON</span></li>
+  <li><span>THR LEVERS</span><span class="dots"></span><span class="r">IDLE</span></li>
+  <li><span>PARKING BRAKE</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+</ol></section>
+<section class="phase"><h2>Engine Start <em>Flow · from memory</em></h2><ol class="items">
+  <li><span>PUSHBACK / START CLEARANCE</span><span class="dots"></span><span class="r">OBTAINED</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">IGN / START</span></li>
+  <li><span>ENG MASTERS 1–4</span><span class="dots"></span><span class="r">ON IN SEQUENCE</span></li>
+  <p class="note">The FADEC runs an automatic sequence once the masters are on. Some operators start two engines at the gate and the rest while taxiing — follow your SOP and your add-on's checklist.</p>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">NORM</span></li>
+  <li><span>APU BLEED</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>ENGINE PARAMETERS 1–4</span><span class="dots"></span><span class="r">STABILISED</span></li>
+</ol></section>
+<section class="phase"><h2>After Start <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>ANTI ICE</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>ECAM STATUS</span><span class="dots"></span><span class="r">CHECKED</span></li>
+  <li><span>PITCH TRIM</span><span class="dots"></span><span class="r">____ SET</span></li>
+  <li><span>RUDDER TRIM</span><span class="dots"></span><span class="r">ZERO</span></li>
+</ol></section>
+<section class="phase"><h2>Taxi / Before Takeoff <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>FLIGHT CONTROLS</span><span class="dots"></span><span class="r">CHECKED — FULL &amp; FREE</span></li>
+  <li><span>FLAP SETTING</span><span class="dots"></span><span class="r">CONF ____</span></li>
+  <li><span>V1 / VR / V2 / FLEX TEMP</span><span class="dots"></span><span class="r">____ SET</span></li>
+  <li><span>ATC</span><span class="dots"></span><span class="r">SET</span></li>
+  <li><span>ECAM MEMO</span><span class="dots"></span><span class="r">TO — NO BLUE</span></li>
+  <li class="sub"><span>T.O CONFIG</span><span class="dots"></span><span class="r">TEST — NORMAL</span></li>
+  <li class="sub"><span>BODY GEAR STEERING</span><span class="dots"></span><span class="r">AVAIL</span></li>
+  <p class="note">22 wheels and a 79 m wingspan. Use the taxi camera, hold the centreline until the turn is well past, and mind the Code F taxiway limits.</p>
+  <li><span>TAKEOFF RWY</span><span class="dots"></span><span class="r">____ CONFIRMED</span></li>
+  <li><span>CABIN CREW</span><span class="dots"></span><span class="r">ADVISED — BOTH DECKS</span></li>
+  <li class="divider">Line-up items</li>
+  <li><span>PACKS</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">IGN IF RAIN / ICE</span></li>
+  <li><span>TCAS</span><span class="dots"></span><span class="r">TA / RA</span></li>
+  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">STROBE · T.O · RWY TURN OFF</span></li>
+  <li><span>CHRONO</span><span class="dots"></span><span class="r">START</span></li>
+</ol></section>
+<section class="phase"><h2>After Takeoff / Climb <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>LANDING GEAR</span><span class="dots"></span><span class="r">UP</span></li>
+  <li><span>FLAPS</span><span class="dots"></span><span class="r">RETRACTED</span></li>
+  <li><span>PACKS</span><span class="dots"></span><span class="r">ON</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">NORM</span></li>
+  <li><span>APU</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>FUEL TRANSFER</span><span class="dots"></span><span class="r">AFT — MONITORED</span></li>
+  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">SET</span></li>
+  <li><span>BARO REF</span><span class="dots"></span><span class="r">STD SET AT TRANS ALT</span></li>
+</ol></section>
+<section class="phase"><h2>Cruise / Fuel &amp; CG <em>Flow · from memory</em></h2><ol class="items">
+  <li><span>FUEL ON BOARD</span><span class="dots"></span><span class="r">CHECKED vs FLIGHT PLAN</span></li>
+  <li><span>TRIM TANK</span><span class="dots"></span><span class="r">TRANSFER MONITORED</span></li>
+  <li><span>CG</span><span class="dots"></span><span class="r">WITHIN LIMITS</span></li>
+  <li><span>POSITION / NAV ACCURACY</span><span class="dots"></span><span class="r">CROSSCHECKED</span></li>
+  <li><span>STEP CLIMB</span><span class="dots"></span><span class="r">AS PLANNED</span></li>
+  <li><span>DESCENT PREP</span><span class="dots"></span><span class="r">ARRIVAL · APPR · MINIMA IN FMS</span></li>
+</ol></section>
+<section class="phase"><h2>Approach <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>TRIM TANK</span><span class="dots"></span><span class="r">FWD TRANSFER COMPLETE</span></li>
+  <li><span>BRIEFING</span><span class="dots"></span><span class="r">CONFIRMED</span></li>
+  <li><span>ECAM STATUS</span><span class="dots"></span><span class="r">CHECKED</span></li>
+  <li><span>SEAT BELTS</span><span class="dots"></span><span class="r">ON</span></li>
+  <li><span>BARO REF</span><span class="dots"></span><span class="r">____ SET</span></li>
+  <li><span>MDA / DH</span><span class="dots"></span><span class="r">____ SET</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+</ol></section>
+<section class="phase"><h2>Landing <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>CABIN CREW</span><span class="dots"></span><span class="r">ADVISED — BOTH DECKS</span></li>
+  <li><span>A/THR</span><span class="dots"></span><span class="r">SPEED / OFF</span></li>
+  <li><span>AUTO BRAKE</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>ECAM MEMO</span><span class="dots"></span><span class="r">LDG — NO BLUE</span></li>
+  <li class="sub"><span>LDG GEAR</span><span class="dots"></span><span class="r">DOWN</span></li>
+  <li class="sub"><span>SIGNS</span><span class="dots"></span><span class="r">ON</span></li>
+  <li class="sub"><span>SPLRS</span><span class="dots"></span><span class="r">ARM</span></li>
+  <li class="sub"><span>FLAPS</span><span class="dots"></span><span class="r">CONF 3 / FULL</span></li>
+</ol></section>
+<section class="phase"><h2>After Landing <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>FLAPS</span><span class="dots"></span><span class="r">RETRACTED</span></li>
+  <li><span>SPOILERS</span><span class="dots"></span><span class="r">DISARMED</span></li>
+  <li><span>APU</span><span class="dots"></span><span class="r">START</span></li>
+  <li><span>RADAR / PWS</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>ENG START SELECTOR</span><span class="dots"></span><span class="r">NORM</span></li>
+  <li><span>ANTI ICE</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>BRAKE TEMP</span><span class="dots"></span><span class="r">CHECKED</span></li>
+  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">SET</span></li>
+  <li><span>TRANSPONDER</span><span class="dots"></span><span class="r">STBY / AUTO</span></li>
+</ol></section>
+<section class="phase"><h2>Parking <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>APU BLEED</span><span class="dots"></span><span class="r">ON</span></li>
+  <li><span>ENG MASTERS 1–4</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>SEAT BELTS</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>FUEL PUMPS</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>PARK BRK / CHOCKS</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+</ol></section>
+<section class="phase"><h2>Securing the Aircraft <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li><span>ADIRS</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>OXYGEN</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>APU BLEED</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li><span>APU &amp; BAT 1–4</span><span class="dots"></span><span class="r">OFF</span></li>
+</ol></section>
+<div class="also"><h2>Other types</h2>
+  <a href="a220.html">A220</a>
+  <a href="a300.html">A300</a>
+  <a href="a310.html">A310</a>
+  <a href="a318.html">A318</a>
+  <a href="a319.html">A319</a>
+  <a href="a320ceo.html">A320</a>
+  <a href="a321.html">A321</a>
+  <a href="a320.html">A320neo</a>
+  <a href="a330ceo.html">A330ceo</a>
+  <a href="a330neo.html">A330neo</a>
+  <a href="a340.html">A340</a>
+  <a href="a350.html">A350</a>
+  <a href="a400m.html">A400M</a>
+  <a href="b707.html">707</a>
+  <a href="b727.html">727</a>
+  <a href="b737ng.html">737 NG</a>
+  <a href="b737max.html">737 MAX</a>
+  <a href="b757.html">757</a>
+  <a href="b767.html">767</a>
+  <a href="b777.html">777</a>
+  <a href="b747400.html">747-400</a>
+  <a href="b7478.html">747-8</a>
+  <a href="b787.html">787</a>
+  <a href="md80.html">MD-80</a>
+  <a href="md10.html">MD-10</a>
+  <a href="md11.html">MD-11</a>
+  <a href="ejet.html">E-Jet</a>
+  <a href="f70100.html">F70 / F100</a>
+  <a href="l1011.html">L-1011</a>
+  <a href="crj900.html">CRJ900</a>
+  <a href="cl60.html">CL-60</a>
+  <a href="dh8d.html">Q400</a>
+  <a href="atr.html">ATR 42 / 72</a>
+  <a href="glf6.html">G650</a>
+  <a href="f50.html">Falcon 50</a>
+  <a href="pc12.html">PC-12</a>
+  <a href="pc24.html">PC-24</a>
+  <a href="tbm9.html">TBM 9xx</a>
+</div>
+<footer><b>Simulation use only.</b> Condensed for flight simulation and <em>not</em> for real-world flight. Sequences and values vary by operator, engine option and add-on model — cross-check against the aircraft's own FCOM or the add-on developer's documentation.</footer>
+</div>
+</body>
+</html>
