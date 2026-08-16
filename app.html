@@ -5537,6 +5537,31 @@ let S;
 try{ S=Object.assign({},blank,JSON.parse(localStorage.getItem(KEY)||"{}")); }
 catch(e){ S=Object.assign({},blank); }
 if(!FLEET.some(a=>a.id===S.ac)) S.ac=FLEET[0].id;
+
+/* Deep link: the per-aircraft pages link here as app.html#a320ceo, optionally
+   #a320ceo/taxi for a phase. Without this they all landed on whatever type you
+   happened to have open last. */
+function fromHash(){
+  const h=decodeURIComponent((location.hash||"").replace(/^#/,"")).trim();
+  if(!h) return false;
+  const bits=h.split("/"), a=FLEET.find(x=>x.id===bits[0]);
+  if(!a) return false;
+  const moved = S.ac!==a.id;
+  S.ac=a.id;
+  if(bits[1]){
+    const i=a.phases.findIndex(p=>p.id===bits[1]);
+    if(i>=0) S.phase[a.id]=i;
+  }
+  return moved || !!bits[1];
+}
+/* Keep the address bar on the current aeroplane so the URL can be shared. */
+function syncHash(){
+  const want="#"+S.ac;
+  if(location.hash===want) return;
+  try{ history.replaceState(null,"",want); }
+  catch(e){ location.hash=S.ac; }   // some browsers refuse pushState on file://
+}
+fromHash();
 const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
 
 const acft = ()=>FLEET.find(a=>a.id===S.ac);
@@ -5591,7 +5616,7 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[
 
 function selectAircraft(id){
   if(!FLEET.some(a=>a.id===id)) return;
-  S.ac=id; save(); syncCursor(); closePicker(); renderAll();
+  S.ac=id; save(); syncHash(); syncCursor(); closePicker(); renderAll();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -5941,7 +5966,12 @@ document.addEventListener("keydown",e=>{
 });
 
 applyTheme();
+syncHash();
 renderAll();
+/* Back/forward between two types, or a link pasted into the same tab. */
+window.addEventListener("hashchange",()=>{
+  if(fromHash()){ save(); syncCursor(); renderAll(); }
+});
 </script>
 </body>
 </html>

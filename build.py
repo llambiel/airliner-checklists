@@ -411,15 +411,15 @@ def type_page(a, fleet):
           '<div class="top"><div class="wrap">',
           '  <a class="mark" href="../index.html">Flight Deck</a>',
           '  <span class="spacer"></span>',
-          '  <a class="cta" href="../app.html">Open the interactive checklist →</a>',
+          '  <a class="cta" href="../app.html#%s">Open the interactive checklist →</a>' % a["id"],
           "</div></div>",
           '<div class="wrap">',
           "<h1>%s checklist</h1>" % _esc(a["name"]),
           '<p class="sub">%s</p>' % _esc(a["sub"]),
           '<p class="lede">Every phase for the %s, as flown in a flight simulator — panel scans '
           'marked as flows, read-and-respond cards marked as checklists. '
-          '<a href="../app.html">Open the interactive version</a> to tick lines off, fill in your '
-          'speeds and keep your place between sessions.</p>' % _esc(a["name"])]
+          '<a href="../app.html#%s">Open the interactive version</a> to tick lines off, fill in your '
+          'speeds and keep your place between sessions.</p>' % (_esc(a["name"]), a["id"])]
 
     if a.get("vars"):
         o.append('<ul class="vars">')
