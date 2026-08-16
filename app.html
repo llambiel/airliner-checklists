@@ -5538,30 +5538,41 @@ try{ S=Object.assign({},blank,JSON.parse(localStorage.getItem(KEY)||"{}")); }
 catch(e){ S=Object.assign({},blank); }
 if(!FLEET.some(a=>a.id===S.ac)) S.ac=FLEET[0].id;
 
-/* Deep link: the per-aircraft pages link here as app.html#a320ceo, optionally
-   #a320ceo/taxi for a phase. Without this they all landed on whatever type you
-   happened to have open last. */
-function fromHash(){
-  const h=decodeURIComponent((location.hash||"").replace(/^#/,"")).trim();
-  if(!h) return false;
-  const bits=h.split("/"), a=FLEET.find(x=>x.id===bits[0]);
+/* ---- where we are, as a URL -------------------------------------------
+   On the web each aeroplane gets a real path — /checklist/a320ceo, optionally
+   /checklist/a320ceo/taxi — which nginx serves from this file. Opened as a
+   local file there is no server to route paths, so the same thing is carried
+   in the hash. Links from the type pages use the hash form because it is the
+   one that works everywhere; the app rewrites it to a path once it is running. */
+const WEB = location.protocol !== "file:";
+/* Site root, so this still works if the site is ever hosted in a subdirectory. */
+const BASE = (function(){
+  const p = location.pathname, i = p.indexOf("/checklist/");
+  return i >= 0 ? p.slice(0, i + 1) : p.replace(/[^\/]*$/, "");
+})();
+
+function fromURL(){
+  const m = location.pathname.match(/\/checklist\/([^\/]+)(?:\/([^\/]+))?\/?$/);
+  const bits = m ? [decodeURIComponent(m[1]), m[2] && decodeURIComponent(m[2])]
+                 : decodeURIComponent((location.hash || "").replace(/^#/, "")).trim().split("/");
+  const a = bits[0] && FLEET.find(x => x.id === bits[0]);
   if(!a) return false;
-  const moved = S.ac!==a.id;
-  S.ac=a.id;
+  const moved = S.ac !== a.id;
+  S.ac = a.id;
   if(bits[1]){
-    const i=a.phases.findIndex(p=>p.id===bits[1]);
-    if(i>=0) S.phase[a.id]=i;
+    const i = a.phases.findIndex(p => p.id === bits[1]);
+    if(i >= 0) S.phase[a.id] = i;
   }
   return moved || !!bits[1];
 }
-/* Keep the address bar on the current aeroplane so the URL can be shared. */
-function syncHash(){
-  const want="#"+S.ac;
-  if(location.hash===want) return;
-  try{ history.replaceState(null,"",want); }
-  catch(e){ location.hash=S.ac; }   // some browsers refuse pushState on file://
+
+function syncURL(){
+  const want = WEB ? BASE + "checklist/" + S.ac : "#" + S.ac;
+  if((WEB ? location.pathname : location.hash) === want) return;
+  try{ history.replaceState(null, "", want); }
+  catch(e){ if(!WEB) location.hash = S.ac; }   // some browsers refuse this on file://
 }
-fromHash();
+fromURL();
 const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
 
 const acft = ()=>FLEET.find(a=>a.id===S.ac);
@@ -5616,7 +5627,7 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[
 
 function selectAircraft(id){
   if(!FLEET.some(a=>a.id===id)) return;
-  S.ac=id; save(); syncHash(); syncCursor(); closePicker(); renderAll();
+  S.ac=id; save(); syncURL(); syncCursor(); closePicker(); renderAll();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -5966,12 +5977,13 @@ document.addEventListener("keydown",e=>{
 });
 
 applyTheme();
-syncHash();
+syncURL();
+/* Under /checklist/<id> a relative "index.html" would point into that folder. */
+if(WEB) document.querySelectorAll('a[href="index.html"]').forEach(a=>a.setAttribute("href",BASE));
 renderAll();
-/* Back/forward between two types, or a link pasted into the same tab. */
-window.addEventListener("hashchange",()=>{
-  if(fromHash()){ save(); syncCursor(); renderAll(); }
-});
+/* A link pasted into the same tab, or back/forward between two types. */
+window.addEventListener("hashchange",()=>{ if(fromURL()){ save(); syncCursor(); renderAll(); } });
+window.addEventListener("popstate",()=>{ if(fromURL()){ save(); syncCursor(); renderAll(); } });
 </script>
 </body>
 </html>

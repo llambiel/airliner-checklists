@@ -54,6 +54,12 @@ even though it shares a type rating, because that is how people pick an aeroplan
 Open `index.html` for the homepage, or `app.html` to go straight to the checklists. Both work
 from `file://`.
 
+Served over HTTP each aeroplane has its own address — `/checklist/a320ceo`, or
+`/checklist/a320ceo/taxi` for a phase — which the app writes as you switch types and reads back on
+load, so the URL survives a reload and is worth sending to someone. That needs the one rule in
+`nginx.conf` (`location /checklist { try_files $uri /app.html; }`); opened as a local file, where
+there is no server to route paths, the same thing rides in the URL hash instead.
+
 For a second monitor or a tablet next to the sim, serve the folder:
 
 ```sh
