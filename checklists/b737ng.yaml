@@ -62,13 +62,13 @@ phases:
     kind: checklist
     items:
       - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - FUEL: ____ KG — PUMPS ON
+      - FUEL: ____ KGS — PUMPS ON
       - PASSENGER SIGNS: SET
       - WINDOWS: LOCKED
       - MCP: V2 ____ · HDG ____ · ALT ____
       - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
       - CDU PREFLIGHT: COMPLETED
-      - RUDDER & AILERON TRIM: FREE AND ZERO
+      - RUDDER AND AILERON TRIM: FREE AND 0
       - TAXI AND TAKEOFF BRIEFING: COMPLETED
       - ANTI COLLISION LIGHT: "ON"
 
@@ -91,7 +91,7 @@ phases:
     items:
       - GENERATORS: "ON"
       - PROBE HEAT: "ON"
-      - ANTI-ICE: AS REQUIRED
+      - ANTI-ICE: ____
       - ISOLATION VALVE: AUTO
       - ENGINE START SWITCHES: CONT
       - RECALL: CHECKED
@@ -106,11 +106,7 @@ phases:
     items:
       - FLAPS: ____ — GREEN LIGHT
       - STABILIZER TRIM: ____ UNITS
-      - CABIN: SECURE
-      - divider: Line-up items
-      - TRANSPONDER: TA/RA
-      - STROBES & LANDING LIGHTS: "ON"
-      - TAKEOFF CLEARANCE: RECEIVED
+        note: "Line-up flow, not on the card: transponder TA/RA, strobes and landing lights on, cabin secure."
 
   - id:   atakeoff
     name: After Takeoff
@@ -120,7 +116,6 @@ phases:
       - PACKS: AUTO
       - LANDING GEAR: UP AND OFF
       - FLAPS: UP — NO LIGHTS
-      - ALTIMETERS: SET
         note: Speed trim runs the stabiliser after takeoff at light weight and aft CG — the wheel moving on its own is normal.
 
   - id:   cruise
@@ -139,7 +134,7 @@ phases:
     items:
       - PRESSURIZATION: LAND ALT ____
       - RECALL: CHECKED
-      - AUTOBRAKE: ____ SET
+      - AUTOBRAKE: ____
       - LANDING DATA: VREF ____ · MINIMUMS ____
       - APPROACH BRIEFING: COMPLETED
 
@@ -147,16 +142,15 @@ phases:
     name: Approach
     kind: checklist
     items:
-      - ALTIMETERS: ____ SET
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____
 
   - id:   landing
     name: Landing
     kind: checklist
     items:
       - ENGINE START SWITCHES: CONT
-      - SPEEDBRAKE: ARMED — GREEN LIGHT
-      - LANDING GEAR: DOWN — 3 GREEN
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN
       - FLAPS: ____ — GREEN LIGHT
 
   - id:   shutdown
@@ -164,10 +158,10 @@ phases:
     kind: checklist
     items:
       - FUEL PUMPS: OFF
-      - PROBE HEAT: AUTO
+      - PROBE HEAT: AUTO OR OFF
       - HYDRAULIC PANEL: SET
       - FLAPS: UP
-      - PARKING BRAKE: SET
+      - PARKING BRAKE: ____
       - ENGINE START LEVERS: CUTOFF
         note: Let the engines idle ~3 min after landing before cutoff.
       - WEATHER RADAR: OFF
@@ -176,7 +170,7 @@ phases:
     name: Secure
     kind: checklist
     items:
-      - IRS 1 + 2: OFF
+      - IRSs: "OFF"
       - EMERGENCY EXIT LIGHTS: OFF
       - WINDOW HEAT: OFF
       - PACKS: OFF

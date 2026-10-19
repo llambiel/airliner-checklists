@@ -20,43 +20,63 @@ phases:
     name: Power Up
     kind: flow   # flow = from memory | checklist = read & respond
     items:
-      - BATTERY 1 + 2: "ON"
-      - EXT PWR / APU: "ON"
-      - EMERGENCY LIGHTS: ARM
-      - IRS 1 + 2: ALIGN
-      - DISPLAYS: SET
-        note: Five Primus Epic screens driven by cursor control devices — the systems pages live on the MFD rather than on overhead gauges.
-      - FMS: POS INIT · ROUTE · PERF
-      - PARKING BRAKE: SET
+      - BATTERY 1: ON (R)
+        note: Make sure the aircraft does not move before the IESS has initialised.
+      - BATTERY 2: AUTO (R)
+        note: Only displays 2 and 3 should come alive at this point.
+      - BATTERIES VOLTAGE: CKD (R)
+      - EICAS MESSAGES: CKD (R)
+      - GPU BUTTON (IF APPLICABLE): PUSHED IN (R)
+      - EMERGENCY LIGHTS: ON, THEN ARMED (R)
+      - FIRE EXTINGUISHER PANEL: TEST (R)
+      - APU: AS RQD (R)
+      - NAV LIGHTS: ON (R)
+      - HYDRAULIC PANEL: AS RQD (R)
+      - ELECTRONIC CBs: CKD (R)
+      - DVDR CONTROL PANEL: CKD (R)
+      - COCKPIT REINFORCED DOOR PANEL: CKD (B)
+      - PHOTOLUMINESCENT STRIPS: CKD (R)
 
   - id:   scan
-    name: Preflight Scan
+    name: Internal Safety Inspection
     kind: flow
     items:
-      - OXYGEN: TESTED — CREW SUPPLY ON
-      - ELECTRICAL: GENERATORS AUTO
-      - HYDRAULICS 1 / 2 / 3: AUTO
-      - BLEEDS 1 + 2 / APU BLEED: AUTO
-      - PRESSURIZATION: AUTO — LAND ALT SET
-      - ANTI-ICE: AS REQUIRED
-      - FUEL PUMPS: AUTO — QUANTITY CHECKED
-      - START/STOP SELECTORS: STOP
-      - SPEEDBRAKE: RETRACTED
-      - FLAPS: "0"
-      - TAKEOFF DATA: THRUST · V-SPEEDS · TRIM SET
+      - AIRPLANE MANUALS & DOCUMENTS: ON BOARD (L)
+      - MAINTENANCE STATUS: CKD (B)
+      - COCKPIT EMER. EQUIP: CKD (R)
+      - ELECTRIC PANEL: SET (R)
+      - FUEL PANEL: CKD (R)
+      - PASSENGER SIGNS PANEL: SET (R)
+      - WINDSHIELD WIPER SELECTORS: OFF (R)
+      - HYDRAULIC PANEL: CKD (R)
+      - AIR COND / PNEUMATIC PANEL: CKD (R)
+      - PAX OXY PANEL: CKD (R)
+      - ELT: ARM (R)
+      - LANDING GEAR LEVER: DOWN (R)
+      - START/STOP SELECTORS: STOP (R)
+      - SPEED BRAKE LEVER: CLOSED (R)
+      - RAT MANUAL DEPLOY: STOWED (R)
+      - SLAT/FLAP LEVER: VERIFY POS (R)
+      - CIRCUIT BREAKERS: CKD (B)
+      - JUMP SEAT OXY MASK, REGULATORS: CKD (R)
+      - L/GEAR PINS (3) & RAT SAFETY PIN: STOWED (L)
 
   - id:   bstart
     name: Before Start
     kind: checklist
     items:
-      - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - PASSENGER SIGNS: "ON"
-      - FUEL: ____ KG — CHECKED
-      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
-      - PITCH TRIM: ____ SET — TAKEOFF RANGE
-      - TAKEOFF BRIEFING: COMPLETED
-      - BEACON: "ON"
-      - PARKING BRAKE: SET
+      - PASSENGER SIGNS PANEL: SET (L)
+      - PRESSURIZATION PANEL: SET (L)
+      - OXYGEN MASKS: CKD (B)
+      - FLIGHT INSTRUMENTS: X-CKD (L)
+      - THRUST LEVERS: IDLE (L)
+      - FUEL QTY: ____ PLANNED / ____ ON BOARD (L)
+      - MCDU: SET (L)
+      - DOORS & WINDOWS: CLSD & LCKD (B)
+      - HYD PUMP 3A: ON (L)
+      - RED BEACON: ON (L)
+      - TRANSPONDER: TA/RA (L)
+      - EMERGENCY / PARKING BRAKE: AS RQD (L)
 
   - id:   start
     name: Engine Start
@@ -74,46 +94,28 @@ phases:
     name: After Start
     kind: checklist
     items:
-      - GENERATORS: "ON"
-      - BLEEDS / PACKS: AUTO
-      - ANTI-ICE: AS REQUIRED
-      - FLAPS: ____ SET
-      - FLIGHT CONTROLS: CHECKED
-      - EICAS: NO MESSAGES
-      - GROUND EQUIPMENT: CLEAR
-
-  - id:   taxi
-    name: Taxi
-    kind: checklist
-    items:
-      - BRAKES: CHECKED
-      - STEERING: CHECKED
-      - FLIGHT INSTRUMENTS: NO FLAGS
-      - TRANSPONDER: TA/RA
-      - TAXI CLEARANCE: ____ CONFIRMED
+      - GROUND EQUIPMENT: REMOVED (L)
+      - TAKEOFF TRIM: ____ SET / ZERO / ZERO (L)
+      - SLAT / FLAP: ____ SET (L)
+      - FLIGHT CONTROLS: CKD (L)
+      - APU: AS RQD (L)
 
   - id:   btakeoff
     name: Before Takeoff
     kind: checklist
     items:
-      - FLAPS: ____ — GREEN
-      - PITCH TRIM: ____ SET
-      - SPEEDBRAKE: RETRACTED
-      - EICAS: NO MESSAGES
-      - CABIN: SECURE
-      - divider: Line-up items
-      - IGNITION: AS REQUIRED
-      - EXTERIOR LIGHTS: STROBES · LANDING · ON
-      - TAKEOFF CLEARANCE: RECEIVED
+      - CABIN: NOTIFIED (R)
+      - BRAKE TEMPS: GREEN (L)
+      - EICAS: CKD (L)
+      - TAKEOFF CONFIGURATION: CKD (L)
 
   - id:   atakeoff
     name: After Takeoff
     kind: checklist
     items:
-      - LANDING GEAR: UP
-      - FLAPS: "0"
-      - PACKS: AUTO
-      - ALTIMETERS: STD AT TRANS ALT
+      - LANDING GEAR: UP (PM)
+      - SLAT / FLAP: 0 (PM)
+      - APU: AS RQD (PM)
 
   - id:   cruise
     name: Cruise
@@ -126,27 +128,27 @@ phases:
       - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS IN FMS
 
   - id:   descent
-    name: Descent
+    name: Approach
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - ALTIMETERS: ____ SET
-      - LANDING DATA: VREF ____ · MINIMUMS ____
-      - APPROACH BRIEFING: COMPLETED
-      - SEAT BELTS: "ON"
+      - BRIEFING: COMPLETE (PF)
+      - LANDING DATA: SET (PF)
+      - PASSENGER SIGNS PANEL: SET (PM)
+      - NAVAIDS & NAV ACCURACY: VERIFIED (PM)
+      - MINIMUMS: ____ BARO / RA (B)
+      - ALTIMETERS: ____ SET & X-CKD (B)
 
   - id:   land
     name: Before Landing
     kind: checklist
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: ____ — GREEN
-      - SPEEDBRAKE: RETRACTED
-      - EICAS: NO MESSAGES
+      - EICAS: CKD (PF)
+      - LANDING GEAR: DOWN (B)
+      - SLAT / FLAP: ____ SET (B)
 
   - id:   aland
     name: After Landing
-    kind: checklist
+    kind: flow
     items:
       - FLAPS: "0"
       - SPEEDBRAKE: RETRACTED
@@ -159,19 +161,20 @@ phases:
     name: Shutdown
     kind: checklist
     items:
-      - PARKING BRAKE: SET
-      - START/STOP SELECTORS: STOP
-      - FUEL PUMPS: "OFF"
-      - SEAT BELTS: "OFF"
-      - ELECTRICAL: APU / EXT PWR
-      - EXTERIOR LIGHTS: AS REQUIRED
+      - EMER / PARKING BRAKE: SET (L)
+      - PASSENGER SIGNS PANEL: SET (L)
+      - START/STOP SELECTORS: STOP (L)
+      - ENGINES: OFF (L)
+      - HYDRAULIC PANEL: SET (L)
+      - RED BEACON: OFF (L)
+      - TRANSPONDER: STBY (L)
+      - NAVAIDS & NAV ACCURACY: RESET (R)
 
   - id:   secure
-    name: Secure
+    name: Leaving the Aircraft
     kind: checklist
     items:
-      - IRS 1 + 2: "OFF"
-      - EMERGENCY LIGHTS: "OFF"
-      - PACKS: "OFF"
-      - APU: "OFF"
-      - BATTERY 1 + 2: "OFF"
+      - PASSENGER SIGNS PANEL: ALL OFF (L)
+      - GPU / APU: OFF (L)
+      - EXTERNAL LIGHTS: OFF (L)
+      - BATTERIES 1 & 2: OFF (L)

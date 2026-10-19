@@ -15,47 +15,97 @@ variants:
     note: The current build — glass deck, same handling. What most simulator add-ons model.
 
 phases:
-
   - id:   power
-    name: Power Up
-    kind: flow   # flow = from memory | checklist = read & respond
+    name: Acceptance (with External Power)
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - BATTERY: "ON"
-      - EXT PWR / HOTEL MODE: AS REQUIRED
-        note: With no APU on most ATRs, hotel mode runs engine 2 with the prop brake on to give you power and air on stand. The propeller stays stopped; the engine does not.
-      - EMERGENCY LIGHTS: ARM
-      - ADU / IRS: ALIGN
-      - PARKING BRAKE: "ON"
+      - LOG BOOK: CKD / ON BOARD (C)
+        note: From Empire Airlines' FAA-approved ATR 42 card (2008). The -500 / -600 and the 72 differ in detail — the glass -600 has no FDEP or RMIs.
+      - GEAR PINS: ON BOARD (F)
+      - TAIL STAND: INSTALLED (F)
+      - C/Bs: CKD (F)
+      - EMERGENCY EQUIP: CKD (F)
+      - BATTERIES & VOLTAGES: ON / CKD (F)
+      - EXTERNAL POWER: ON (F)
+      - ANN LIGHTS: CKD (F)
+      - OVERBOARD VALVE: AS REQ'D (F)
+      - OXYGEN: CKD (F)
+      - SMOKE DETECTORS: CKD / ON (F)
+      - ISOLATION VALVE: CKD (F)
+      - ENGINE FIRE: CKD (F)
+      - EMER LOC XMTR: CKD (F)
+      - HYDRAULIC SYSTEM: CKD (F)
+      - ACW POWER: CKD (F)
+      - PROP BRAKE: OFF (F)
+      - START SELECTOR: OFF / START / ABORT (F)
+      - CVR: CKD (F)
+      - FUEL PUMPS: CKD / OFF (F)
+      - RADIOS: CKD (F)
+      - ANTI SKID: CKD (F)
+      - BRAKE TEMP: CKD (F)
+      - LANDING GEAR: DOWN (F)
+      - CABIN PRESS: CKD (F)
+      - EXTRACT AIR FLOW: OPEN (F)
+      - EFIS: CKD (CR)
+      - EFIS SWITCHING: CKD (CR)
+      - MASKS: CKD (CR)
+      - VOLTAGES: CKD (C)
+      - STEERING: ON (C)
+      - TAWS: CKD (C)
+      - STANDBY INST: CKD / SET (C)
+      - POWER MANAGE: T.O. (C)
+      - CAP: CKD / CLR (C)
+      - FUEL QUANTITY: CKD (C)
+      - FUEL USED: RESET (C)
+      - RADAR: STBY (C)
+      - TCAS / TRANSPONDER: CKD (C)
+      - PARKING BRAKE: SET (C)
+      - GUST LOCK: ENGAGED (C)
+      - ENGINE LEVERS: CKD (C)
+      - FLAPS: CKD (C)
+      - IDLE GATE: CKD (C)
+      - EMER AUDIO CNCL: CKD (C)
+      - T.O. CONFIG: CKD (C)
+      - TRIMS: CKD (C)
+      - FDEP: SET (C)
+      - ENGINE TEST: CKD (C)
 
   - id:   scan
-    name: Preflight Scan
-    kind: flow
+    name: Hotel Mode Start / Pushback
+    kind: checklist
     items:
-      - CONDITION LEVERS: FUEL SO
-      - POWER LEVERS: IDLE
-      - PROP BRAKE: AS REQUIRED
-      - FUEL PUMPS: "ON"
-      - HYDRAULICS: BLUE / GREEN CHECKED
-      - ANTI-ICING: AS REQUIRED
-        note: This aeroplane earns its icing reputation honestly. Airframe de-ice, prop heat and the severe icing speeds are worth briefing before you need them.
-      - BLEED / PACKS: SET
-      - PWR MGT SELECTOR: TO
-      - FLAPS: "15"
-      - TAKEOFF DATA: TORQUE · V-SPEEDS · TRIM SET
+      - LOG BOOK: CKD / ON BOARD (C)
+      - PROP BRAKE: ON (C)
+        note: With no APU on most ATRs, hotel mode runs engine 2 with the prop brake on to give you power and air on stand. The propeller stays stopped; the engine does not.
+      - "#2 FUEL PUMP": ON (C)
+      - START SELECTOR: START (C)
+      - "ENGINE #2": START (C)
+      - START SELECTOR: OFF / START / ABORT (C)
+      - EXTERNAL POWER: REMOVED (F)
+      - STEERING "PUSHBACK ONLY": OFF (C)
 
   - id:   bstart
     name: Before Start
     kind: checklist
     items:
-      - DOORS: CLOSED
-      - FUEL: ____ KG — PUMPS ON
-      - LOADSHEET / CG: CHECKED
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
-      - ALTIMETERS: ____ SET
-      - TRIM: PITCH · ROLL · YAW SET
-      - TAKEOFF BRIEFING: COMPLETE
-      - BEACON: "ON"
-      - PARKING BRAKE: "ON"
+      - PREFLIGHT INSPECTIONS: COMPLETE (F)
+      - LOG BOOK: ONBOARD (C)
+      - GEAR PINS: ONBOARD (F)
+      - RADIOS AND RMIs: SET (CR)
+      - ALTIMETERS: SET (CR)
+      - FUEL PUMPS: ON (C)
+      - STBY PITOT: ON (F)
+      - MEMO PANEL: CHECKED (F)
+      - T.O. BRIEF / BUGS: COMPLETE (PF)
+      - divider: Complete to line
+      - STEERING: ON (C)
+      - TAIL STAND: ONBOARD (F)
+      - PARKING BRAKE: SET (C)
+      - DOORS: CLOSED (C)
+      - BELTS / HARNESS: ON (CR)
+      - BEACON: ON (C)
+      - PROP BRAKE: OFF (C)
+      - START SELECTOR: START (C)
 
   - id:   start
     name: Engine Start
@@ -74,106 +124,130 @@ phases:
     name: After Start
     kind: checklist
     items:
-      - GENERATORS: "ON"
-      - BLEEDS / PACKS: "ON"
-      - ANTI-ICING: AS REQUIRED
-      - FLAPS: "15"
-      - FLIGHT CONTROLS: CHECKED
-      - GROUND EQUIPMENT: CLEAR
+      - START SELECTOR: OFF / START / ABORT (C)
+      - ANTI-ICE: AS REQ'D (C)
+        note: This aeroplane earns its icing reputation honestly. Airframe de-ice, prop heat and the severe icing speeds are worth briefing before you need them.
+      - OVERBOARD VALVE: AUTO (F)
+      - FLAPS: 15 (F)
+      - RECIRC FANS: AS REQ'D (F)
+      - TRANSPONDER: AS REQ'D (F)
+      - FDEP: CKD (F)
+      - EXTERNAL POWER: REMOVED (F)
+      - CONDITION LEVERS: MAX RPM (C)
 
   - id:   taxi
     name: Taxi
     kind: checklist
     items:
-      - BRAKES: CHECKED
-      - NOSEWHEEL STEERING: CHECKED
-      - FLIGHT INSTRUMENTS: NO FLAGS
-      - TRANSPONDER: TA/RA
-      - TAXI CLEARANCE: ____ CONFIRMED
+      - BRAKES: CHECKED (CR)
+      - FLIGHT / ENGINE INSTRUMENTS: CKD / SET (CR)
+      - AFCS: SET (F)
+      - TERRAIN MODE: AS REQ'D (CR)
+      - TRIMS: SET (CR)
+      - T.O. CONFIG: TESTED (F)
+      - FINAL T.O. BRIEF / SPEEDS: COMPLETE (PF)
 
   - id:   btakeoff
-    name: Before Takeoff
+    name: Takeoff
     kind: checklist
     items:
-      - PWR MGT: TO
-      - ATPCS: ARMED
+      - FLIGHT CONTROLS: FREE (CR)
+      - START SELECTOR: CONT RELIGHT (C)
+      - CCAS: TO INHIBIT (C)
+      - RADAR: ON (F)
+      - TCAS / TRANSPONDER: ON (F)
+      - BLEEDS: OFF (F)
         note: The automatic take-off power control system trims the live engine up and feathers the dead one if you lose one on the roll. Check it armed — nothing else does that for you.
-      - FLAPS: 15 — INDICATED
-      - TRIM: ____ SET
-      - CABIN: SECURE
-      - divider: Line-up items
-      - EXTERIOR LIGHTS: STROBES · LANDING · ON
-      - TAKEOFF CLEARANCE: RECEIVED
+      - RUDDER CAM: CENTERED (C)
+      - FLIGHT DIRECTOR BARS: CENTERED ON RWY ____ (CR)
+      - LIGHTS: ON (C)
 
   - id:   atakeoff
     name: After Takeoff
     kind: checklist
     items:
-      - LANDING GEAR: UP
-      - FLAPS: "0"
-      - PWR MGT: CLB
-      - ANTI-ICING: AS REQUIRED
-      - ALTIMETERS: STD AT TRANS ALT
+      - START SELECTOR: OFF / START / ABORT (PNF)
+      - BLEEDS: ON (PNF)
+      - PWR MGT: CLB (PNF)
+      - LANDING GEAR: UP (PNF)
+      - FLAPS: UP (PNF)
 
   - id:   cruise
     name: Cruise
-    kind: flow
+    kind: checklist
     items:
-      - PWR MGT: CRZ
-      - FUEL: CHECKED vs FLIGHT PLAN
-      - ICING CONDITIONS: MONITORED
-      - PRESSURIZATION: CHECKED
-      - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
+      - LANDING LIGHTS: OFF (C)
+      - PWR MGT: CRZ (PNF)
+      - CRZ TQ: SET (PNF)
+      - ANTI-ICE: AS REQ'D (C)
 
   - id:   descent
     name: Descent
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - ALTIMETERS: ____ SET
-      - APPROACH BRIEFING: COMPLETE
-      - VREF / MINIMUMS: ____ SET
-      - ANTI-ICING: AS REQUIRED
-      - SEAT BELTS: "ON"
+      - ANTI-ICE: AS REQ'D (C)
+      - ALTIMETERS: SET (CR)
+      - CCAS: RCL / CLR (C)
+      - BELTS / HARNESS: ON (CR)
 
-  - id:   land
-    name: Before Landing
+  - id:   approach
+    name: Approach
     kind: checklist
     items:
-      - PWR MGT: TO
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: 30 — INDICATED
-      - CONDITION LEVERS: 100% OVRD
-      - ANNUNCIATORS: CHECKED
+      - LIGHTS: ON (C)
+      - CABIN ALTITUDE: SET (PNF)
+      - FLIGHT INSTRUMENTS / RADIOS: CKD / SET (CR)
+      - APPROACH BRIEF / BUGS: COMPLETE (PF)
+
+  - id:   land
+    name: Landing
+    kind: checklist
+    items:
+      - START SELECTOR: CONT RELIGHT (PNF)
+      - PWR MGT: T.O. (PNF)
+      - ICING AOA: AS REQ'D (C)
+      - LANDING GEAR: DOWN / CONFIRMED (CR)
+      - FLAPS: SET (PNF)
+      - CLs: MAX RPM (PNF)
 
   - id:   aland
     name: After Landing
     kind: checklist
     items:
-      - POWER LEVERS: IDLE — REVERSE AS REQUIRED
-      - FLAPS: "0"
-      - PWR MGT: "OFF"
-      - ANTI-ICING: AS REQUIRED
-      - TRANSPONDER: STBY
-      - WEATHER RADAR: "OFF"
+      - START SELECTOR: OFF / START / ABORT (F)
+      - LIGHTS / STROBES: OFF (F)
+      - GUST LOCK: ENGAGED (F)
+      - FLAPS: UP (F)
+      - RADAR: OFF (F)
+      - TCAS / TRANSPONDER: AS REQ'D (F)
+      - TRIMS: SET (F)
+      - divider: If single engine taxi
+      - TIMER (1 MINUTE): START (F)
+      - CL 1 OR 2: FEATHER THEN FUEL SO (C)
 
   - id:   shutdown
-    name: Shutdown
+    name: Parking
     kind: checklist
     items:
-      - PARKING BRAKE: "ON"
-      - PROP BRAKE: AS REQUIRED
-      - CONDITION LEVER 1: FUEL SO
-      - CONDITION LEVER 2: AS REQUIRED FOR HOTEL MODE
-      - FUEL PUMPS: "OFF"
-      - SEAT BELTS: "OFF"
+      - TAXI LIGHT: OFF (C)
+      - BRAKES: SET (C)
+      - ENGINE TEST (LAST FLIGHT OF THE DAY): CKD (C)
+      - CLs: FEATHER (C)
+      - STICK PUSHER (LAST FLIGHT OF THE DAY): CKD (C)
+      - ANTI-ICE: OFF (F)
+      - OXYGEN: OFF (F)
+      - SMOKE DETECTORS: OFF (F)
+      - OVERBOARD VALVE: AS REQ'D (F)
+      - TRANSPONDER: STBY (F)
+      - EFIS / RADIOS: OFF (CR)
+      - CLs: FUEL S.O. (C)
 
   - id:   secure
-    name: Secure
+    name: Securing
     kind: checklist
     items:
-      - CONDITION LEVERS: FUEL SO
-      - PROP BRAKE: "OFF"
-      - IRS / ADU: "OFF"
-      - EMERGENCY LIGHTS: "OFF"
-      - BATTERY: "OFF"
+      - FUEL PUMPS: OFF (C)
+      - LIGHTS: OFF (C)
+      - BRAKES: OFF (C)
+      - EXTERNAL POWER / BATTERY: AS REQ'D (C)
+      - TAIL STAND / PROP TIES / FUEL PANEL: INSTALLED / SET (F)

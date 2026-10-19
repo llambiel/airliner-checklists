@@ -15,15 +15,20 @@ variants:
 phases:
 
   - id:   power
-    name: Power Up
-    kind: flow   # flow = from memory | checklist = read & respond
+    name: Originating Before Start
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - BATTERY MASTER: "ON"
-      - EXT PWR / APU: AS REQUIRED
-      - APU: START — AVAIL
-      - AVIONICS: "ON"
-      - EMERGENCY LIGHTS: ARM
-      - PARKING BRAKE: SET
+      - EXT PWR / APU VOLTAGE: ON CHECKED ____ VOLTS (C)
+      - RECIRC FAN: ON (C)
+      - FLIGHT DECK PREPARATION: COMPLETE (CR)
+      - ANTI-SKID: ON (C)
+      - CAUTION / ADV LIGHTS: CHECK (C)
+      - GEAR PINS: STOWED (CR)
+      - GEAR LEVER: DOWN / 3 GREEN (CR)
+      - ALT GEAR DR - L/G INHIBIT SWITCH: CLOSED / NORM (C)
+      - STANDBY INST: CHECK (C)
+      - ED MESSAGES: CHECK (C)
+      - PREFLIGHT CHECKS: COMPLETE (F)
 
   - id:   scan
     name: Preflight Scan
@@ -46,144 +51,186 @@ phases:
     name: Before Start
     kind: checklist
     items:
-      - DOORS: CLOSED
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - Q400 Cargo
-      - LOADSHEET / CG: CHECKED
-      - FUEL: ____ KG — BALANCED
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
-      - ALTIMETERS: ____ SET
-      - TRIMS: SET
-      - BEACON: "ON"
-      - PARKING BRAKE: SET
+      - CIRCUIT BREAKERS: CHECK (CR)
+      - EMERGENCY LIGHTS: ARM (C)
+      - ESCAPE HATCH: CLOSED (C)
+      - NOSE STEERING: OFF (C)
+      - SEAT BELTS & SHOULDER HARNESS: ON (CR)
+      - YAW DAMPER: ON (C)
+      - FUEL QTY: CHECK, ____ LBS (C)
+      - "HYD #3 PRESSURE": CHECK, ____ PSI (C)
+      - EMERG BRAKE / PRESSURE: ON / CHECK (C)
+      - POWER LEVERS: DISC (C)
+      - CONDITION LEVERS: FUEL OFF (C)
+      - DEPARTURE BRIEF: COMPLETE (CR)
 
   - id:   start
     name: Engine Start
-    kind: flow
+    kind: checklist
     items:
-      - AREA: CLEAR — PROPS CLEAR
-      - ENG 2 START: ENGAGED
+      - BATTERY MASTER / MAIN / AUX / STBY: ON (C)
+      - DOORS / FUELING LIGHTS: CLOSED / OUT (C)
+        note: "Q400 Cargo: main deck cargo door included, and the CG checked against the load plan."
+      - SEAT BELT SIGN: ON (C)
+      - APU BLEED: OFF (C)
+      - LOCK ISOLATE: OFF (C)
+      - ANTI-COLLISION LIGHT: RED (C)
+      - ENGINE: CLEAR (CR)
         note: Right engine first as a habit — it runs the hydraulics and the air conditioning while the left one waits.
-      - CONDITION LEVER 2: MIN AT LIGHT-UP — ITT MONITORED
-      - ENG 2: STABILISED — GENERATOR ON
-      - ENG 1: STARTED — STABILISED
-      - APU: AS REQUIRED
-      - EXTERNAL POWER: DISCONNECTED
 
   - id:   astart
     name: After Start
     kind: checklist
     items:
-      - GENERATORS: ON — LOAD SHARED
-      - BLEEDS / PACKS: SET
-      - FLIGHT CONTROLS: FREE AND CORRECT
-      - FLAPS: "5"
-      - CONDITION LEVERS: MAX / 850 AS REQUIRED
-      - ANTI-ICE: AS REQUIRED
-      - CABIN: SECURE
+      - EXT PWR / APU: OFF (C)
+      - MAIN BUS TIE: OFF (C)
+      - BLEEDS: MIN / ON (C)
+      - BATTERY TEMPS: CHECK (C)
+      - HYD PRESS / QTY: CHECK (C)
+      - "HYD #3 & ELEVATOR": CHECK (CR)
+      - AUX / PTU / STBY PUMPS: ON (C)
+      - AUTOFEATHER: A/F SELECT (C)
+      - ENGINE RATING: ____ % SET / CHECK (C)
+      - DEICE PRESSURE: CHECK (F)
+      - FLAPS: ____ ° SET / INDICATING (CR)
+      - RUDDER TRAVEL: FULL TRAVEL (C)
+      - NOSE STEERING: ON (C)
+      - FLIGHT / TAXI: TAXI (C)
+      - ICE PROTECTION: AS REQ'D (C)
+      - CAUTION / WARNING LIGHTS: CHECK (C)
+      - FLIGHT INSTR / YD / FD / RADIO: CHECK / ON / SET (CR)
+      - ALTIMETERS: ____ SET / CROSSCHECK (CR)
 
   - id:   taxi
-    name: Taxi / Before Takeoff
+    name: Taxi
     kind: checklist
     items:
-      - BRAKES: CHECKED
-      - FLIGHT INSTRUMENTS: CROSSCHECKED
-      - FLAPS: 5 / 10 — CONFIRMED
-      - TRIMS: SET
-      - CONDITION LEVERS: MAX
-      - PROP DE-ICE / ANTI-ICE: AS REQUIRED
-      - TRANSPONDER: TA / RA
-      - EXTERIOR LIGHTS: STROBE · LANDING · TAXI
-      - divider: Line-up items
-      - RUNWAY: ____ CONFIRMED
-      - TAKEOFF TORQUE: SET
+      - TAKEOFF DATA / BRIEFING: SET / COMPLETE (CR)
+      - CONDITION LEVERS: MAX (CR)
+      - TRIMS: 3 SET (CR)
+      - T/O WARNING: TEST (C)
+
+  - id:   btakeoff
+    name: Before Takeoff
+    kind: checklist
+    items:
+      - F/A NOTIFICATION: RECEIVED (F)
+      - TRANSPONDER / TCAS: ON / ALT (F)
+      - FLIGHT CONTROLS: CHECKED / FREE (F)
+      - RADAR / TERRAIN: AS REQ'D (F)
+      - FLIGHT / TAXI: FLIGHT (F)
+      - CABIN PA: COMPLETE (F)
+      - EXTERNAL LIGHTS: ON (F)
         note: It accelerates hard and gets airborne early. Hold the nose where the numbers say instead of letting it fly itself off.
 
   - id:   climb
-    name: After Takeoff / Climb
+    name: Climb
     kind: checklist
     items:
-      - LANDING GEAR: UP
-      - FLAPS: UP
-      - CONDITION LEVERS: 900 / 850
-      - CLIMB TORQUE: SET
-      - PRESSURISATION: CLIMBING NORMALLY
-      - ANTI-ICE: AS REQUIRED
-      - ALTIMETERS: STD SET AT TRANSITION
+      - LANDING GEAR: UP (PM)
+      - FLAPS: 0° (PM)
+      - POWER: SET (PM)
+      - BLEEDS: NORM / ON (PM)
+      - AUTOFEATHER: OFF (PM)
+      - AUX / PTU / STBY PUMPS: OFF NORMAL (PM)
+      - ENGINE TEMPS / PRESS: CHECK (PM)
+      - ICE PROTECTION: AS REQ'D (PM)
+      - CABIN TEMP / PRESS: CHECK (PM)
 
   - id:   cruise
     name: Cruise
-    kind: flow
+    kind: checklist
     items:
-      - CRUISE TORQUE / Np: SET
+      - ALTIMETERS: ____ SET / CROSSCHECK (CR)
+      - POWER: SET (PM)
         note: Np down to 850 in the cruise is what makes the cabin liveable. The passengers behind you can hear the difference.
-      - FUEL: BALANCED — CHECKED vs PLAN
-      - ENGINE TREND: TORQUE · ITT · Np NORMAL
-      - CABIN ALTITUDE: CHECKED
-      - ANTI-ICE: AS REQUIRED
-      - DESCENT PREP: ARRIVAL · APPROACH · MINIMA
+      - SEAT BELTS SIGN: AS REQ'D (PM)
+      - LIGHTS: AS REQ'D (PM)
+      - CABIN PRESSURE: CHECK (PM)
+      - 24-HR ICE PROTECTION TEST: AS REQ'D (PM)
 
   - id:   desc
     name: Descent
     kind: checklist
     items:
-      - PRESSURISATION / LANDING ELEV: SET
-      - ALTIMETERS: ____ SET
-      - ANTI-ICE: AS REQUIRED
-      - CONDITION LEVERS: AS REQUIRED
-      - APPROACH BRIEFING: COMPLETE
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____ SET / CROSSCHECK (CR)
+      - FUEL BALANCE: CHECK (PM)
+      - PRESSURIZATION: SET (PM)
+      - CABIN PA: COMPLETE (PM)
 
   - id:   appr
     name: Approach
     kind: checklist
     items:
-      - FUEL: SUFFICIENT
-      - FLAPS: "10"
-      - SPEEDS: VREF ____ SET
-      - MINIMA: ____ SET
-      - CONDITION LEVERS: MAX
-      - LANDING LIGHTS: "ON"
+      - ALTIMETERS: ____ SET / CROSSCHECK (CR)
+      - APPROACH & LANDING BRIEF: COMPLETE (CR)
+      - BUGS: SET (CR)
+      - GPWS LANDING FLAP: SELECTED ____ ° (PM)
+      - FUEL TRANSFER: OFF (PM)
+      - HYD PRESS / QTY: CHECK (PM)
+      - CAUTION / WARNING LIGHTS: CHECK (PM)
+      - SEAT BELTS SIGN: ON (PM)
+      - EXTERNAL LIGHTS: ON (PM)
 
   - id:   land
-    name: Landing
+    name: Before Landing
     kind: checklist
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: 15 / 35
-      - SPEED: VREF ____
-      - LANDING CLEARANCE: RECEIVED
-      - AUTOPILOT: DISENGAGED
+      - BLEEDS: MIN / ON (PM)
+      - AUX / PTU / STBY PUMPS: ON (PM)
+      - F/A NOTIFICATION: COMPLETE (PM)
+      - LANDING GEAR: DOWN / 3 GREEN (CR)
+      - FLAPS: ____ ° SET / INDICATING (CR)
+      - CONDITION LEVERS: MAX (CR)
 
   - id:   aland
     name: After Landing
     kind: checklist
     items:
-      - POWER LEVERS: DISC
-      - FLAPS: UP
-      - ANTI-ICE: AS REQUIRED
-      - CONDITION LEVERS: 850
-      - TRANSPONDER: STBY
-      - EXTERIOR LIGHTS: SET
+      - RADAR: STBY (F)
+      - TRANSPONDER / TCAS: AS REQ'D (F)
+      - FLAPS: 0° (F)
+      - CONTROL LOCK: ON (F)
+      - TANK AUX PUMPS 1 & 2: OFF (F)
+      - YAW DAMPER: OFF (F)
+      - FLIGHT / TAXI: TAXI (F)
+      - ANTI COLLISION LIGHTS: RED (F)
+      - LIGHTS: AS REQ'D (F)
+      - MAIN BUS TIE: TIE (F)
+      - APU: AS REQ'D (F)
 
   - id:   shut
-    name: Shutdown
+    name: Parking
     kind: checklist
     items:
-      - PARKING BRAKE: SET
-      - APU: RUNNING AS REQUIRED
-      - CONDITION LEVERS: FUEL OFF
-      - PROPELLERS: FEATHERED — STOPPED
-      - FUEL PUMPS: "OFF"
-      - SEAT BELTS: "OFF"
+      - TAXI LIGHT: OFF (C)
+      - EMERG BRAKE: ON (C)
+      - STBY HYD PRESS & PTU CNTRL: NORM (C)
+      - POWER LEVERS: DISC (C)
+      - CONDITION LEVERS: START / FEATHER (C)
+      - SEAT BELTS SIGN: OFF (C)
+      - RADAR: OFF (C)
+      - NOSE STEERING: OFF (C)
+      - TRANSPONDER: STBY (C)
+      - BLEEDS: MIN / OFF (C)
+      - EXT PWR / APU: AS REQ'D (C)
+      - CONDITION LEVERS (30 SEC): FUEL OFF (C)
+      - LIGHTS: AS REQ'D (C)
+      - EMERGENCY LIGHTS: OFF (C)
+      - STBY / AUX / MAIN BATTERIES: AS REQ'D (C)
+      - BATTERY MASTER: AS REQ'D (C)
 
   - id:   secure
-    name: Securing the Aircraft
+    name: Securing
     kind: checklist
     items:
-      - APU: "OFF"
-      - EMERGENCY LIGHTS: "OFF"
-      - AVIONICS: "OFF"
-      - BATTERY MASTER: "OFF"
-      - CHOCKS: IN PLACE
+      - RECIRC FAN: OFF (F)
+      - EMERGENCY LIGHTS: OFF (F)
+      - ANTI-SKID: OFF (F)
+      - AIRFRAME MODE SELECT: OFF (F)
+      - ENGINE INTAKE BYPASS DOORS: CLOSED (F)
+      - LIGHTS: OFF (F)
+      - FMS & DISPLAYS: OFF (F)
+      - EXT POWER / APU: OFF (F)
+      - STBY / AUX / MAIN BATTERIES: OFF (F)
+      - BATTERY MASTER: OFF (F)

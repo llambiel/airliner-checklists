@@ -17,7 +17,6 @@ variants:
     note: EFIS displays and an FMS in place of the earlier PMS. The panel scan is the same, the readouts are not.
 
 phases:
-
   - id:   power
     name: Power Up
     kind: flow   # flow = from memory | checklist = read & respond
@@ -31,43 +30,60 @@ phases:
       - PARKING BRAKE: SET
 
   - id:   preflight
-    name: Preflight Scan
-    kind: flow
+    name: Before Start
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - OXYGEN: TESTED — 100%
-      - ANTI-SKID: "ON"
-      - GROUND SPOILERS: DISARMED
-      - HYDRAULICS L / R: PUMPS HIGH — TRANSFER OFF
-      - PNEUMATIC CROSSFEED: SET
-      - AIR CONDITIONING: SUPPLY ON — AUTO
-      - PRESSURIZATION: FLT & LAND ALT SET — AUTO
+      - BRIEFING / EFB: COMPLETED / SET (B)
+      - LOGBOOK & GEAR PINS: ____ ON BOARD
+      - COCKPIT PREPARATIONS: COMPLETED (B)
+      - PREFLIGHT INSPECTION: COMPLETED (B)
+      - WINDOWS: CLOSED / LOCKED (B)
+      - CIRCUIT BREAKERS: CHECKED (B)
+      - OXYGEN & INTERPHONE: CHKD, ON, 100% (B)
+      - SMOKE GOGGLES: CHECKED (B)
+      - PRESSURIZATION: AUTO (UP) AND SET
         note: Two controllers, and the cruise altitude goes in by hand. Set it before you push, not in the climb.
-      - FUEL PUMPS: ON — L / C / R AS LOADED
-      - IGNITION: OFF
-      - ANTI-ICE: AS REQUIRED
-      - FUEL LEVERS: OFF
-      - SPOILER LEVER: RETRACTED
-      - SLATS / FLAPS: UP / RET
-      - TRP: T.O. EPR SET
+      - AIR COND SHUTOFF: AUTO
+      - ANTI-SKID: ARMED
+      - EGPWS: TESTED
+      - FD CMD, CADC, EFIS & RADIO NAV SELECTORS: NORMAL
+      - EMER LIGHTS: ARMED
+      - SEAT BELT & NO SMOKING SIGNS: "ON"
+      - FLT GUIDANCE CONTROL PNL: CHKED & SET (B)
+      - CLOCKS & ALTIMETERS: ____, ____, ____, SET (B)
+      - FMS: CHECKED & SET (B)
+      - ENGINE OIL QUANTITY: CHECKED
+      - TAKEOFF WARNING: CHECKED
+      - RUDDER POWER: POWER
+      - RADAR: "OFF"
+      - TRANSPONDER: STANDBY
+      - RADIOS: SET (B)
+      - RUDDER & AILERON TRIM: FREE & ZERO
+      - PARKING BRAKES: SET, PRESSURE CHECKED
+      - divider: Below the line
+      - FUEL PUMPS & X FEED: ON & CLSD
+      - FUEL QUANTITY: MIN ____, FOB ____ (B)
+      - V SPEEDS: ____, ____, ____ SET (B)
+      - STABILIZER TRIM: ____ CHECKED & SET (B)
+      - PMS: CHECKED & SET
         note: JT8Ds are rated in EPR, not N1 — set the thrust rating panel and check the bugs match your takeoff numbers.
 
   - id:   bstart
-    name: Before Start
-    kind: checklist
+    name: Ready for Start
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PREFLIGHT CHECKS: COMPLETE
-      - GEAR PINS: REMOVED
-      - DOORS: CLOSED — ARMED
-      - FUEL: ____ KG — PUMPS ON
-      - TAKEOFF DATA: V1 ____ · VR ____ · V2 ____
-      - STAB TRIM: ____ — GREEN BAND
-      - DIAL-A-FLAP: ____ SET
-        note: The MD-80's takeoff flap dial between 11 and 24 — a small setting change is worth real runway performance.
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
-      - ALTIMETERS: ____ SET
-      - TAKEOFF BRIEFING: COMPLETE
-      - ANTI COLLISION LIGHT: "ON"
-      - PARKING BRAKE: SET
+      - DOCUMENTS: ON BOARD
+      - CABIN: SECURE
+      - COCKPIT DOOR: LOCKED
+      - PNEUMATIC CROSSFEEDS: OPEN
+      - HYDRAULICS: ON, HIGH & CHECKED
+      - ANTI-COLLISION LIGHTS: "ON"
+      - ANNUNCIATOR / DOOR LIGHTS: CHKD & LTS OUT
+      - AIR COND SUPPLY SWITCHES: "OFF"
+      - FUEL PUMPS: SET
+      - PITOT / WINDSHIELD HEAT: CAPT / ON
+      - IGNITION: "ON"
+      - PNEUMATIC PRESSURE: CHECKED
 
   - id:   start
     name: Engine Start
@@ -86,50 +102,69 @@ phases:
 
   - id:   astart
     name: After Start
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - GENERATORS: ON — APU OFF
-      - AIR CONDITIONING: SUPPLY ON
-      - ANTI-ICE: AS REQUIRED
-      - SLATS / FLAPS: ____ / ____ SET
-      - FLIGHT CONTROLS: CHECKED
-      - GROUND EQUIPMENT: CLEAR
+      - PNEUMATIC CROSSFEEDS: CLOSED
+      - TRANSPONDER: XPDR / XPDR 1/2
+      - HYDRAULICS: ON, HIGH & CHECKED
+      - APU AIR SWITCH: "OFF"
+      - ENGINE ANTI-ICE: ON / OFF
+      - FUEL HEAT: ON / OFF
+      - IGNITION: "OFF"
+      - ELECTRICAL SYSTEM: CHECKED
+      - AIR COND SUPPLY SWITCHES: AUTO
+      - YAW DAMPER: "ON"
+      - ANNUNCIATORS: CHECKED
+      - SHOULDER HARNESS: ON (B)
+      - GROUND EQUIPMENT: CLEAR (B)
 
   - id:   taxi
     name: Taxi
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - BRAKES: CHECKED
-      - NOSEWHEEL STEERING: CHECKED
-      - FLIGHT INSTRUMENTS: NO FLAGS
-      - WEATHER RADAR: AS REQUIRED
-      - TRANSPONDER: TA/RA
-      - TAXI CLEARANCE: ____ CONFIRMED
+      - FLAPS / SLATS: ____°, ____°, ____°, TO BLUE LT (B)
+        note: The MD-80's takeoff flap dials between 11 and 24 — a small setting change is worth real runway performance.
+      - FLIGHT CONTROLS / ELEV AUG: CHECKED (B)
+      - APU: (CAPT) ON / OFF
+      - FUEL HEAT: "OFF"
+      - TAKEOFF BRIEFING: COMPLETED (B)
 
   - id:   btakeoff
     name: Before Takeoff
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
-      - STAB TRIM: ____ — GREEN BAND
-      - GROUND SPOILERS: ARMED
-      - IGNITION: AS REQUIRED
-      - ANNUNCIATOR PANEL: CHECKED
-      - CABIN: SECURE
-      - divider: Line-up items
-      - EXTERIOR LIGHTS: STROBES · LANDING · ON
-      - TAKEOFF CLEARANCE: RECEIVED
+      - FLAPS / SLATS: ____°, ____°, ____°, TO BLUE LT (B)
+      - V SPEEDS: ____, ____, ____ RECHKD (B)
+      - STAB TRIM: ____ SET (B)
+      - ANNUNCIATORS: CHECKED
+      - FLIGHT ATTENDANTS: SEATED
+      - divider: Below the line
+      - DEPARTURE RUNWAY: CONFIRMED (B)
+      - IGNITION: "ON"
+      - RADAR / EGPWS (TERRAIN DISPLAY): "ON"
+      - TRANSPONDER: TA/RA
+      - LANDING LIGHTS: "ON"
+      - RUNWAY ALIGNMENT: CHECKED (B)
 
   - id:   atakeoff
-    name: After Takeoff
-    kind: checklist
+    name: Climb (Silent)
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: UP
-      - SLATS / FLAPS: UP / RET
-      - GROUND SPOILERS: DISARMED
-      - AIR CONDITIONING: NORMAL
-      - IGNITION: OFF
-      - ALTIMETERS: STD AT TRANS ALT
+      - FLAPS / SLATS: UP / RET
+      - FLAP T.O. SEL WHEEL: STOWED
+      - LANDING GEAR: HANDLE UP
+      - HYDRAULIC PUMPS: OFF, LOW & OFF
+      - ENGINE / AIRFOIL ANTI-ICE: ON / OFF
+      - IGNITION: ON / OFF
+      - APU: AS REQUIRED
+      - FUEL PUMPS: SET
+      - PRESSURIZATION: CHECKED
+      - RUDDER TRAVEL UNRESTRICTED LIGHT: OUT
+      - ART SWITCH: AUTO
+      - ENGINE SYNC: ON / OFF
+      - divider: At transition altitude
+      - ALTIMETERS: 29.92 (B)
+      - LANDING LIGHTS: "OFF"
 
   - id:   cruise
     name: Cruise
@@ -143,57 +178,105 @@ phases:
       - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS SET
 
   - id:   descent
-    name: Descent / Approach
-    kind: checklist
+    name: Descent
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - ALTIMETERS: ____ SET & CROSSCHECKED
-      - APPROACH BRIEFING: COMPLETE
-      - SEAT BELTS: "ON"
-      - LANDING DATA: VREF ____ · MINIMUMS ____
-      - IGNITION: AS REQUIRED
+      - LANDING RUNWAY ASSESSMENT: COMPLETED
+      - APPROACH BRIEFING / EFB: COMPLETED / SET (B)
+      - HYD PMPS QTY & PRESS: ON, HIGH & CHCKD
+      - AIR COND & PRESS: CHECKED & SET
+      - ENGINE SYNC: "OFF"
+      - FUEL PUMPS & CROSSFEED: SET
+      - FUEL HEAT: "OFF"
+      - ANTI-ICE: ON / OFF
+      - WINDSHIELD ANTI-FOG: ON / OFF
+      - V SPEEDS: ____ ____ SET (B)
+      - EGPWS (TERR DISPLAY): ON / OFF
+      - divider: At transition altitude
+      - SEAT BELT SIGN: "ON"
+      - ALTIMETERS: ____, ____, SET & X-CHCKD (B)
+      - EXTERIOR LIGHTS: ON / OFF
+      - SHOULDER HARNESSES: ON (B)
+
+  - id:   approach
+    name: Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - RMI SELECTORS: SET
+      - FLIGHT ATTENDANTS: NOTIFIED
+      - APU: (CAPT) AS REQUIRED
+      - APPROACH FREQ'S & COURSES: SET
 
   - id:   land
     name: Before Landing
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
-      - GROUND SPOILERS: ARMED
-      - ANTI-SKID: "ON"
-      - ANNUNCIATOR PANEL: CHECKED
+      - HYD PMPS, QTY & PRESS: ON, HIGH & CHCKD
+      - IGNITION: "ON"
+      - FLIGHT ATTENDANTS: SEATED
+      - LANDING GEAR: DOWN & 3 GREEN (B)
+      - SPOILERS: ARMED (B)
+      - BRAKE PRESSURE: CHECKED
+      - divider: Below the line
+      - FLAPS / SLATS: ____°, ____°, LAND BLUE LT (B)
+      - AUTOPILOT: ENGAGED / OFF
 
   - id:   aland
-    name: After Landing
-    kind: checklist
+    name: After Landing (Silent)
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - GROUND SPOILERS: DISARMED — RETRACTED
-      - SLATS / FLAPS: UP / RET
-      - APU: START AS REQUIRED
-      - IGNITION: OFF
-      - ANTI-ICE: AS REQUIRED
-      - TRANSPONDER: STBY
-      - WEATHER RADAR: OFF
+      - REVERSE LIGHTS: OUT
+      - LANDING / TAXI LIGHTS: AS REQUIRED
+      - ANTI-SKID: "OFF"
+      - FLAPS / SLATS: UP / RET
+      - SPOILER LEVER: FWD, DETENT
+      - RADAR: "OFF"
+      - TRANSPONDER: XPDR XPDR 1/2
+      - HYDRAULIC PRESSURE & QUANTITY: CHECKED
+      - AIRFOIL ANTI-ICE: "OFF"
+      - ENGINE ANTI-ICE: ON / OFF
+      - PITOT / WINDSHIELD HEAT: "OFF"
+      - IGNITION: "OFF"
+      - APU: ON / OFF
+      - divider: Single engine taxi (captain's command)
+      - APU: "ON"
+      - FUEL CONTROL LEVER: "OFF"
 
   - id:   shutdown
-    name: Shutdown
-    kind: checklist
+    name: Parking
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PARKING BRAKE: SET
-      - GENERATORS: APU ON
-      - FUEL LEVERS: OFF
-      - FUEL PUMPS: OFF
-      - SEAT BELTS: OFF
-      - HYDRAULIC PUMPS: LOW
+      - PARKING BRAKES: SET
+      - ELECTRICAL SWITCHES: SET
+      - FUEL CONTROL LEVERS: "OFF"
+      - SEAT BELT SIGN: "OFF"
+      - ENGINE ANTI-ICE: "OFF"
+      - ANTI-COLLISION LIGHTS: "OFF"
+      - CVR C/B: AS REQUIRED
+      - CHOCKS: IN PLACE
       - EXTERIOR LIGHTS: AS REQUIRED
+      - FUEL PUMPS: AS REQUIRED
+      - AIR COND SUPPLY SWITCHES: AS REQUIRED
+      - AUX & TRANS HYDRAULIC PUMPS: "OFF"
+      - TRANSPONDER: STANDBY
+      - FLIGHT DIRECTORS: "OFF"
 
   - id:   secure
-    name: Secure
-    kind: checklist
+    name: Terminating (Silent)
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - IRS L / R: OFF
-      - EMERGENCY LIGHTS: OFF
-      - GALLEY POWER: OFF
-      - ANTI-SKID: OFF
-      - APU: OFF
-      - BATTERY: OFF
+      - AIR COND SUPPLY SWITCHES: "OFF"
+      - APU AIR SWITCH: "OFF"
+      - MANUAL PRESS CONTROL: CLOSED
+      - RADIOS / TRANSPONDER / RADAR: "OFF"
+      - PNEUMATIC CROSSFEEDS: CLOSED
+      - OXYGEN VALVES AND REGULATORS: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - AC/DC METER SELECTOR SWITCH: EXT PWR
+      - GALLEY POWER: "OFF"
+      - APU BUS SWITCHES: "OFF"
+      - APU MASTER SWITCH: "OFF"
+      - FUEL PUMPS: "OFF"
+      - BATTERY SWITCH: "OFF"
+      - GEAR PINS / ENGINE PLUGS: AS REQUIRED
+      - CABIN DOOR: CLOSED

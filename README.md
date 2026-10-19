@@ -205,12 +205,38 @@ server every time you fly. Compiling keeps the open-it-anywhere convenience and 
 
 ## Accuracy
 
-These are condensed for simulator use and are **not for real-world flight**. They were assembled
-from general type knowledge, not transcribed from any operator's manual, and they are deliberately
-simplified — the abnormal and emergency checklists that make up most of a real QRH are not here at
-all.
+These are for simulator use and are **not for real-world flight**. The read-and-respond checklists
+follow the manufacturer's normal checklist where one is known, and otherwise a real operator's card
+(see [Sources](#sources)). The "from memory" flows are condensed, and the abnormal and emergency
+checklists that make up most of a real QRH are not here at all.
 
 Sequences and values vary by operator, engine option and add-on model. Engine start order is the
-clearest example: the A340, A380, 747, MD-80 and MD-11 items say so inline rather than pretending
-there is one right answer. Cross-check against the aircraft's FCOM or your add-on developer's
-documentation, and edit the YAML to match what you actually fly.
+clearest example: the A340, A380, 747 and MD-80 items say so inline rather than pretending there is
+one right answer. Cross-check against the aircraft's FCOM or your add-on developer's documentation,
+and edit the YAML to match what you actually fly.
+
+### Sources
+
+Operator cards come from public NTSB accident dockets, where the airline's FAA-approved checklist is
+filed as evidence. They are copied item for item, including who responds (C captain, F first
+officer, E flight engineer, S second officer, PF / PM / PNF, CR / B / BOTH / ALL for both or every
+crew member). Each card reflects one airline at one date, so items like ACARS or coded circuit
+breakers are that airline's, not the type's.
+
+| Type | Checklists from | Notes |
+|---|---|---|
+| A318 · A319 · A320 · A321 · A320neo · A330ceo · A330neo · A340 · A350 · A380 | Airbus FCOM / QRH Normal Checklist layout | Written from knowledge of the published card, not transcribed from a specific revision. Flows follow the FCOM normal procedures. A350 and A380 are lower confidence. |
+| 737 NG · 737 MAX · 757 · 767 · 777 · 787 · 747-400 · 747-8 | Boeing QRH Normal Checklists | Same caveat as Airbus. |
+| MD-11 | [Delta Air Lines MD-11 card](https://data.ntsb.gov/Docket/Document/docBLOB?ID=40206180&FileExtension=.PDF&FileName=Other+Pertinent+Forms+and+Reports%3A+Aircraft+Normal+Checklist-Master.PDF), FAA approved 2000 | Cockpit Entry, Preflight, Engine Start and Cruise flows from the [TFDi MD-11 docs](https://docs.tfdidesign.com/md11/normal-checklist). |
+| MD-80 | [Ameristar Air Cargo MD-83 card](https://data.ntsb.gov/Docket/Document/docBLOB?ID=40461805&FileExtension=.PDF&FileName=Operations+Attachment+7+-+Ameristar+MD-83+Checklists-Master.PDF), 2017 | NTSB DCA17FA076. Power Up, Engine Start and Cruise flows are not from the card. |
+| 707 | [Omega Aerial Refueling 707 card](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Operations+-+Attachment+12+-+Omega+B707+Checklists-Master.PDF&ID=40355572) | NTSB DCA11MA075. Power Up, Flight Engineer Panel, Engine Start and Cruise flows are not from the card. |
+| 727 | [FedEx 727-200 card](https://data.ntsb.gov/Docket/Document/docBLOB?ID=40173618&FileExtension=.PDF&FileName=Operations+2+-+Attachment+G+-+Excerpts+from+the+FedEx+B-727+Flight+Manual,+Volume+1-Master.PDF), 2002 | In Range through Termination only. Three lines that are illegible on the scan are left out. Everything before is unsourced. |
+| Q400 | [Colgan Air Q400 card](https://www.faa.gov/sites/faa.gov/files/2022-11/Colgan%20Normal%20Checklist.pdf), rev 3, 2008 | Preflight Scan flow is not from the card. |
+| ATR 42 / 72 | Empire Airlines ATR 42 card, 2008 | NTSB CEN09MA142, exhibit 2-X. An ATR 42-300 era card, so the -500, -600 and the 72 differ in detail. |
+| E-Jets | [E175 normal checklist](https://pdfcoffee.com/e175checklist-pdf-free.html) | A flight simulation card laid out like a US regional airline's, not an official document. Engine Start, Cruise and After Landing are not from it. |
+| Challenger 604 / 605 / 650 | Bombardier CL-605 FCOM, normal procedures | NTSB WPR21FA286, attachment 18. Approach and Before Landing only. |
+| PC-12 | [Pilatus PC-12 AFM](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Pilatus+Airplane+Flight+Manual+Excerpt+%28Before+Taxi+Checklist%29-Master.PDF&ID=40434988), report 01973-001 rev 16 | Before Taxiing, Taxiing and part of Before Takeoff only. That manual covers the PC-12 and /45, not the NG or NGX. |
+
+Not yet sourced, assembled from general type knowledge: A220, A300-600, A310, A400M, CRJ700 / 900 /
+1000, Falcon 50, Fokker 70 / 100, G650, L-1011, MD-10, PC-24 and TBM. If you have a real card or
+your add-on's checklist for one of these, it is the most useful contribution you can make.

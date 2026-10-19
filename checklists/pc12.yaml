@@ -96,23 +96,49 @@ phases:
       - ANNUNCIATORS: CHECKED — NO WARNINGS
 
   - id:   taxi
-    name: Taxi / Before Takeoff
+    name: Before Taxiing / Taxiing / Before Takeoff
     kind: checklist
     items:
-      - BRAKES: CHECKED
-      - FLIGHT INSTRUMENTS: HEADING & ATTITUDE CHECKED
-      - FLAPS: 15 — CONFIRMED
-      - TRIM: TAKEOFF RANGE
-      - INERTIAL SEPARATOR: AS REQUIRED
-      - IGNITION: AUTO
-      - FUEL PUMPS: AUTO — BALANCED
-      - AUTOPILOT: TESTED — DISENGAGED
-      - TRANSPONDER: TA / RA — ALT
-      - EXTERIOR LIGHTS: LANDING · STROBE · RECOG
-      - divider: Line-up items
-      - RUNWAY: ____ CONFIRMED
-      - TORQUE: SET — ENGINE INSTRUMENTS GREEN
-        note: Lead with the power lever gently and let the torque settle before releasing the brakes; a fistful of power on a cold engine overtorques it.
+      - divider: Before taxiing
+      - AHRS: CHECK — NO FLAGS
+        note: From the Pilatus PC-12 AFM (report 01973-001, rev 16, 2012), sections 4.6 to 4.8. That manual covers the PC-12 and /45; the NG and NGX have their own.
+      - AHRS 1 / AHRS 2 (IF INSTALLED): CHECK — NO FLAGS
+      - FLAPS LEVER: 15°
+      - AUTOPILOT TEST BUTTON: PRESS — CHECK SEQUENCE
+        note: All annunciators on, then off after about 5 s except AP flashing 12 times, with the DISCONNECT and AP TRIM FAIL tones. Then engage, overpower it in all four directions and disconnect with the A/P DISC switch. If AP TRIM FAIL stays on, pull the autopilot breaker.
+      - PCL: SET 5 - 10 PSI
+      - PUSHER TEST SWITCH: PRESS AND HOLD — CHECK SEQUENCE
+        note: PCL idle, control wheel pulled. PUSHER ICE MODE caution on, shaker and audio twice, then pusher. Check the PUSHER INTR switch interrupts it, PUSHER caution on after 3 s, then off. Elevator full and free.
+      - CAWS PANEL: CHECK — NO RED WARNING LIGHTS
+      - LH WSHLD SWITCH: CHECK WSHLD HEAT ON — LIGHT AND HEAVY
+      - RH WSHLD SWITCH: CHECK WSHLD HEAT ON — LIGHT AND HEAVY
+      - PROBES SWITCH: ON — PROBES DE ICE ON, AOA DE ICE OFF
+      - INERT SEP SWITCH: OPEN — LIGHT WITHIN 30 S, THEN CLOSED
+      - divider: If icing conditions expected
+      - PROP SWITCH: ON — PROP DE ICE WITHIN 5 S
+      - CAWS PUSHER ICE MODE: CHECK ON (PROP ON, INERT SEP OPEN)
+      - BOOTS SWITCH: 1 MIN — DE ICE BOOTS ON FOR ONE MINUTE
+      - ALL DE ICING SWITCHES: "OFF"
+      - divider: All
+      - EXTERNAL LIGHTS SWITCHES: AS REQUIRED
+      - PARKING BRAKE HANDLE: RELEASE
+      - divider: Taxiing
+      - PASSENGER(S): BRIEF
+      - BRAKES: CHECK
+      - FLIGHT INSTRUMENTS: CHECK
+      - LH AND RH WSHLD SWITCHES: LIGHT OR HEAVY AS REQUIRED
+        note: No stabilised propeller operation between 350 and 950 RPM (prop not feathered). Beta, aft of the idle detent, can control taxi speed and save the brakes.
+      - divider: Before takeoff
+      - TAKEOFF POWER SETTING: CALCULATED
+      - FUEL QUANTITY: CHECK
+      - FRICTION LOCK: ADJUST
+      - ENGINE INSTRUMENTS: CHECK
+      - FLIGHT INSTRUMENTS: CHECK AND SET
+      - TRIM: SET GREEN LINES
+        note: Set the green diamond instead if the CG is 236 in (6 m) or further aft of datum.
+      - FLAPS: 15°
+      - FLIGHT CONTROLS: FULL, FREE AND CORRECT
+        note: The NTSB excerpt ends here; the rest of the AFM before-takeoff list is not in it.
 
   - id:   climb
     name: After Takeoff / Climb

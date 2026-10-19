@@ -15,196 +15,338 @@ variants:
 phases:
 
   - id:   power
-    name: Power Up
+    name: Cockpit Entry
     kind: flow   # flow = from memory | checklist = read & respond
     items:
-      - BATTERY SWITCH: "ON"
-      - EXT PWR / APU: ON — BUSSES POWERED
-      - EMERGENCY LIGHTS: ARM
-      - IRU 1 / 2 / 3: NAV
-        note: Full align needs the aircraft stationary; enter present position if prompted.
-      - ELEC SYNOPTIC: CHECKED — GENS AUTO
-      - HYD SYSTEMS 1 / 2 / 3: AUTO
-      - FUEL SYSTEM: AUTO — PUMPS ON
-      - PARKING BRAKE: SET
+      - WEATHER RADAR: "OFF"
+      - FUEL SWITCHES: "OFF"
+      - PARKING BRAKE: SET / CHOCKS
+      - FLAP / SLAT HANDLE: UP AND RETRACTED
+      - GEAR HANDLE: DOWN
+      - FUEL DUMP SWITCHES: COVERED AND OFF
+      - MANIFOLD DRAIN SWITCHES: COVERED AND OFF
+      - EMERGENCY POWER SELECTOR: "OFF"
 
   - id:   preflight
     name: Preflight
     kind: flow   # flow = from memory | checklist = read & respond
     items:
-      - OVERHEAD ANNUNCIATORS: CHECKED — NO AMBER
-      - AIR SYSTEM: AUTO — PACKS ON
-      - PRESSURIZATION: AUTO — LDG ALT SET
-      - ANTI-ICE: AS REQUIRED
-      - FMS: PROGRAMMED
-        note: Route, perf init, ZFW and fuel; then take-off page for V-speeds and thrust rating.
-      - TAKEOFF DATA: V1 / VR / V2 · THRUST · STAB TRIM
-      - ALTIMETERS: SET & CROSSCHECKED
-      - AUTOFLIGHT / ATS: CHECKED
-      - LSAS: "ON"
-        note: Longitudinal Stability Augmentation — leave it on; it trims and damps in pitch.
-      - TAKEOFF BRIEFING: COMPLETE
+      - BATTERY SWITCH: "ON"
+      - EXTERNAL POWER SWITCHES: AS REQUIRED
+      - ENGINE / APU FIRE TEST: PERFORM
+        note: All 3 engine fire handles and the APU handle illuminate, the 3 engine fuel shutoff switches illuminate, both master warnings, fire bell, level 3 alerts on the EAD.
+      - MASTER WARNING: PRESS
+      - FUEL USED: RESET
+      - ANNUNCIATOR LIGHTS: TEST / CHECK
+      - ANNUNCIATOR BRIGHT / DIM SWITCH: SELECT
+      - CARGO FIRE: MANUAL TEST
+        note: FWD / AFT heat and smoke lights, manual test switch, all agent discharge lights, FWD / AFT flow switch DISAG lights, both master warnings, CRG FIRE LWR FWD + LWR AFT on the EAD.
+      - IRU SWITCHES: NAV
+        note: Full align needs the aircraft stationary; enter present position if prompted.
+      - IRU ALIGNMENT: INITIALIZE
+      - COCKPIT VOICE RECORDER: TEST
+      - GALLEY BUS PANEL: ALL LIGHTS EXTINGUISHED
+      - CARGO TEMPERATURE SELECTORS: AS REQUIRED
+      - FADEC / ENGINE IGNITION PANEL LIGHTS: OFF EXCEPT ENG IGN OFF
+      - HYDRAULIC TEST: PERFORM — NORMAL ON SD
+      - ELECTRICAL PANEL: CHECK
+        note: Manual light off, smoke elec/air source normal, drive 1/2/3 and CAB BUS guarded, emergency power selector armed with no light.
+      - AIR PANEL: VERIFY
+        note: Manual, ECON and TRIM AIR OFF lights off, cabin outflow valve open, air conditioning established, temperature selectors as required.
+      - FUEL PANEL MANUAL LIGHT: "OFF"
+      - FUEL QUANTITY: TEST
+        note: 188880 total and 10500 in each tank displayed during the test.
+      - EMERGENCY LIGHT SWITCH: ARM
+      - NO SMOKING SWITCH: "ON"
+      - SEAT BELT SWITCH: "OFF"
+      - EXTERIOR LIGHTS: AS REQUIRED
+      - EVAC PANEL: ARMED AND GUARDED
+      - GPWS TEST SWITCH: TEST AND GUARDED
+      - AFS PANEL: CHECK
+        note: All lights off, flap limit normal, elevator feel normal.
+      - CABIN PRESSURIZATION PANEL: CHECK
+        note: In AUTO, valve open, ditching switch guarded, ditching light extinguished.
+      - ANTI-ICE PANEL: CHECK — ALL LIGHTS OFF
+      - WINDSHIELD ANTI-ICE / DEFOG: NORM / ON — DEFOG LIGHT OUT
+      - ALTIMETER: SET QNH
+      - IAS / HDG / FEET / BANK SELECTOR: AUTO
+      - STATIC AIR SWITCH: NORMAL
+      - SOURCE INPUT SELECTOR LIGHTS: "OFF"
+      - PFD / ND / EAD / SD: CHECK
+        note: No faults, altimeters as desired, time correct, oil quantity above 16 quarts, PFD FMA showing TAKEOFF.
+      - GEAR HANDLE: DOWN — 4 GREEN
+      - AUTO BRAKE SWITCH: RTO
+      - OVERBOOST BREAKOUT BAR: FULL AFT
+      - THROTTLES: CHECK — CLOSED
+        note: Check travel and the aural warnings, then close them.
+      - REVERSE LEVERS: DOWN
+      - DIAL-A-FLAP: TO SETTING
+      - ENGINE START BUTTONS: PRESSED IN
+      - FUEL SWITCHES: "OFF"
+      - SDCP: CUE LIGHTS AND CLEAR
+      - RADIO PANELS: AS DESIRED
+      - WEATHER RADAR: TEST AND OFF
+      - TRANSPONDER: SET
+      - RUDDER TRIM: ZERO
+      - AILERON TRIM: ZERO
+      - AIR DRIVEN GENERATOR (ADG): HANDLE DOWN AND WIRED
+
+  - id:   cockpit
+    name: Cockpit Preparation
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - EMERGENCY EQUIPMENT: CKD (PNF)
+        note: From Delta Air Lines' FAA-approved MD-11 card (2000), done silently by the PNF. The two flows before it are from the TFDi docs.
+      - CLOCK: SET (PNF)
+      - IRS: NAV (PNF)
+      - CARGO FIRE TEST: CKD (PNF)
+      - VOICE RECORDER: CKD (PNF)
+      - CARGO TEMPERATURE: AS REQD (PNF)
+      - FWD AUX TANKS (IF REQD): CKD (PNF)
+      - IGNITION: CKD (PNF)
+      - FIRE HANDLES / DISCHARGE LIGHTS: CKD (PNF)
+      - HYDRAULIC PANEL: AUTO OR MANUAL (PNF)
+      - ELECTRICAL PANEL: AUTO OR MANUAL (PNF)
+      - EMERGENCY POWER SELECTOR: ARM (PNF)
+      - AIR PANEL: AUTO OR MANUAL (PNF)
+      - FUEL PANEL: AUTO OR MANUAL (PNF)
+      - ENGINE / APU FIRE TEST: CKD (PNF)
+      - GPWS TEST: CKD (PNF)
+      - EVAC SIGNAL SWITCH: ARM (PNF)
+      - AFS CONTROL PANEL: AUTO (PNF)
+      - PRESSURIZATION: AUTO (PNF)
+      - WING / TAIL / ENGINE ANTI-ICE: OFF (PNF)
+      - WINDSHIELD DEFOG: ON (PNF)
+      - FUEL USED RESET: RESET (PNF)
+      - EMERGENCY LIGHTS: CKD / ARMED (PNF)
+      - LANDING GEAR: DOWN / 4 GREEN (PNF)
+      - ANTI-SKID: ON (PNF)
+      - SPOILERS: RETRACT (PNF)
+      - THROTTLES: CKD / IDLE (PNF)
+      - FLAPS / SLATS: UP / RETRACT (PNF)
+      - FUEL SWITCHES: OFF (PNF)
+      - OIL QUANTITY: CKD (PNF)
+      - ACARS INFO: INITIALIZED (PNF)
+      - ADG RELEASE HANDLE: SAFETIED (PNF)
 
   - id:   bstart
     name: Before Start
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PREFLIGHT CHECKS: COMPLETE
-      - GEAR PINS: REMOVED
-      - DOORS / SLIDES: CLOSED — ARMED
-      - FUEL: ____ KG — TRANSFER AUTO
-      - HYDRAULICS: CHECKED
-      - TAKEOFF DATA: SET & CROSSCHECKED
-      - SEAT BELTS: "ON"
-      - ALTIMETERS: ____ SET
-      - BEACON: "ON"
-      - PARKING BRAKE: SET
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - "MD-11F"
-          - "MD-11 Combi"
-      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
-        only:
-          - "MD-11F"
-          - "MD-11 Combi"
-        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+      - EXT PREFLT / COCKPIT PREP / INT. PREFLT: COMPLETE (C)
+      - LOG BOOK: CKD (C)
+      - CIRCUIT BREAKERS: CKD (C)
+      - IRS / FMS: NAV / INITIALIZED / CHECKED (C)
+      - NO SMOKING / SEAT BELTS: ON (C)
+      - EXTERIOR LIGHTS: AS REQD (C)
+      - GLARESHIELD CONTROL PANEL: SET (C)
+      - OXY MASK / REG / INTPH: CKD (C&F)
+      - SOURCE INPUT SELECTOR PANELS: SET (C&F)
+      - STATIC AIR SWITCHES: NORMAL (C&F)
+      - STANDBY INSTRUMENTS: CKD (C&F)
+      - FLT INSTS / DISPLAY UNITS: CKD (C&F)
+      - PARKING BRAKE: AS REQD (C)
+      - SYSTEM DISPLAY: CKD (C)
+      - RADIOS: CKD (C)
+      - RADAR: CKD / TEST (C)
+      - TRANSPONDER / TCAS: TEST / TA / RA (C)
+      - RUDDER / AILERON TRIM: ZERO (C)
+      - COCKPIT WINDOWS: OVER CTR & LCKD (C&F)
+      - FLIGHT ATTENDANT BRIEFING: COMPLETE (C)
+      - DEPARTURE BRIEFING: COMPLETE (C)
+      - divider: After paperwork received
+      - FUEL REQUIRED: ____ ON BOARD (C&F)
+      - PAX LOAD: ENTERED (F)
+      - ACARS INFO: ENTERED (F)
+      - FMS / TAKEOFF DATA: ENTERED (F)
+      - FLAP T/O SELECTOR: ____ / SET (F)
+      - IRS: TAXI (F)
+      - EAD: CKD (C)
+
+  - id:   push
+    name: Pushback / Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - DOOR ALERTS: CKD (F)
+      - PARKING BRAKE: AS REQD (F)
+      - AUX HYD PUMP 1: ON (F)
+      - BEACON: ON (F)
+      - IGNITION: A OR B (F)
 
   - id:   start
     name: Engine Start
     kind: flow   # flow = from memory | checklist = read & respond
     items:
-      - AREA: CLEAR — CLEARANCE OBTAINED
-      - FUEL PUMPS: "ON"
-      - IGNITION: AS REQUIRED
-      - ENGINE 3: START
-        note: Typical order 3 – 1 – 2, tail engine last; operators differ, so follow the add-on's checklist.
-      - ENGINE 1: START
-      - ENGINE 2 (TAIL): START
-      - ENGINE PARAMETERS: N1 · N2 · EGT · FF NORMAL
-      - APU: AS REQUIRED
+      - ENGINE 3 START SWITCH: PULL
+        note: Order 3 – 1 – 2, tail engine last.
+      - FUEL LEVER: "ON"
+        note: Once N2 is at or above 15%.
+      - OIL PRESSURE: VERIFY RISING
+      - ENGINE IGNITION: VERIFY ≤ 25 SECONDS
+      - EGT: CHECK
+      - START VALVE: VERIFY CLOSED AT 45% N2
+      - ENGINE 3: VERIFY STABILIZED
+        note: N1 around 20%, EGT around 400 °C, N2 around 60%, oil within 2 quarts of the pre-start figure, fuel flow around 1200 at sea level.
+      - ENGINE ANTI-ICE: AS REQUIRED
+      - ENGINE 1: REPEAT
+      - ENGINE 2: REPEAT
 
   - id:   astart
     name: After Start
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - ELECTRICS: CHECKED — GENS ON
-      - AIR SYSTEM: SET — PACKS ON
-      - ANTI-ICE: AS REQUIRED
-      - SLATS / FLAPS: ____ / ____ SET
-      - FLIGHT CONTROLS: CHECKED
-      - STAB TRIM: ____ — GREEN BAND
-      - GROUND EQUIPMENT: CLEAR
+      - ENGINE ANTI-ICE: AS REQD (C&F)
+      - AUTOBRAKES: T/O (F)
+      - divider: If taxiing with less than all engines operating
+      - HYD SYS: MANUAL (F)
+      - divider: If two engines running
+      - APU AIR SWITCH: OFF (F)
+      - APU ELEC SWITCH: OFF (F)
+      - APU: VERIFY OFF (F)
 
   - id:   taxi
     name: Taxi
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - BRAKES: CHECKED
-      - FLIGHT INSTRUMENTS: CHECKED — NO FLAGS
-      - NOSEWHEEL STEERING: CHECKED
-      - WEATHER RADAR: AS REQUIRED
-      - AUTOBRAKES: T/O
-      - TAXI CLEARANCE: ____ CONFIRMED
-      - MAIN DECK FIRE SUPPRESSION: ARMED
-        only:
-          - "MD-11F"
-          - "MD-11 Combi"
-      - SUPERNUMERARIES: BRIEFED
-        only:
-          - "MD-11F"
-          - "MD-11 Combi"
+      - FLAPS / SLATS: FLAPS ____ (F)
+      - SPOILERS: ARMED (F)
+      - STAB TRIM: ____ / SET (C&F)
+      - FLIGHT CONTROLS: TOPS / BOTTOMS (C&F)
+      - ALTIMETERS: ____ SET / XCKD (C&F)
+      - FLT / NAV INSTS: SET / XCKD (C&F)
+      - SHOULDER HARNESS: ON (F)
+
+  - id:   delayed
+    name: Delayed Start
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - divider: Before start
+      - HYD SYS: AUTO (F)
+      - ECON: OFF (F)
+      - divider: After start
+      - ENGINE ANTI-ICE: AS REQD (C&F)
+      - ECON: ON (F)
+      - APU AIR SWITCH: OFF (F)
+      - APU: VERIFY OFF (F)
 
   - id:   btakeoff
     name: Before Takeoff
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
-      - STAB TRIM: ____ SET
-      - ATS / FMS TAKEOFF: ARMED — TO THRUST SET
-      - TRANSPONDER / TCAS: TA/RA — ON
-      - ANNUNCIATOR PANEL: CHECKED
-      - CABIN: SECURE
-      - LIGHTS: STROBES · LANDING · ON
-      - TAKEOFF CLEARANCE: RECEIVED
+      - AUTO FLIGHT / NAV: ON / AS REQD (F)
+      - FLAPS / SLATS: FLAPS ____ (C&F)
+      - FLIGHT ATTENDANTS: NOTIFIED / ACKD (F)
+      - COCKPIT DOOR: CLOSED (F)
+      - TAKEOFF BRIEFING: COMPLETE (F)
+      - WING AND TAIL ANTI-ICE: AS REQD (C&F)
+      - EAD: CKD / GREEN BOX (C&F)
+      - divider: Final items
+      - EXTERIOR LIGHTS: AS REQD (F)
 
-  - id:   climb
+  - id:   atakeoff
     name: After Takeoff
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: UP
-      - SLATS / FLAPS: UP / RET
-      - AUTOBRAKES: "OFF"
-      - AIR SYSTEM: NORMAL
-      - LANDING LIGHTS: OFF ABOVE 10,000 FT
-      - ALTIMETERS: STD AT TRANS ALT
-      - FUEL TRANSFER: AUTO — TAIL TANK MONITORED
+      - LANDING GEAR: UP (PNF)
+      - FLAPS / SLATS: UP / RETRACT (PNF)
+      - SPOILERS: DISARM (PNF)
+      - AUTOBRAKES: OFF (PNF)
+      - ALTIMETERS (TRANS ALTITUDE): 29.92 (1013) SET / XCKD (C&F)
 
-  - id:   cruise
-    name: Cruise / Fuel & CG
-    kind: flow   # flow = from memory | checklist = read & respond
-    items:
-      - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
-      - TAIL TANK: TRANSFER MONITORED
-        note: The MD-11 pumps fuel to the tail tank to hold an aft CG in cruise — it comes forward before descent.
-      - CG: WITHIN LIMITS
-      - PRESSURIZATION: CHECKED
-      - POSITION: CROSSCHECKED
-      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN FMS
-
-  - id:   appr
-    name: Descent / Approach
+  - id:   climb
+    name: Climb
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - FUEL / CG: FWD TRANSFER COMPLETE
-      - PRESSURIZATION: LDG ALT SET
-      - ALTIMETERS: ____ SET & CROSSCHECKED
-      - APPROACH BRIEFING: COMPLETE
-      - SEAT BELTS: "ON"
-      - AUTOBRAKES: ____ SET
-      - MINIMUMS: ____ SET
-      - ANTI-ICE: AS REQUIRED
+      - NO SMOKING / SEAT BELT LTS: CKD (C)
+      - ALTIMETERS (TRANS ALTITUDE): 29.92 (1013) SET / XCKD (C&F)
+      - EXTERIOR LIGHTS: AS REQD (C)
+
+  - id:   cruise
+    name: Cruise
+    kind: flow   # flow = from memory | checklist = read & respond
+    items:
+      - FMA: VERIFY
+        note: Pink is FMS-controlled, white is an FCP value, green is the autoland annunciators (LOC, GS, DUAL LAND).
+      - FMS: SET UP FOR DESCENT
+      - TAIL TANK: TRANSFER MONITORED
+        note: The MD-11 pumps fuel to the tail tank to hold an aft CG in cruise — it comes forward before descent. Not on the TFDi card.
+
+  - id:   descent
+    name: Descent
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - GCP: HDG / MAG (PNF)
+      - WINDSHIELD ANTI-ICE: AS REQD (PNF)
+      - SEAT BELT LIGHTS: ON (C)
+      - EXTERIOR LIGHTS: AS REQD (C)
+      - ALTIMETERS (TRANS LEVEL): ____ SET / XCKD (C&F)
+      - LANDING DATA: CKD / SET (PNF)
+      - SHOULDER HARNESS: ON (PNF)
+      - EAD: CKD (C)
+
+  - id:   appr
+    name: Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
+    items:
+      - APPROACH BRIEFING: COMPLETE (PNF)
+      - RADIO / BARO ALT BUGS: ____ / XCKD (C&F)
+      - EAD: CKD (PNF)
+      - divider: Final items
+      - ALTIMETERS: ____ SET / XCKD (C&F)
+      - NO SMOKING LIGHTS: CYCLED / ON (PNF)
+      - PFD / ND: SET / XCKD (C&F)
 
   - id:   land
     name: Before Landing
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - SLATS / FLAPS: ____ / ____ — LIGHTS OUT
-      - SPOILER LEVER: ARMED
-      - ANNUNCIATOR PANEL: CHECKED
-      - LANDING LIGHTS: "ON"
+      - LANDING GEAR: DOWN / 4 GREEN (C&F)
+      - AUTOBRAKES: AS REQD (PNF)
+      - FLAPS / SLATS: FLAPS ____ (C&F)
+      - SPOILERS: ARMED (PNF)
+      - EAD: CKD / GREEN BOX (PNF)
+      - GCP: CKD (PNF)
 
   - id:   aland
     name: After Landing
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - SPOILER LEVER: DISARMED — DOWN
-      - SLATS / FLAPS: UP / RET
-      - AUTOBRAKES: "OFF"
-      - APU: START AS REQUIRED
-      - ANTI-ICE: AS REQUIRED
-      - TRANSPONDER: STBY
-      - WEATHER RADAR: "OFF"
-      - LIGHTS: AS REQUIRED
+      - EXTERIOR LIGHTS: AS REQD (F)
+      - WING AND TAIL ANTI-ICE: OFF (F)
+      - SPOILERS: RETRACT (F)
+      - AUTOBRAKE SWITCH: OFF (F)
+      - FLAPS / SLATS: UP / RETRACT (F)
+      - STAB TRIM: 3 DEG ANU (F)
+      - RADAR: OFF / TEST (F)
+      - TRANSPONDER / TCAS: STBY (F)
+      - APU: AS REQD (F)
+      - EAD: CKD (F)
+      - FUEL SWITCHES: AS REQD (F)
 
   - id:   shutdown
     name: Shutdown
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PARKING BRAKE: SET
-      - FUEL LEVERS: "OFF"
-      - SEAT BELTS: "OFF"
-      - HYDRAULICS: SET
-      - ELECTRICS: APU / EXT PWR
-      - BEACON: "OFF"
+      - ENG / WNDSHLD ANTI-ICE: OFF (F)
+      - WINDSHIELD DEFOG: OFF (F)
+      - SEAT BELTS: OFF (F)
+      - APU / EXTERNAL POWER: AS REQD (F)
+      - EMERGENCY POWER SWITCH: OFF (F)
+      - FUEL SWITCHES: OFF (F)
+      - BEACON: OFF (F)
+      - AIR PANEL: SET (F)
+      - PARKING BRAKE: AS REQD (F)
+      - ACARS INFO: ENTERED (F)
+      - IRS SELECTORS (3): OFF (F)
+      - CODED CIRCUIT BREAKERS: PULLED (F)
+      - LOG BOOK: AS REQD (F)
 
   - id:   secure
-    name: Secure
+    name: Termination
     kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - IRUs: "OFF"
-      - HYDRAULIC PUMPS: "OFF"
-      - FUEL PUMPS: "OFF"
-      - EMERGENCY LIGHTS: "OFF"
-      - APU: "OFF"
-      - BATTERY: "OFF"
+      - EMERGENCY LIGHTS: OFF (F)
+      - EVAC COMMAND SWITCH: OFF (F)
+      - CABIN PRESS VALVE: CLOSED (F)
+      - APU / EXTERNAL POWER: AS REQD (F)
+      - BATTERY SWITCH: AS REQD (F)

@@ -18,112 +18,142 @@ phases:
     name: Preliminary Cockpit Prep
     kind: flow   # flow = from memory | checklist = read & respond
     items:
-      - BAT 1 + 2: "ON"
-      - EXT PWR / APU: AS REQUIRED
-      - APU FIRE TEST: PERFORMED
-      - APU MASTER / START: ON — AVAIL
-      - ADIRS: NAV
-      - HYD GREEN / YELLOW: CHECKED
-        note: Two hydraulic systems, not three — electro-hydrostatic actuators back up the surfaces the third system used to drive.
+      - ENG MASTER 1 + 2: "OFF"
+      - ENG START SEL: NORM
+      - WEATHER RADAR: "OFF"
+      - LDG GEAR LEVER: DOWN
+      - WIPERS: "OFF"
+      - BAT 1 + 2 + EMER + APU: CHECK — AUTO
+      - EXT PWR: AS RQRD
+      - APU FIRE: TEST
+      - APU: START
+      - APU BLEED: "ON"
+      - ADIRS 1 / 2 / 3: NAV
+      - COCKPIT LIGHTS: AS RQRD
       - OIS / EFB: LOADED — PERF APP READY
-      - KCCU / RMP: CHECKED
-      - OXYGEN: TESTED — CREW SUPPLY ON
+      - HYD GREEN / YELLOW: CHECK
+        note: Two hydraulic systems, not three — electro-hydrostatic actuators back up the surfaces the third system used to drive.
       - PARKING BRAKE: "ON"
+      - BRAKE PRESS: CHECK
+      - FLAPS: CHECK POSITION
+      - SPEED BRAKE LEVER: RET & DISARMED
+      - GEAR PINS & COVERS: ON BOARD
 
   - id:   prep
     name: Cockpit Preparation
     kind: flow
     items:
-      - GEAR LEVER: DOWN
-      - FLAP LEVER: AGREES WITH SURFACES
-      - SPEED BRAKE LEVER: RETRACTED — DISARMED
-      - ENG MASTERS 1 + 2: OFF
-      - ENG START SELECTOR: NORM
-      - FUEL: PUMPS ON — QUANTITY CHECKED
-      - SIGNS: ON / AUTO
+      - divider: Overhead panel
+      - RCDR GND CTL: "ON"
+      - EVAC SWITCH: CAPT & PURS
+      - EXT LT: NAV & LOGO ON · STROBE AUTO
+      - SIGNS: SEAT BELTS ON · NO SMOKING AUTO
       - EMER EXIT LT: ARM
-      - ANTI ICE: AS REQUIRED
-      - WEATHER RADAR / PWS: AUTO
-      - TRANSPONDER: CODE SET — STBY
-      - MFD FMS: INIT · F-PLN · PERF · FUEL & LOAD
+      - ANTI ICE: AS RQRD
+      - LDG ELEV: AUTO
+      - PACK FLOW / X BLEED: AS RQRD / AUTO
+      - FUEL PUMPS: "ON"
+      - OXY CREW SUPPLY: "ON"
+      - divider: Panels and pedestal
+      - BARO REF: SET
+      - FD / LS: ON / AS RQRD
+      - KCCU / RMP: CHECKED
+      - WEATHER RADAR / PWS: OFF / AUTO
+      - ATC: CODE SET — STBY
+      - divider: FMGS
+      - MFD FMS: INIT · F-PLN · FUEL & LOAD · PERF
       - TAKEOFF DATA: V1 / VR / V2 · FLEX · THR RED / ACC
-      - BARO REF: SET & CROSSCHECKED
       - FCU: SPD / HDG / ALT SET
+      - OXYGEN MASK: TEST
       - TAKEOFF BRIEFING: COMPLETED
 
   - id:   bstart
     name: Before Start
     kind: checklist
     items:
-      - COCKPIT PREP: COMPLETED
+      - COCKPIT PREP: COMPLETED (BOTH)
       - GEAR PINS & COVERS: REMOVED
       - SIGNS: ON / AUTO
       - ADIRS: NAV
-      - FUEL QUANTITY: ____ KG — CHECKED
+      - FUEL QUANTITY: ____ KG
       - TO DATA: SET
-      - BARO REF: ____ SET
+      - BARO REF: ____ SET (BOTH)
       - divider: Below the line
-      - WINDOWS / DOORS: CLOSED
+      - WINDOWS / DOORS: CLOSED (BOTH)
       - BEACON: "ON"
       - THR LEVERS: IDLE
-      - PARKING BRAKE: AS REQUIRED
+      - PARKING BRAKE: AS RQRD
 
   - id:   start
     name: Engine Start
     kind: flow
     items:
-      - PUSHBACK / START CLEARANCE: OBTAINED
-      - ENG START SELECTOR: IGN / START
+      - ENG START SEL: IGN / START
       - ENG MASTER 2: "ON"
         note: Fully automatic start — the FADEC runs the whole sequence and aborts by itself if a parameter goes out of limits. Monitor, don't intervene.
       - ENG MASTER 1: "ON"
-      - ENG START SELECTOR: NORM
-      - APU BLEED: OFF
-      - ENGINE PARAMETERS: STABILISED
+      - divider: After engine start
+      - ENG START SEL: NORM
+      - APU BLEED: "OFF"
+      - ENG ANTI ICE: AS RQRD
+      - APU MASTER SW: AS RQRD
+      - GROUND SPOILERS: ARM
+      - RUDDER TRIM: ZERO
+      - FLAPS: SET
+      - PITCH TRIM: SET
+      - ECAM STATUS: CHECK
 
   - id:   astart
     name: After Start
     kind: checklist
     items:
-      - ANTI ICE: AS REQUIRED
+      - ANTI ICE: AS RQRD
       - ECAM STATUS: CHECKED
       - PITCH TRIM: ____ SET
       - RUDDER TRIM: ZERO
 
   - id:   taxi
-    name: Taxi / Before Takeoff
+    name: Before Takeoff
     kind: checklist
     items:
-      - FLIGHT CONTROLS: CHECKED — FULL & FREE
-      - FLAP SETTING: CONF ____
-      - V1 / VR / V2 / FLEX TEMP: ____ SET
-      - ATC: SET
-      - ECAM MEMO: TO — NO BLUE
-      - T.O CONFIG: TEST — NORMAL
-        sub: true
-      - TAXI CAMERA: AS REQUIRED
-        sub: true
+      - FLIGHT CONTROLS: CHECKED (BOTH)
         note: The external camera on the fin gives you the nose gear and the wing tips — use it in tight turns rather than guessing.
-      - TAKEOFF RWY: ____ CONFIRMED
+      - FLT INST: CHECKED (BOTH)
+      - BRIEFING: CONFIRMED
+      - FLAP SETTING: CONF ____ (BOTH)
+      - V1, VR, V2 / FLX TEMP: ____ (BOTH)
+      - ATC: SET
+      - ECAM MEMO: TO NO BLUE
+      - AUTO BRK: MAX
+        sub: true
+      - SIGNS: "ON"
+        sub: true
+      - CABIN: CHECK
+        sub: true
+      - SPLRS: ARM
+        sub: true
+      - FLAPS: T.O
+        sub: true
+      - T.O CONFIG: NORMAL
+        sub: true
+      - divider: Below the line
+      - TAKEOFF RWY: ____ (BOTH)
       - CABIN CREW: ADVISED
-      - divider: Line-up items
-      - PACKS: AS REQUIRED
-      - ENG START SELECTOR: IGN IF RAIN / ICE
-      - TCAS: TA / RA
-      - EXTERIOR LIGHTS: STROBE · T.O · RWY TURN OFF
-      - CHRONO: START
+      - TCAS: TA OR TA/RA
+      - ENG START SEL: AS RQRD
+      - PACKS: AS RQRD
+        note: "Line-up flow, not on the card: exterior lights T.O, strobe ON, chrono start."
 
   - id:   climb
     name: After Takeoff / Climb
     kind: checklist
     items:
-      - LANDING GEAR: UP
+      - LDG GEAR: UP
       - FLAPS: RETRACTED
       - PACKS: "ON"
-      - ENG START SELECTOR: NORM
-      - APU: OFF
-      - EXTERIOR LIGHTS: SET
-      - BARO REF: STD SET AT TRANS ALT
+      - divider: Below the line
+      - BARO REF: ____ SET (BOTH)
+        note: Read at the transition altitude.
 
   - id:   cruise
     name: Cruise / Fuel Check
@@ -132,9 +162,9 @@ phases:
       - FUEL ON BOARD: CHECKED vs FLIGHT PLAN
       - FUEL BALANCE / CG: WITHIN LIMITS
       - POSITION / NAV ACCURACY: CROSSCHECKED
-      - ETOPS: AS REQUIRED
+      - ETOPS: AS RQRD
       - STEP CLIMB: AS PLANNED
-      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN FMS
+      - DESCENT PREP: ARRIVAL · APPR · MINIMA IN MCDU
 
   - id:   appr
     name: Approach
@@ -143,9 +173,9 @@ phases:
       - BRIEFING: CONFIRMED
       - ECAM STATUS: CHECKED
       - SEAT BELTS: "ON"
-      - BARO REF: ____ SET
-      - MDA / DH: ____ SET
-      - ENG START SELECTOR: AS REQUIRED
+      - BARO REF: ____ SET (BOTH)
+      - MINIMUM: ____ SET (BOTH)
+      - ENG START SEL: AS RQRD
 
   - id:   land
     name: Landing
@@ -153,15 +183,17 @@ phases:
     items:
       - CABIN CREW: ADVISED
       - A/THR: SPEED / OFF
-      - AUTO BRAKE: AS REQUIRED
-      - ECAM MEMO: LDG — NO BLUE
-      - LDG GEAR: DOWN
+      - AUTO BRAKE: AS RQRD
+      - ECAM MEMO: LDG NO BLUE
+      - LDG GEAR: DN
         sub: true
       - SIGNS: "ON"
         sub: true
+      - CABIN: CHECK
+        sub: true
       - SPLRS: ARM
         sub: true
-      - FLAPS: CONF 3 / FULL
+      - FLAPS: SET
         sub: true
 
   - id:   aland
@@ -171,30 +203,27 @@ phases:
       - FLAPS: RETRACTED
       - SPOILERS: DISARMED
       - APU: START
-      - RADAR / PWS: OFF
-      - ENG START SELECTOR: NORM
-      - ANTI ICE: AS REQUIRED
-      - BRAKE TEMP: CHECKED
-      - EXTERIOR LIGHTS: SET
-      - TRANSPONDER: STBY / AUTO
+      - RADAR: OFF / STBY
+      - PWS: "OFF"
 
   - id:   park
     name: Parking
     kind: checklist
     items:
       - APU BLEED: "ON"
-      - ENGINE MASTERS: OFF
-      - SEAT BELTS: OFF
-      - EXTERIOR LIGHTS: AS REQUIRED
-      - FUEL PUMPS: OFF
-      - PARK BRK / CHOCKS: AS REQUIRED
+      - ENGINES: "OFF"
+      - SEAT BELTS: "OFF"
+      - EXT LT: AS RQRD
+      - FUEL PUMPS: "OFF"
+      - PARK BRK & CHOCKS: AS RQRD
 
   - id:   secure
     name: Securing the Aircraft
     kind: checklist
     items:
-      - ADIRS: OFF
-      - OXYGEN: OFF
-      - APU BLEED: OFF
-      - EXTERIOR LIGHTS: OFF
-      - APU & BAT 1 + 2: OFF
+      - ADIRS: "OFF"
+      - OXYGEN: "OFF"
+      - APU BLEED: "OFF"
+      - EMER EXIT LT: "OFF"
+      - SIGNS: "OFF"
+      - APU AND BAT: "OFF"

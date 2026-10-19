@@ -22,7 +22,7 @@ phases:
       - EXT PWR / APU: "ON"
         note: No bleed air anywhere on this aeroplane — the packs, engine start and wing anti-ice all run on electrical power from four generators.
       - EMERGENCY LIGHTS: ARMED
-      - IRS: NAV
+      - IRS: ALIGNING — NO SWITCH, AUTOMATIC ON POWER-UP
       - DISPLAYS / EFB: CONFIGURED
       - CDU: POS INIT · ROUTE · PERF INIT
       - PARKING BRAKE: SET
@@ -50,11 +50,12 @@ phases:
     kind: checklist
     items:
       - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - PASSENGER SIGNS: "ON"
-      - WINDOWS: LOCKED
-      - FUEL: ____ KG — PUMPS ON
-      - FUEL CONTROL SWITCHES: CUTOFF
-      - PARKING BRAKE: SET
+      - PASSENGER SIGNS: ____
+      - MCP: V2 ____ · HDG/TRK ____ · ALT ____
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - CDU PREFLIGHT: COMPLETED
+      - TRIM: ____ UNITS · 0 · 0
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
       - BEACON: "ON"
 
   - id:   start
@@ -63,18 +64,18 @@ phases:
     items:
       - PUSHBACK / START CLEARANCE: OBTAINED
       - ENGINE START SELECTOR 2: START
-      - FUEL CONTROL SWITCH 2: RUN AT 15% N2
-        note: Electric starter, so the start is quiet and slow — the starter drives the engine well past the usual bleed-start speeds before fuel goes in.
+      - FUEL CONTROL SWITCH 2: RUN
+        note: Autostart — move the fuel control switch to RUN as soon as the selector is in START. Electric starter, so the start is quiet and slow — the EEC introduces fuel when it is ready.
       - ENGINE START SELECTOR 1: START
-      - FUEL CONTROL SWITCH 1: RUN AT 15% N2
+      - FUEL CONTROL SWITCH 1: RUN
       - ENGINE PARAMETERS: STABILISED
 
   - id:   btaxi
     name: Before Taxi
     kind: checklist
     items:
-      - ANTI-ICE: AS REQUIRED
-      - ELECTRONIC CHECKLIST: NO OPEN ITEMS
+      - ANTI-ICE: ____
+      - RECALL: CHECKED
       - AUTOBRAKE: RTO
       - FLIGHT CONTROLS: CHECKED
       - GROUND EQUIPMENT: CLEAR
@@ -84,20 +85,14 @@ phases:
     kind: checklist
     items:
       - FLAPS: ____
-      - STABILIZER TRIM: ____ UNITS
-      - CABIN: SECURE
-      - divider: Line-up items
-      - TRANSPONDER: TA/RA
-      - STROBES & LANDING LIGHTS: "ON"
-      - TAKEOFF CLEARANCE: RECEIVED
+        note: "Line-up flow, not on the card: transponder TA/RA, strobes and landing lights on, cabin secure."
 
   - id:   atakeoff
     name: After Takeoff
     kind: checklist
     items:
-      - LANDING GEAR: UP AND OFF
+      - LANDING GEAR: UP
       - FLAPS: UP
-      - ALTIMETERS: SET
 
   - id:   cruise
     name: Cruise
@@ -113,8 +108,8 @@ phases:
     name: Descent
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - AUTOBRAKE: ____ SET
+      - RECALL: CHECKED
+      - AUTOBRAKE: ____
       - LANDING DATA: VREF ____ · MINIMUMS ____
       - APPROACH BRIEFING: COMPLETED
 
@@ -122,34 +117,30 @@ phases:
     name: Approach
     kind: checklist
     items:
-      - ALTIMETERS: ____ SET
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____
 
   - id:   landing
     name: Landing
     kind: checklist
     items:
       - SPEEDBRAKE: ARMED
-      - LANDING GEAR: DOWN — 3 GREEN
+      - LANDING GEAR: DOWN
       - FLAPS: ____
 
   - id:   shutdown
     name: Shutdown
     kind: checklist
     items:
-      - FUEL PUMPS: OFF
       - HYDRAULIC PANEL: SET
+      - FUEL PUMPS: "OFF"
       - FLAPS: UP
-      - PARKING BRAKE: SET
+      - PARKING BRAKE: ____
       - FUEL CONTROL SWITCHES: CUTOFF
-      - WEATHER RADAR: OFF
+      - WEATHER RADAR: "OFF"
 
   - id:   secure
     name: Secure
     kind: checklist
     items:
-      - IRS: OFF
-      - EMERGENCY LIGHTS: OFF
-      - CABIN AIR COMPRESSORS: OFF
-      - APU: OFF
-      - BATTERY: OFF
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"

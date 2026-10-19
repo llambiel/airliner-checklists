@@ -52,22 +52,14 @@ phases:
     kind: checklist
     items:
       - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - PASSENGER SIGNS: "ON"
-      - WINDOWS: LOCKED
-      - FUEL: ____ KG — PUMPS ON
-      - FUEL CONTROL SWITCHES: CUTOFF
+      - PASSENGER SIGNS: ____
+      - MCP: V2 ____ · HDG/TRK ____ · ALT ____
       - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
-      - STAB TRIM: ____ UNITS
-      - TAKEOFF BRIEFING: COMPLETED
+      - CDU PREFLIGHT: COMPLETED
+      - TRIM: ____ UNITS · 0 · 0
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
       - BEACON: "ON"
-      - PARKING BRAKE: SET
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - "-200F"
-      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
-        only:
-          - "-200F"
-        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+        note: "-200F: main deck cargo door closed and locked before the beacon goes on. A freighter's load is not self-loading — check the trim setting against the load sheet, not against habit."
 
   - id:   start
     name: Engine Start
@@ -75,10 +67,10 @@ phases:
     items:
       - PUSHBACK / START CLEARANCE: OBTAINED
       - ENGINE START SELECTOR 2: START
-      - FUEL CONTROL SWITCH 2: RUN AT 15% N2
-        note: The GE90 is the largest turbofan flying — the fan barely appears to move at first and the start is long. Watch N2 and EGT, not the fan.
+      - FUEL CONTROL SWITCH 2: RUN
+        note: Autostart — move the fuel control switch to RUN as soon as the selector is in START; the EEC schedules fuel and ignition and will abort a bad start. The GE90's fan barely appears to move at first — watch N2 and EGT, not the fan.
       - ENGINE START SELECTOR 1: START
-      - FUEL CONTROL SWITCH 1: RUN AT 15% N2
+      - FUEL CONTROL SWITCH 1: RUN
       - APU BLEED: "OFF"
       - ENGINE PARAMETERS: STABILISED
 
@@ -86,9 +78,7 @@ phases:
     name: Before Taxi
     kind: checklist
     items:
-      - GENERATORS: "ON"
-      - PROBE HEAT: "ON"
-      - ANTI-ICE: AS REQUIRED
+      - ANTI-ICE: ____
       - RECALL: CHECKED
       - AUTOBRAKE: RTO
       - FLIGHT CONTROLS: CHECKED
@@ -98,28 +88,15 @@ phases:
     name: Before Takeoff
     kind: checklist
     items:
-      - FLAPS: ____ — GREEN LIGHT
-      - STABILIZER TRIM: ____ UNITS
-      - CABIN: SECURE
-      - divider: Line-up items
-      - TRANSPONDER: TA/RA
-      - STROBES & LANDING LIGHTS: "ON"
-      - TAKEOFF CLEARANCE: RECEIVED
-      - MAIN DECK FIRE SUPPRESSION: ARMED
-        only:
-          - "-200F"
-      - SUPERNUMERARIES: BRIEFED
-        only:
-          - "-200F"
+      - FLAPS: ____
+        note: "Line-up flow, not on the card: transponder TA/RA, strobes and landing lights on, cabin secure."
 
   - id:   atakeoff
     name: After Takeoff
     kind: checklist
     items:
-      - LANDING GEAR: UP AND OFF
-      - FLAPS: UP — NO LIGHTS
-      - PACKS: AUTO
-      - ALTIMETERS: SET
+      - LANDING GEAR: UP
+      - FLAPS: UP
 
   - id:   cruise
     name: Cruise
@@ -136,9 +113,8 @@ phases:
     name: Descent
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
       - RECALL: CHECKED
-      - AUTOBRAKE: ____ SET
+      - AUTOBRAKE: ____
       - LANDING DATA: VREF ____ · MINIMUMS ____
       - APPROACH BRIEFING: COMPLETED
 
@@ -146,29 +122,27 @@ phases:
     name: Approach
     kind: checklist
     items:
-      - ALTIMETERS: ____ SET
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____
 
   - id:   landing
     name: Landing
     kind: checklist
     items:
-      - SPEEDBRAKE: ARMED — GREEN LIGHT
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: ____ — GREEN LIGHT
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN
+      - FLAPS: ____
         note: On the -300ER the main gear is a long way behind you and the body steers — hold the centreline into the turn rather than cutting it.
 
   - id:   shutdown
     name: Shutdown
     kind: checklist
     items:
-      - FUEL PUMPS: "OFF"
       - HYDRAULIC PANEL: SET
+      - FUEL PUMPS: "OFF"
       - FLAPS: UP
-      - PARKING BRAKE: SET
+      - PARKING BRAKE: ____
       - FUEL CONTROL SWITCHES: CUTOFF
       - WEATHER RADAR: "OFF"
-      - ANTI-ICE: "OFF"
 
   - id:   secure
     name: Secure
@@ -176,6 +150,4 @@ phases:
     items:
       - ADIRU: "OFF"
       - EMERGENCY LIGHTS: "OFF"
-      - WINDOW HEAT: "OFF"
       - PACKS: "OFF"
-      - APU: "OFF"
