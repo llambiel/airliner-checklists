@@ -205,7 +205,7 @@ phases:
       - RMI SELECTORS: SET
       - FLIGHT ATTENDANTS: NOTIFIED
       - APU: (CAPT) AS REQUIRED
-      - APPROACH FREQ'S & COURSES: SET
+      - "APPROACH FREQ'S & COURSES": SET
 
   - id:   land
     name: Before Landing
