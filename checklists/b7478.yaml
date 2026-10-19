@@ -46,21 +46,14 @@ phases:
     kind: checklist
     items:
       - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - PASSENGER SIGNS: "ON"
-      - WINDOWS: LOCKED
-      - FUEL: ____ KG — SET
-      - FMC: SET
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
-      - FUEL CONTROL SWITCHES: CUTOFF
-      - PARKING BRAKE: SET
+      - PASSENGER SIGNS: ____
+      - MCP: V2 ____ · HDG/TRK ____ · ALT ____
+      - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
+      - CDU PREFLIGHT: COMPLETED
+      - TRIM: ____ UNITS · 0 · 0
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
       - BEACON: "ON"
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - "747-8F"
-      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
-        only:
-          - "747-8F"
-        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+        note: "747-8F: main deck cargo door closed and locked before the beacon goes on. A freighter's load is not self-loading — check the trim setting against the load sheet, not against habit."
 
   - id:   start
     name: Engine Start
@@ -68,8 +61,8 @@ phases:
     items:
       - PUSHBACK / START CLEARANCE: OBTAINED
       - ENGINE START SWITCH 4: START
-      - FUEL CONTROL SWITCH 4: RUN AT 25% N2
-        note: GEnx starts slowly and quietly compared with a CF6 — a long motoring phase before EGT rise is normal, not a hung start.
+      - FUEL CONTROL SWITCH 4: RUN
+        note: Autostart — move the fuel control switch to RUN once the start selector is pulled; the EEC introduces fuel. GEnx starts slowly and quietly compared with a CF6 — a long motoring phase before EGT rise is normal, not a hung start.
       - ENGINE 3: START
       - ENGINE 2: START
       - ENGINE 1: START
@@ -80,41 +73,25 @@ phases:
     name: Before Taxi
     kind: checklist
     items:
-      - ANTI-ICE: AS REQUIRED
-      - HYDRAULIC PUMPS: "ON"
+      - ANTI-ICE: ____
       - RECALL: CHECKED
       - AUTOBRAKE: RTO
       - FLIGHT CONTROLS: CHECKED
-      - BODY GEAR STEERING: CHECKED
       - GROUND EQUIPMENT: CLEAR
 
   - id:   btakeoff
     name: Before Takeoff
     kind: checklist
     items:
-      - FLAPS: ____ — GREEN LIGHT
-      - STABILIZER TRIM: ____ UNITS
-      - TAKEOFF BRIEFING: REVIEWED
-      - CABIN: SECURE
-      - divider: Line-up items
-      - TRANSPONDER: TA/RA
-      - STROBES & LANDING LIGHTS: "ON"
-      - TAKEOFF CLEARANCE: RECEIVED
-      - MAIN DECK FIRE SUPPRESSION: ARMED
-        only:
-          - "747-8F"
-      - SUPERNUMERARIES: BRIEFED
-        only:
-          - "747-8F"
+      - FLAPS: ____
+        note: "Line-up flow, not on the card: transponder TA/RA, strobes and landing lights on, cabin secure."
 
   - id:   atakeoff
     name: After Takeoff
     kind: checklist
     items:
-      - LANDING GEAR: UP AND OFF
-      - FLAPS: UP — NO LIGHTS
-      - PACKS: AUTO
-      - ALTIMETERS: SET
+      - LANDING GEAR: UP
+      - FLAPS: UP
 
   - id:   cruise
     name: Cruise / Fuel Check
@@ -130,9 +107,8 @@ phases:
     name: Descent
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
       - RECALL: CHECKED
-      - AUTOBRAKE: ____ SET
+      - AUTOBRAKE: ____
       - LANDING DATA: VREF ____ · MINIMUMS ____
       - APPROACH BRIEFING: COMPLETED
 
@@ -140,35 +116,31 @@ phases:
     name: Approach
     kind: checklist
     items:
-      - ALTIMETERS: ____ SET
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____
 
   - id:   landing
     name: Landing
     kind: checklist
     items:
-      - SPEEDBRAKE: ARMED — GREEN LIGHT
-      - LANDING GEAR: DOWN — 5 GREEN
-      - FLAPS: ____ — GREEN LIGHT
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN
+      - FLAPS: ____
 
   - id:   shutdown
     name: Shutdown
     kind: checklist
     items:
-      - FUEL PUMPS: OFF
       - HYDRAULIC PANEL: SET
+      - FUEL PUMPS: "OFF"
       - FLAPS: UP
-      - PARKING BRAKE: SET
-      - FUEL CONTROL SWITCHES 1–4: CUTOFF
-      - WEATHER RADAR: OFF
-      - ANTI-ICE: OFF
+      - PARKING BRAKE: ____
+      - FUEL CONTROL SWITCHES: CUTOFF
+      - WEATHER RADAR: "OFF"
 
   - id:   secure
     name: Secure
     kind: checklist
     items:
-      - IRS: OFF
-      - EMERGENCY LIGHTS: OFF
-      - WINDOW HEAT: OFF
-      - PACKS: OFF
-      - APU: OFF
+      - IRSs: "OFF"
+      - EMERGENCY LIGHTS: "OFF"
+      - PACKS: "OFF"

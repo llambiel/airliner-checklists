@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <title>Pilatus PC-12 checklist · Flight Deck</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 101 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
+<meta name="description" content="Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 118 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pilatus PC-12 checklist · Flight Deck">
-<meta property="og:description" content="Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 101 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
+<meta property="og:description" content="Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 118 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://airlinerchecklists.com/types/pc12.html">
 <meta property="og:url" content="https://airlinerchecklists.com/types/pc12.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pilatus PC-12 checklist · Flight Deck","url":"https://airlinerchecklists.com/types/pc12.html","description":"Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 101 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.","about":{"@type":"Product","name":"Pilatus PC-12","category":"Aircraft"},"isPartOf":{"@type":"WebSite","name":"Flight Deck Checklists","url":"https://airlinerchecklists.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pilatus PC-12 checklist · Flight Deck","url":"https://airlinerchecklists.com/types/pc12.html","description":"Pilatus PC-12 checklist for flight simulation — 1 × PT6 turboprop · single-pilot · flaps 15 / 30 / 40. 14 phases and 118 items, from cockpit preparation to securing the aircraft, split into flows flown from memory and read-and-respond checklists.","about":{"@type":"Product","name":"Pilatus PC-12","category":"Aircraft"},"isPartOf":{"@type":"WebSite","name":"Flight Deck Checklists","url":"https://airlinerchecklists.com/"}}</script>
 <style>
 :root{
   --bg:#E8EAE7;--panel:#FBFCFA;--panel-2:#F1F3F0;--line:#CDD5D0;--ink:#16211C;
@@ -146,21 +146,47 @@ footer b{color:var(--green);font-family:var(--f-disp);letter-spacing:.1em;text-t
   <li><span>FLAPS</span><span class="dots"></span><span class="r">15</span></li>
   <li><span>ANNUNCIATORS</span><span class="dots"></span><span class="r">CHECKED — NO WARNINGS</span></li>
 </ol></section>
-<section class="phase"><h2>Taxi / Before Takeoff <em>Checklist · read &amp; respond</em></h2><ol class="items">
-  <li><span>BRAKES</span><span class="dots"></span><span class="r">CHECKED</span></li>
-  <li><span>FLIGHT INSTRUMENTS</span><span class="dots"></span><span class="r">HEADING &amp; ATTITUDE CHECKED</span></li>
-  <li><span>FLAPS</span><span class="dots"></span><span class="r">15 — CONFIRMED</span></li>
-  <li><span>TRIM</span><span class="dots"></span><span class="r">TAKEOFF RANGE</span></li>
-  <li><span>INERTIAL SEPARATOR</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
-  <li><span>IGNITION</span><span class="dots"></span><span class="r">AUTO</span></li>
-  <li><span>FUEL PUMPS</span><span class="dots"></span><span class="r">AUTO — BALANCED</span></li>
-  <li><span>AUTOPILOT</span><span class="dots"></span><span class="r">TESTED — DISENGAGED</span></li>
-  <li><span>TRANSPONDER</span><span class="dots"></span><span class="r">TA / RA — ALT</span></li>
-  <li><span>EXTERIOR LIGHTS</span><span class="dots"></span><span class="r">LANDING · STROBE · RECOG</span></li>
-  <li class="divider">Line-up items</li>
-  <li><span>RUNWAY</span><span class="dots"></span><span class="r">____ CONFIRMED</span></li>
-  <li><span>TORQUE</span><span class="dots"></span><span class="r">SET — ENGINE INSTRUMENTS GREEN</span></li>
-  <p class="note">Lead with the power lever gently and let the torque settle before releasing the brakes; a fistful of power on a cold engine overtorques it.</p>
+<section class="phase"><h2>Before Taxiing / Taxiing / Before Takeoff <em>Checklist · read &amp; respond</em></h2><ol class="items">
+  <li class="divider">Before taxiing</li>
+  <li><span>AHRS</span><span class="dots"></span><span class="r">CHECK — NO FLAGS</span></li>
+  <p class="note">From the Pilatus PC-12 AFM (report 01973-001, rev 16, 2012), sections 4.6 to 4.8. That manual covers the PC-12 and /45; the NG and NGX have their own.</p>
+  <li><span>AHRS 1 / AHRS 2 (IF INSTALLED)</span><span class="dots"></span><span class="r">CHECK — NO FLAGS</span></li>
+  <li><span>FLAPS LEVER</span><span class="dots"></span><span class="r">15°</span></li>
+  <li><span>AUTOPILOT TEST BUTTON</span><span class="dots"></span><span class="r">PRESS — CHECK SEQUENCE</span></li>
+  <p class="note">All annunciators on, then off after about 5 s except AP flashing 12 times, with the DISCONNECT and AP TRIM FAIL tones. Then engage, overpower it in all four directions and disconnect with the A/P DISC switch. If AP TRIM FAIL stays on, pull the autopilot breaker.</p>
+  <li><span>PCL</span><span class="dots"></span><span class="r">SET 5 - 10 PSI</span></li>
+  <li><span>PUSHER TEST SWITCH</span><span class="dots"></span><span class="r">PRESS AND HOLD — CHECK SEQUENCE</span></li>
+  <p class="note">PCL idle, control wheel pulled. PUSHER ICE MODE caution on, shaker and audio twice, then pusher. Check the PUSHER INTR switch interrupts it, PUSHER caution on after 3 s, then off. Elevator full and free.</p>
+  <li><span>CAWS PANEL</span><span class="dots"></span><span class="r">CHECK — NO RED WARNING LIGHTS</span></li>
+  <li><span>LH WSHLD SWITCH</span><span class="dots"></span><span class="r">CHECK WSHLD HEAT ON — LIGHT AND HEAVY</span></li>
+  <li><span>RH WSHLD SWITCH</span><span class="dots"></span><span class="r">CHECK WSHLD HEAT ON — LIGHT AND HEAVY</span></li>
+  <li><span>PROBES SWITCH</span><span class="dots"></span><span class="r">ON — PROBES DE ICE ON, AOA DE ICE OFF</span></li>
+  <li><span>INERT SEP SWITCH</span><span class="dots"></span><span class="r">OPEN — LIGHT WITHIN 30 S, THEN CLOSED</span></li>
+  <li class="divider">If icing conditions expected</li>
+  <li><span>PROP SWITCH</span><span class="dots"></span><span class="r">ON — PROP DE ICE WITHIN 5 S</span></li>
+  <li><span>CAWS PUSHER ICE MODE</span><span class="dots"></span><span class="r">CHECK ON (PROP ON, INERT SEP OPEN)</span></li>
+  <li><span>BOOTS SWITCH</span><span class="dots"></span><span class="r">1 MIN — DE ICE BOOTS ON FOR ONE MINUTE</span></li>
+  <li><span>ALL DE ICING SWITCHES</span><span class="dots"></span><span class="r">OFF</span></li>
+  <li class="divider">All</li>
+  <li><span>EXTERNAL LIGHTS SWITCHES</span><span class="dots"></span><span class="r">AS REQUIRED</span></li>
+  <li><span>PARKING BRAKE HANDLE</span><span class="dots"></span><span class="r">RELEASE</span></li>
+  <li class="divider">Taxiing</li>
+  <li><span>PASSENGER(S)</span><span class="dots"></span><span class="r">BRIEF</span></li>
+  <li><span>BRAKES</span><span class="dots"></span><span class="r">CHECK</span></li>
+  <li><span>FLIGHT INSTRUMENTS</span><span class="dots"></span><span class="r">CHECK</span></li>
+  <li><span>LH AND RH WSHLD SWITCHES</span><span class="dots"></span><span class="r">LIGHT OR HEAVY AS REQUIRED</span></li>
+  <p class="note">No stabilised propeller operation between 350 and 950 RPM (prop not feathered). Beta, aft of the idle detent, can control taxi speed and save the brakes.</p>
+  <li class="divider">Before takeoff</li>
+  <li><span>TAKEOFF POWER SETTING</span><span class="dots"></span><span class="r">CALCULATED</span></li>
+  <li><span>FUEL QUANTITY</span><span class="dots"></span><span class="r">CHECK</span></li>
+  <li><span>FRICTION LOCK</span><span class="dots"></span><span class="r">ADJUST</span></li>
+  <li><span>ENGINE INSTRUMENTS</span><span class="dots"></span><span class="r">CHECK</span></li>
+  <li><span>FLIGHT INSTRUMENTS</span><span class="dots"></span><span class="r">CHECK AND SET</span></li>
+  <li><span>TRIM</span><span class="dots"></span><span class="r">SET GREEN LINES</span></li>
+  <p class="note">Set the green diamond instead if the CG is 236 in (6 m) or further aft of datum.</p>
+  <li><span>FLAPS</span><span class="dots"></span><span class="r">15°</span></li>
+  <li><span>FLIGHT CONTROLS</span><span class="dots"></span><span class="r">FULL, FREE AND CORRECT</span></li>
+  <p class="note">The NTSB excerpt ends here; the rest of the AFM before-takeoff list is not in it.</p>
 </ol></section>
 <section class="phase"><h2>After Takeoff / Climb <em>Checklist · read &amp; respond</em></h2><ol class="items">
   <li><span>LANDING GEAR</span><span class="dots"></span><span class="r">UP — POSITIVE RATE</span></li>

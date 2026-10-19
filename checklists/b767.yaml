@@ -52,23 +52,16 @@ phases:
     kind: checklist
     items:
       - FLIGHT DECK DOOR: CLOSED AND LOCKED
-      - PASSENGER SIGNS: SET
+      - FUEL: ____ KGS — PUMPS ON
+      - PASSENGER SIGNS: ____
       - WINDOWS: LOCKED
-      - FUEL: ____ KG — PUMPS ON
-      - HYDRAULIC PANEL: SET
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
+      - MCP: V2 ____ · HDG ____ · ALT ____
       - TAKEOFF SPEEDS: V1 ____ · VR ____ · V2 ____
-      - STAB TRIM: ____ UNITS
-      - TAKEOFF BRIEFING: COMPLETED
+      - CDU PREFLIGHT: COMPLETED
+      - TRIM: ____ UNITS · 0 · 0
+      - TAXI AND TAKEOFF BRIEFING: COMPLETED
       - BEACON: "ON"
-      - PARKING BRAKE: SET
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - "-300F"
-      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
-        only:
-          - "-300F"
-        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+        note: "-300F: main deck cargo door closed and locked before the beacon goes on. A freighter's load is not self-loading — check the trim setting against the load sheet, not against habit."
 
   - id:   start
     name: Engine Start
@@ -87,9 +80,7 @@ phases:
     name: Before Taxi
     kind: checklist
     items:
-      - GENERATORS: "ON"
-      - PROBE HEAT: "ON"
-      - ANTI-ICE: AS REQUIRED
+      - ANTI-ICE: ____
       - RECALL: CHECKED
       - AUTOBRAKE: RTO
       - FLIGHT CONTROLS: CHECKED
@@ -100,18 +91,7 @@ phases:
     kind: checklist
     items:
       - FLAPS: ____ — GREEN LIGHT
-      - STABILIZER TRIM: ____ UNITS
-      - CABIN: SECURE
-      - divider: Line-up items
-      - TRANSPONDER: TA/RA
-      - STROBES & LANDING LIGHTS: "ON"
-      - TAKEOFF CLEARANCE: RECEIVED
-      - MAIN DECK FIRE SUPPRESSION: ARMED
-        only:
-          - "-300F"
-      - SUPERNUMERARIES: BRIEFED
-        only:
-          - "-300F"
+        note: "Line-up flow, not on the card: transponder TA/RA, strobes and landing lights on, cabin secure."
 
   - id:   atakeoff
     name: After Takeoff
@@ -119,8 +99,6 @@ phases:
     items:
       - LANDING GEAR: UP AND OFF
       - FLAPS: UP — NO LIGHTS
-      - PACKS: AUTO
-      - ALTIMETERS: SET
 
   - id:   cruise
     name: Cruise
@@ -137,9 +115,8 @@ phases:
     name: Descent
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
       - RECALL: CHECKED
-      - AUTOBRAKE: ____ SET
+      - AUTOBRAKE: ____
       - LANDING DATA: VREF ____ · MINIMUMS ____
       - APPROACH BRIEFING: COMPLETED
 
@@ -147,35 +124,32 @@ phases:
     name: Approach
     kind: checklist
     items:
-      - ALTIMETERS: ____ SET
-      - SEAT BELTS: "ON"
+      - ALTIMETERS: ____
 
   - id:   landing
     name: Landing
     kind: checklist
     items:
-      - SPEEDBRAKE: ARMED — GREEN LIGHT
-      - LANDING GEAR: DOWN — 3 GREEN
+      - SPEEDBRAKE: ARMED
+      - LANDING GEAR: DOWN
       - FLAPS: ____ — GREEN LIGHT
 
   - id:   shutdown
     name: Shutdown
     kind: checklist
     items:
-      - FUEL PUMPS: "OFF"
       - HYDRAULIC PANEL: SET
+      - FUEL PUMPS: "OFF"
       - FLAPS: UP
-      - PARKING BRAKE: SET
+      - PARKING BRAKE: ____
       - FUEL CONTROL SWITCHES: CUTOFF
       - WEATHER RADAR: "OFF"
-      - ANTI-ICE: "OFF"
 
   - id:   secure
     name: Secure
     kind: checklist
     items:
-      - IRS L / C / R: "OFF"
+      - IRSs: "OFF"
       - EMERGENCY LIGHTS: "OFF"
       - WINDOW HEAT: "OFF"
       - PACKS: "OFF"
-      - APU: "OFF"

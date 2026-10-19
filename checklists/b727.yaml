@@ -152,55 +152,106 @@ phases:
       - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
 
   - id:   descent
-    name: Descent
+    name: In Range / Approach
     kind: checklist
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - ALTIMETERS: ____ SET
-      - APPROACH BRIEFING: COMPLETE
-      - VREF / MINIMUMS: ____ SET
-      - IGNITION: AS REQUIRED
-      - SEAT BELTS: "ON"
+      - divider: In range
+      - CIRCUIT BREAKERS: CHECK (S)
+      - IGNITION: FLT (S)
+      - FUEL PANEL: CHECKED (S)
+      - FUEL HEAT: AS REQUIRED, OFF (S)
+      - HYDRAULIC PANEL: CHECKED (S)
+      - AIR COND & PRESS: SET (S)
+      - SEAT BELT & HARNESS: FASTENED (ALL)
+      - LANDING LIGHTS: ON (PNF)
+      - PACK COOLING DOORS: SET (S)
+      - ALTIMETERS: SET ____ (ALL)
+      - AIRSPEED BUGS: SET (CF)
+      - EPR BUGS: SET (PNF)
+      - divider: Approach
+      - BRIEFING: COMPLETE (C)
+      - ALTIMETERS: SET ____ (CF)
+      - MINIMUMS: SET ____ (CF)
+        note: The second officer reads. Called below FL180 (or cleared below the transition level) once the In-Range checklist and the approach briefing are done, and repeated if the approach changes.
 
   - id:   land
     name: Before Landing
     kind: checklist
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: ____ — GREEN LIGHT
-      - GROUND SPOILERS: ARMED
-      - ANTI-SKID: "ON"
-      - ANNUNCIATOR PANEL: CHECKED
+      - LANDING GEAR: DOWN, IN, 3 GREEN (PNF) · CHECKED (S)
+      - AUTOBRAKES: AS REQ / NOT INSTALLED (PNF)
+      - AUTO SPOILERS: AS REQ / NOT INSTALLED (PNF)
+        note: Arm the auto spoilers only once the speedbrakes are no longer needed for manoeuvring — using them afterwards means re-arming.
+      - FLT & NAV INST: CROSS-CHECKED, NO FLAGS (PNF)
+      - FLAPS: ____, GREEN LIGHT (PNF)
+      - LANDING CLEARANCE: CLEARED TO LAND (PNF)
+      - FUEL PANEL: SET (S)
+        note: Tank-to-engine with all boost pumps on.
+      - HYDRAULIC & BRAKE SYSTEM: CHECKED (S)
+      - ANTISKID: ON, LIGHTS OUT (S)
+      - LANDING LIGHTS: ON (PNF)
 
   - id:   aland
     name: After Landing
     kind: checklist
     items:
-      - GROUND SPOILERS: RETRACTED
-      - FLAPS: UP
-      - IGNITION: "OFF"
-      - APU: START AS REQUIRED
-      - TRANSPONDER: STBY
-      - ANTI-ICE: AS REQUIRED
+      - SPEED BRAKE LEVER: CHECKED, DETENT (CF)
+      - LIGHTS: AS REQUIRED (F)
+      - PITOT HEAT: OFF (F)
+      - TRANSPONDER: STANDBY, OFF (F)
+      - RADAR: OFF (F)
+      - FLAPS: UP (F)
+      - AIL & RUDDER TRIM: 0, 0 (F)
+      - REVERSER OPERATING LIGHTS: OUT (S)
+      - IGNITION: AS REQUIRED (S)
+      - FLIGHT RECORDER: FLT / OFF / NOT INSTALLED (S)
+      - ESSENTIAL POWER: GENERATOR 2 (S)
+      - AC METERS SELECTOR: APU / EXT POWER (S)
+      - FUEL BOOST PUMPS: ONE PER TANK (S)
+      - HYDRAULIC PANEL: CHECKED (S)
+      - OIL QUANTITY: CHECKED (S)
+      - PRESSURIZATION: SET (S)
+      - FLIGHT / GND SWITCH: GND (S)
+      - RIGHT PACK: OFF (S)
+      - APU: START AS REQUIRED (S)
+      - LEFT PACK: AS REQUIRED (S)
+      - BLEED AIR SWITCHES: OPEN (S)
+      - SINGLE ENGINE SHUTDOWN: AS REQUIRED (C / S)
+        note: Two lines of this section (stabilizer trim and anti-ice) are illegible on the scanned card and are left out.
 
   - id:   shutdown
-    name: Shutdown
+    name: Shut Down
     kind: checklist
     items:
-      - PARKING BRAKE: SET
-      - GENERATORS: APU ON
-      - START LEVERS: CUTOFF
-      - FUEL PUMPS: "OFF"
-      - HYDRAULIC PUMPS: "OFF"
-      - SEAT BELTS: "OFF"
-      - EXTERIOR LIGHTS: AS REQUIRED
+      - PARKING BRAKE: SET (C)
+      - APU / EXT POWER: ON (S)
+      - ESSENTIAL POWER: APU / EXT POWER (S)
+      - START LEVERS: CUT OFF (C)
+      - divider: Tow-in, when applicable
+      - GND INTERCONNECT: CLOSED (S)
+      - HYD PUMPS, QTY & PRESS: 2A OFF, 1B ON & CHECKED (S)
+      - divider: All
+      - BEACON: OFF (C)
+      - ANTI-ICE: CLOSED (S)
+      - IGNITION: OFF (S)
+      - FUEL BOOST PUMPS: OFF (S)
+      - HYDRAULIC PUMPS: 2A ON, 1B OFF (S)
+      - CARGO DOOR: ARM (S)
+      - ESCAPE SLIDE BAR: STOWED (S)
+      - PARKING BRAKE: AS REQUIRED (C)
 
   - id:   secure
-    name: Secure
+    name: Termination
     kind: checklist
     items:
-      - EMERGENCY LIGHTS: "OFF"
-      - GALLEY POWER: "OFF"
-      - PACKS: "OFF"
-      - APU: "OFF"
-      - BATTERY: "OFF"
+      - WINDOW HEAT: OFF (F)
+      - EMER EXIT LIGHTS: OFF (F)
+      - HYDRAULIC PANEL: AS REQUIRED (S)
+      - PACKS: OFF (S)
+      - GASPER FAN: OFF (S)
+      - APU: AS REQUIRED (S)
+      - BATTERY: AS REQUIRED (S)
+      - DC METER SELECTOR: TR 1 (S)
+      - RADIOS, RADIO MASTERS: OFF / NOT INSTALLED
+      - AML ENTRIES: COMPLETE (S)
+        note: One line of this section (panel lights) is too faint to read on the scanned card and is left out.

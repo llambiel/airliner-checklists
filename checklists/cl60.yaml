@@ -136,26 +136,60 @@ phases:
       - SEAT BELTS: "ON"
 
   - id:   appr
-    name: Approach
-    kind: checklist
+    name: Approach (ILS)
+    kind: flow
     items:
-      - FUEL: SUFFICIENT — BALANCED
-      - FLAPS: "20"
-      - SPEEDS: VREF ____ SET
-      - MINIMA: ____ SET
-      - IGNITION: AS REQUIRED
-      - LANDING LIGHTS: "ON"
+      - divider: Approaching the fix
+      - AIRSPEED: FLAPS 0° SPEED + 30 KIAS
+      - divider: Fix outbound, or 12 nm out straight-in
+      - FLAPS: 20°
+      - AIRSPEED: FLAPS 20° SPEED + 20 KIAS
+      - divider: Cleared for the approach, established inbound
+      - FCP MODE: APPR
+      - MODE ANNUNCIATIONS: VERIFY
+        note: LOC and GS armed in white on both PFDs, then LOC green on both.
+      - divider: One dot below the glideslope
+      - LDG GEAR LEVER: DN
+      - FLAPS: 30°
+      - divider: Glideslope capture
+      - FLAPS: 45°
+      - AIRSPEED: VREF + 10 KIAS
+      - BEFORE LANDING CHECK: COMPLETE
+      - PRESELECT ALT: SET TO MISSED APPROACH ALTITUDE
+      - divider: 1,500 ft AGL
+      - AIRSPEED: VREF + WIND
+        note: Half the steady crosswind plus all the gust, whatever the direction. Maximum +20 KIAS.
+      - divider: Final approach fix
+      - FIX NAME, ALTITUDE AND FLAGS: RECHECK
+      - divider: DH / DA, landing feasible
+      - AUTOPILOT (IF USED): DISCONNECT — NOT BELOW 80 FT AGL
 
   - id:   land
-    name: Landing
+    name: Before Landing Check
     kind: checklist
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: "45"
-      - SPOILERS: ARMED
-      - SPEED: VREF ____
+      - IGNITION, CONT SWITCH / LIGHT: AS REQUIRED
+      - ANTI-ICE, WING SWITCH: SELECT AS REQUIRED
+      - ANTI-ICE, COWL L AND R SWITCH / LIGHTS: SELECT AS REQUIRED
+        note: Wing and cowl anti-ice must be on in icing conditions — TAT 10 °C or below with visible moisture. If the WING HEAT lights or the A/ICE ON advisory go out, increase thrust until they come back; if they stay out, leave the icing.
+      - CABIN: ADVISE — 5 MIN BEFORE LANDING
+      - PASS SIGNS, NO SMKG SWITCH: "ON"
+      - PASS SIGNS, SEAT BLTS SWITCH: "ON"
+      - LDG GEAR LEVER: DN — THREE GREEN
+      - BRAKE AND ANTI-SKID SYSTEM: CHECK
+        note: Wait 5 s after the gear is down before the test, or you get nuisance A/SKID cautions.
+      - ANTI SKID, ARMED SWITCH: CHECK ARMED
+        sub: true
+      - ANTI SKID, TEST SWITCH: TEST — A/SKID IN TEST ON, THEN OUT
+        sub: true
+      - NOSE STEER SWITCH: CHECK ARMED
+        sub: true
+      - THRUST REVERSER, L AND R SWITCHES: ARMED
+        note: L and R REV ARMED on, REV UNSAFE and REV UNLOCKED out. Do not arm with REV UNSAFE displayed.
+      - FLAPS: AS REQUIRED — INDICATION CHECKED
         note: Carry the speed the numbers give you and no more. Float in a Challenger uses runway quickly and the brakes get warm.
-      - LANDING CLEARANCE: RECEIVED
+      - divider: At 100 ft AGL
+      - ATS MSD: CHECK — SPEED FLASHES
 
   - id:   aland
     name: After Landing

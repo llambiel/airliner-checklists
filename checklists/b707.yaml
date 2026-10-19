@@ -15,7 +15,6 @@ variants:
     note: Military relatives on the same airframe. Related, but their systems and these items diverge quickly.
 
 phases:
-
   - id:   power
     name: Power Up
     kind: flow   # flow = from memory | checklist = read & respond
@@ -43,35 +42,68 @@ phases:
         note: Thrust is set on EPR, worked out from the charts by the engineer. There is no computer to check the arithmetic.
 
   - id:   preflight
-    name: Preflight
-    kind: checklist
+    name: Before Starting Engines
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - GEAR PINS: REMOVED
-      - OXYGEN: TESTED — CREW & PASSENGER
-      - FLIGHT INSTRUMENTS: SET & CROSSCHECKED
-      - ALTIMETERS: ____ SET
-      - RADIOS & NAVAIDS: SET
-      - STAB TRIM: ____ UNITS
-      - TAKEOFF BRIEFING: COMPLETE
+      - COCKPIT PREPARATION: COMPLETE (ALL)
+      - AIRCRAFT FORMS: CHECKED (C, E)
+      - OXYGEN VALVE: OPEN (E)
+      - OXYGEN & INTERPHONE: CHECKED & ON / 100% (ALL)
+      - CIRCUIT BREAKERS: CHECKED (E)
+      - BATTERY CB AND SWITCH: CLSD, CHKD, & ON (E)
+      - FUEL MANIFOLD VALVES: ALL OPEN (E)
+      - EXTERNAL POWER: ON (E)
+      - ESSENTIAL POWER SWITCH: ON EXT (E)
+      - RADIO BUS SWITCHES: ON (E)
+      - "AUX PUMP 1 & INTERCONNECT": ON & SYS (F/O)
+      - PARKING BRAKE: SET (C)
+      - EMERGENCY FLAP SWITCHES: NORMAL (C)
+      - ANTISKID: OFF (C)
+      - RUDDER & SPOILER SWITCHES: ON (C)
+      - NACELLE & WING ANTI-ICE: OFF (C)
+      - NO SMOKING & SEAT BELT SWITCHES: ON (C)
+      - EMERGENCY EXIT LIGHTS: ARMED (C)
+      - LANDING FLAP WARNING SWITCH: AS REQUIRED (C)
+      - PITOT, Q-INLET, PROBE HEAT: OFF (C)
+      - WINDOW HEAT: LOW (C)
+      - YAW DAMPER: ON, LIGHT ON (C)
+      - RADIOS, RADAR, TRANSPONDER: SET & STANDBY (C, F/O)
+      - RADIO ALTIMETERS: CHECKED (C, F/O)
+      - EMERGENCY BRAKE: SAFETIED & CHKD (C)
+      - STANDBY HORIZON: CHECKED (C)
+      - FMS & GPS: ALIGN & PROGRAMMED (C, F/O)
+      - COMPASSES AND CONTROLLERS: SET, SYNCH & CROSS CHECKED (C, F/O)
+      - FLT INST, ALTIMETERS & FLT DIR: SET & CHECK (ALL)
+      - TRIM CUTOUT SWITCHES: NORMAL, MACH WARNING LIGHT OUT (C)
+      - STABILIZER TRIM: ____ UNITS, SET (C)
+      - RUDDER & AILERON TRIM: FREE & ZERO (C)
+      - GEAR LEVER & LIGHTS: DOWN, IN, 3 GREEN (ALL)
+      - GEAR LOCKS: ABOARD / REMOVED (P, E)
+      - ENGINE INSTRUMENTS: NORMAL (C, E)
+      - EPR & AIRSPEED BUGS: SET (C, F/O)
+        note: Thrust is set on EPR, worked out from the charts by the engineer. There is no computer to check the arithmetic.
+      - UTILITY HYDRAULIC PUMPS: ON (F/O)
+      - RUDDER BOOST PRESSURE: CHECKED (F/O)
+      - SPEED BRAKE LEVER: FULL FWD (C)
+      - FLAP LEVER: UP / CHECKED (C)
+      - REVERSE THRUST: DOWN & CLOSED (C)
+      - START LEVERS: CUTOFF (C)
+      - AUTOPILOT: OFF (C)
+      - FUEL QTY, VALVES & SWITCHES: ____ LBS, SET FOR START (E)
+      - AIR CONDITIONING UNIT SWITCHES: OFF (E)
+      - WING ISOLATION VALVES: OPEN (E)
+      - PRESSURIZATION CONTROLS: SET FOR TAKEOFF (E)
+      - HYDRAULIC QTY: CHECKED (E)
+      - ENGINE START SELECTOR SWITCH: SET FOR START (E)
 
   - id:   bstart
-    name: Before Start
-    kind: checklist
+    name: Starting Engines
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - DOORS: CLOSED
-      - FUEL: ____ KG — PUMPS ON
-      - PNEUMATIC PRESSURE: CHECKED
-      - HYDRAULICS: CHECKED
-      - ANTI COLLISION LIGHT: "ON"
-      - PARKING BRAKE: SET
-      - START CLEARANCE: OBTAINED
-      - MAIN DECK CARGO DOOR: CLOSED AND LOCKED
-        only:
-          - "-320C"
-      - LOAD & RESTRAINT: SECURED — LOADSHEET CHECKED
-        only:
-          - "-320C"
-        note: A freighter's CG range is wider than the passenger version's and the load is not self-loading. Check the trim setting against the load sheet, not against habit.
+      - BEACON SWITCH: ON (P)
+      - START PRESSURE: ____ PSI (E)
+      - START ENGINES: 3, 4, 2, 1 (C, E)
+      - EXTERNAL EQUIPMENT: REMOVE (E)
 
   - id:   start
     name: Engine Start
@@ -79,7 +111,7 @@ phases:
     items:
       - IGNITION: "ON"
       - ENGINE 3 START: ENGAGED
-        note: Number 3 first is common, since it drives the hydraulics most operators want running early. Sequences vary — follow your add-on's checklist.
+        note: Order 3, 4, 2, 1 on the Omega card.
       - START LEVER 3: IDLE AT 20% N2
       - ENGINE 4: START
       - ENGINE 2: START
@@ -89,54 +121,73 @@ phases:
 
   - id:   astart
     name: After Start
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - GENERATORS: ON — LOADS BALANCED
-      - HYDRAULICS: PUMPS ON
-      - PACKS: "ON"
-      - FLAPS: ____ SET — LEADING EDGE OUT
-      - FLIGHT CONTROLS: CHECKED
-      - GROUND EQUIPMENT: CLEAR
-
-  - id:   taxi
-    name: Taxi
-    kind: checklist
-    items:
-      - BRAKES: CHECKED
-      - FLIGHT INSTRUMENTS: NO FLAGS
-      - GYROS: SET & CROSSCHECKED
-      - YAW DAMPER: "ON"
-      - TAXI CLEARANCE: ____ CONFIRMED
+      - HYDRAULICS: CHECKED & ON (F/O)
+      - START LEVERS: IDLE (E)
+      - ENGINE START SWITCHES: OFF (E)
+      - ENGINE ANTI-ICE: AS REQUIRED (C)
+      - ELECTRICAL POWER: ESS ON 3, NO LIGHTS (E)
+      - FLAP LEVER: 14, 14, 2 GREEN LIGHTS (ALL)
+      - FLIGHT CONTROLS: CHECKED (C, F/O)
+      - CREW BRIEFING: COMPLETED (P)
+      - PACK VALVES: OPEN (E)
+      - AIR CONDITION SYSTEM SWITCHES: ON (E)
+      - TURBO COMPRESSORS: 2 & 3 ON (E)
+      - FREON SWITCHES: AS REQUIRED (E)
+      - ALL FUEL PUMPS & MANIFOLD VALVES: ON & SET (E)
+      - GALLEY POWER: ON (E)
+      - ENGINE INSTRUMENTS: CHECKED (C, E)
+      - GROUND MECHANICS: AS REQUIRED (E)
+      - DOOR WARNING LIGHTS: OFF (E)
+      - GROUND SUPPORT EQUIPMENT: CLEAR L/R (C, F/O)
 
   - id:   btakeoff
     name: Before Takeoff
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - FLAPS: ____ — INDICATED
-      - STAB TRIM: ____ UNITS
-      - EPR BUGS: SET
-      - ANNUNCIATORS: CHECKED
-      - CABIN: SECURE
-      - divider: Line-up items
-      - IGNITION: CONTINUOUS
-      - EXTERIOR LIGHTS: LANDING · ON
-      - TAKEOFF CLEARANCE: RECEIVED
-      - MAIN DECK FIRE SUPPRESSION: ARMED
-        only:
-          - "-320C"
-      - SUPERNUMERARIES: BRIEFED
-        only:
-          - "-320C"
+      - BRAKES: CHECKED (C)
+      - YAW DAMPER: CHECKED (C, F/O)
+      - SEAT BELTS & SHOULDER HARNESS: FASTENED (ALL)
+      - FLT DIR, INSTRUMENTS & RADIOS: CHECKED & SET FOR DEPARTURE (C, F/O)
+      - ANTISKID: ON, NO RELEASES (E)
+      - FLIGHT RECORDER SWITCH: ON (E)
+      - SERVICE INTERPHONE: OFF (E)
+      - ELECTRICAL SYSTEM: AC & DC CHECKED (E)
+      - FUEL SYSTEM: SET FOR TAKEOFF (E)
+      - FUEL HEAT: CHECKED, OFF (E)
+      - AIR CONDITIONING SYSTEM: CHECKED (E)
+      - PRESSURIZATION MODE SELECTOR: TAKEOFF (E)
+      - HYDRAULICS: PRESSURE & QTY NORMAL (E)
+      - CABIN REPORT: SECURED (E)
+      - divider: Cleared for takeoff
+      - TRANSPONDER: ON (P, E)
+      - RADAR: ON (P)
+      - TCAS INDICATORS: ON (F/O, E)
+      - LANDING LIGHTS: ON (E)
+      - PITOT, Q-INLET, PROBE HEAT: ON (E)
+      - ENGINE IGNITION SWITCHES: FLT START (E)
+      - TAKEOFF CONFIGURATION: CHECKED (ALL)
 
   - id:   atakeoff
-    name: After Takeoff
-    kind: checklist
+    name: After Takeoff - Climb (Silent)
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: UP
-      - FLAPS: UP — LEADING EDGE IN
-      - IGNITION: "OFF"
-      - PRESSURIZATION: CHECKED
-      - ALTIMETERS: STD AT TRANS ALT
+      - LANDING GEAR & LEVER: UP & OFF (E)
+      - FLAP LEVER: UP, NO LIGHTS (E)
+      - ANTI-ICING DEICING: AS REQUIRED (E)
+      - ENGINE IGNITION SWITCHES: OFF (E)
+      - FUEL SYSTEM: AS REQUIRED (E)
+      - HYDRAULICS: PRESSURE & QTY NORMAL (E)
+      - AIR COND. & PRESSURIZATION: CHECKED & SET (E)
+      - TC, BLEED AIR OR COMBO: AS REQUIRED (E)
+      - CABIN & DUCT TEMPERATURE: MONITOR (E)
+      - divider: Above 10,000 ft
+      - LANDING LIGHTS: RETRACTED & OFF (E)
+      - SEAT BELT SWITCH: AS REQUIRED (E)
+      - "AUX PUMP #2 (RUDDER)": OFF (F/O)
+      - divider: Transition altitude
+      - ALTIMETERS: SET 29.92 OR LOCAL ALT (ALL)
 
   - id:   cruise
     name: Cruise
@@ -150,53 +201,89 @@ phases:
       - DESCENT PREP: ARRIVAL · APPROACH · MINIMUMS BRIEFED
 
   - id:   descent
-    name: Descent
-    kind: checklist
+    name: Descent - Approach
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PRESSURIZATION: LAND ALT ____
-      - ALTIMETERS: ____ SET
-      - APPROACH BRIEFING: COMPLETE
-      - VREF / MINIMUMS: ____ SET
-      - IGNITION: AS REQUIRED
-      - SEAT BELTS: "ON"
+      - PRESSURIZATION: SET FOR LANDING (E)
+      - ANTI-ICING & DEICING: AS REQUIRED (E)
+      - AIR CONDITIONING: AS REQUIRED (E)
+      - FUEL SYSTEM: SET FOR LANDING (E)
+      - FUEL HEAT: AS REQUIRED (E)
+      - ELECTRICAL SYSTEM: CHECKED (E)
+      - HYDRAULICS: PRESSURE & QTY NORMAL (E)
+      - EMERGENCY BRAKE PRESSURE: CHECKED (F/O)
+      - SEAT BELT & SHOULDER HARNESS: FASTENED (ALL)
+      - SEAT BELT SWITCH: AS REQUIRED (E)
+      - LANDING DATA: STATE (EPR & VREF) (E)
+      - divider: Transition altitude
+      - ALTIMETERS: SET ____ (ALL)
+      - "AUX PUMP #2 (RUDDER)": ON (F/O)
+      - EPR & AIRSPEED BUGS: SET (C, F/O)
+      - APPROACH & LANDING BRIEFING: COMPLETED (P)
+      - RADIO ALTIMETERS: SET (C, F/O)
+      - FLT DIR, FLT INST & RADIOS: SET & CHECKED (C, F/O)
+      - divider: Below 10,000 ft
+      - LANDING LIGHTS: ON (E)
+      - EQUIPMENT COOLING LIGHTS: CHECKED (E)
+      - CABIN REPORT: SECURED (E)
 
   - id:   land
     name: Before Landing
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - LANDING GEAR: DOWN — 3 GREEN
-      - FLAPS: ____ — INDICATED
-      - SPOILERS: ARMED
-      - ANTI-SKID: "ON"
-      - ANNUNCIATORS: CHECKED
+      - SPEED BRAKE LEVER: FULL FWD (C)
+      - SPOILER SWITCHES: ON (C)
+      - LANDING GEAR: DOWN, IN, 3 GREEN (ALL)
+      - ANTISKID SWITCH: CHKD, ON, 4 RELEASES (E)
+      - PRESSURIZATION MODE SELECTOR SWITCH: LANDING (E)
+      - FLAPS: 40/40 OR 50/50, 2 GREEN LIGHTS (ALL)
+      - TURBO COMPRESSORS: SET FOR LANDING (E)
+      - HYDRAULICS: PRESSURE & QTY NORMAL (E)
+      - ENGINE IGNITION SWITCHES: FLT START (E)
+      - LANDING CONFIGURATION: CHECKED (ALL)
 
   - id:   aland
     name: After Landing
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - SPOILERS: RETRACTED
-      - FLAPS: UP
-      - IGNITION: "OFF"
-      - ANTI-ICE: AS REQUIRED
-      - TRANSPONDER: STBY
+      - LANDING LIGHTS: AS REQUIRED (E)
+      - PITOT, Q-INLET, PROBE HEAT: OFF (E)
+      - ANTI-ICING & WINDOW HEAT SWITCHES: OFF (E)
+      - ENGINE IGNITION SWITCHES: OFF (E)
+      - ANTISKID SWITCH: OFF (E)
+      - BRAKE HYDRAULIC PRESSURE: CHECKED (E)
+      - RADAR & TRANSPONDER: STANDBY (P)
+      - FREON SWITCHES: PUMP DOWN 2 MIN, OFF (E)
+      - AIR CONDITION SYSTEM SWITCHES: OFF (E)
+      - ALL MANIFOLD VALVES & BOOST PUMPS: OPEN, OFF (E)
+      - ELECTRICAL EQUIPMENT: CHECKED (E)
+      - TURBO COMPRESSORS: STOP (E)
+      - PACK VALVES: CLOSE (E)
+      - OUTFLOW VALVES: OPEN (E)
+      - FLIGHT RECORDER: OFF (E)
+      - SERVICE INTERPHONE: ON (E)
+      - FLAP LEVER: 14 (P)
+      - SPEED BRAKE LEVER: FULL FWD (P)
+      - OUTBOARD START LEVERS: AS REQUIRED (E)
 
   - id:   shutdown
     name: Shutdown
-    kind: checklist
+    kind: checklist   # flow = from memory | checklist = read & respond
     items:
-      - PARKING BRAKE: SET
-      - START LEVERS: CUTOFF
-      - FUEL PUMPS: "OFF"
-      - HYDRAULIC PUMPS: "OFF"
-      - GENERATORS: "OFF"
-      - SEAT BELTS: "OFF"
-
-  - id:   secure
-    name: Secure
-    kind: checklist
-    items:
-      - INVERTERS: "OFF"
-      - EMERGENCY LIGHTS: "OFF"
-      - PACKS: "OFF"
-      - EXT PWR: DISCONNECTED
-      - BATTERY: "OFF"
+      - PARKING BRAKE: SET OR OFF (P)
+      - FLAPS: UP / CHECKED (ALL)
+      - STABILIZER TRIM: ~ 2 UNITS DOWN (P)
+      - EXT & ESS POWER SWITCHES: ON, EXT (E)
+      - START LEVERS: CUTOFF (E)
+      - BEACON: OFF (E)
+      - SEAT BELT SWITCH: OFF (E)
+      - EMERGENCY EXIT LIGHTS: OFF (E)
+      - AUX HYDRAULIC PUMPS: OFF (F/O)
+      - RADIOS, RADAR, TRANSPONDER: OFF (C, F/O)
+      - FMS, GPS: OFF (C, F/O)
+      - OXYGEN: OFF (ALL)
+      - FOOT & SHOULDER HEATERS: OFF (C, F/O)
+      - ENGINE FIRE CONTROL PANEL: TEST (E)
+      - RADIO MASTER SWITCHES: OFF (E)
+      - OXYGEN VALVE: CLOSE (E)
+      - BATTERY SWITCH & CB: OFF & OPEN (E)
