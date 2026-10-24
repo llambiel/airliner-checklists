@@ -307,7 +307,12 @@ li.item.done .row:hover{background:var(--green-bg);filter:brightness(1.04)}
   border:1px solid var(--line);padding:7px 12px;border-radius:2px;
 }
 .card-foot button:hover{color:var(--ink);border-color:var(--muted)}
-.card-foot .spacer{flex:1}
+.head-acts{display:flex;gap:8px;align-self:center}
+.head-acts button{
+  font-family:var(--f-disp);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);padding:4px 9px;border-radius:2px;
+}
+.head-acts button:hover{color:var(--ink);border-color:var(--muted)}
 
 /* ---------- keys + footer ---------- */
 .keys{
@@ -6340,6 +6345,12 @@ function renderCard(){
   head.innerHTML='<h1>'+p.name+'</h1>'+
     '<span class="kind '+(p.kind==="flow"?"flow":"")+'">'+(p.kind==="flow"?"Flow · from memory":"Checklist · read &amp; respond")+'</span>'+
     '<span class="count">'+d+' / '+n+'</span>';
+  const mk=(label,fn,title)=>{ const x=document.createElement("button"); x.textContent=label; x.onclick=fn; if(title)x.title=title; return x; };
+  const acts=document.createElement("div");
+  acts.className="head-acts";
+  acts.appendChild(mk("Check all",()=>{ actionable(p).forEach(o=>setChecked(p,o.i,1)); syncCursor(); renderAll(); }));
+  acts.appendChild(mk("Reset phase",()=>{ actionable(p).forEach(o=>setChecked(p,o.i,0)); syncCursor(); renderAll(); }));
+  head.appendChild(acts);
   card.appendChild(head);
 
   const ol=document.createElement("ol");
@@ -6390,12 +6401,8 @@ function renderCard(){
 
   const foot=document.createElement("div");
   foot.className="card-foot";
-  const mk=(label,fn,title)=>{ const x=document.createElement("button"); x.textContent=label; x.onclick=fn; if(title)x.title=title; return x; };
   foot.appendChild(mk("← Prev phase",()=>goPhase(phaseIdx()-1)));
   foot.appendChild(mk("Next phase →",()=>goPhase(phaseIdx()+1)));
-  const sp=document.createElement("span"); sp.className="spacer"; foot.appendChild(sp);
-  foot.appendChild(mk("Check all",()=>{ actionable(p).forEach(o=>setChecked(p,o.i,1)); syncCursor(); renderAll(); }));
-  foot.appendChild(mk("Reset phase",()=>{ actionable(p).forEach(o=>setChecked(p,o.i,0)); syncCursor(); renderAll(); }));
   card.appendChild(foot);
 }
 
